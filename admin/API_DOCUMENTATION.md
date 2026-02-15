@@ -6,17 +6,6 @@
 https://api.sarkhanrahimli.dev/api/filmalisa
 ```
 
-## Authentication
-
-All admin endpoints require Bearer Token authentication.
-
-**Admin Login Credentials:**
-
-- Email: `admin@admin.com`
-- Password: `1234`
-
----
-
 ## Table of Contents
 
 1. [Authentication](#authentication-endpoints)
@@ -41,8 +30,8 @@ All admin endpoints require Bearer Token authentication.
 
 ```json
 {
-  "email": "admin@admin.com",
-  "password": "1234"
+  "email": "",
+  "password": ""
 }
 ```
 
