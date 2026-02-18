@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Filmalisa — Login</title>
+
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+
+  <body class="auth">
+    <main class="auth__container">
+      <header class="auth__header">
+        <img
+          class="auth__logo"
+          src="../Assets/images/logo.svg"
+          alt="Filmalisa logo"
+        />
+        <h1 class="auth__brand">filmalisa</h1>
+        <p class="auth__title">register</p>
+      </header>
+
+      <form class="auth__form" action="#" method="post" autocomplete="on">
+        <div class="field field--password">
+          <input
+            class="field__input"
+            id="full_name"
+            name="full_name"
+            type="text"
+            placeholder="full name"
+            autocomplete="current-full name"
+            required
+          />
+
+          <!-- JS gələndə bu button ilə show/hide edəcəksən -->
+          <button
+            class="field__toggle"
+            type="button"
+            aria-label="Show password"
+          ></button>
+        </div>
+        <div class="field field--email">
+          <input
+            class="field__input"
+            id="email"
+            name="email"
+            type="email"
+            placeholder="email"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <div class="field field--password">
+          <input
+            class="field__input"
+            id="password"
+            name="password"
+            type="password"
+            placeholder="password"
+            autocomplete="current-password"
+            required
+          />
+
+          <!-- JS gələndə bu button ilə show/hide edəcəksən -->
+          <button
+            class="field__toggle"
+            type="button"
+            aria-label="Show password"
+          ></button>
+        </div>
+
+        <div class="auth__actions">
+          <!-- burda artiq registere gonderir useri logine klik edende -->
+          <a class="auth__link" href="./login.html">Do you have a account? Login here</a>
+        </div>
+
+        <button class="auth__button" type="submit">login</button>
+      </form>
+    </main>
+  </body>
+</html>
