@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landing Page</title>
+
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  </head>
+
+  <body class="landing">
+    <div class="landing__container">
+      <!-- HEADER -->
+      <div class="landing__top">
+        <header class="site-header">
+            <div class="site-header__brand">
+            <img src="../Assets/images/logo.svg" alt="Filmalisa logo" class="site-header__logo" />
+            <h1 class="site-header__title">filmalisa</h1>
+            </div>
+            <!-- JS yoxdursa link daha düzgündür -->
+            <button class="site-header__button" type="submit"><a href="./login.html">Sign in</a></button>
+        </header>
+        <main class="landing__main">
+            <!-- HERO -->
+            <section class="hero">
+            <div class="hero__content">
+                <h2 class="hero__title">Unlimited movies, TV shows, and more</h2>
+                <p class="hero__subtitle">Filmalisa is a movie search platform</p>
+                <p class="hero__note">
+                Ready to watch? Enter your email to create or restart your membership.
+                </p>
+
+                <!-- form semantik olaraq daha düzgündür -->
+                <form class="hero__form" action="#" method="post">
+                <input
+                    type="email"
+                    name="email"
+                    class="input input--email"
+                    placeholder="Email address"
+                    autocomplete="email"
+                    required
+                />
+
+                <button class="hero__button" type="submit">
+                    Get Started
+                    <img src="../Assets/images/landingPage/arrow.svg" alt="" class="btn__icon"/>
+                </button>
+                </form>
+            </div>
+            </section>
+        </div>
+
+        <!-- FEATURES -->
+        <section class="features">
+          <div class="feature">
+            <div class="feature__text">
+              <h2 class="feature__title">Enjoy on your TV.</h2>
+              <p class="feature__desc">
+                Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.
+              </p>
+            </div>
+            <img src="../Assets/images/landingPage/section1.svg" alt="" class="feature__image" />
+          </div>
+
+          <div class="feature feature--reverse">
+            <img src="../Assets/images/landingPage/section2.svg" alt="" class="feature__image" />
+            <div class="feature__text">
+              <h2 class="feature__title">Watch everywhere</h2>
+              <p class="feature__desc">
+                Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature__text">
+              <h2 class="feature__title">Create profiles for kids</h2>
+              <p class="feature__desc">
+                Send kids on adventures with their favorite characters in a space made just for them—free with your membership.
+              </p>
+            </div>
+            <img src="../Assets/images/landingPage/section3.svg" alt="" class="feature__image" />
+          </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="contact">
+          <h2 class="contact__title">Contact Us</h2>
+
+          <form class="contact__form" action="#" method="post">
+            <input class="contact__input" type="text" name="fullname" placeholder="Fullname" required />
+            <input class="contact__input" type="email" name="email" placeholder="Email address" required />
+            <textarea class="contact__input input--textarea" name="reason" placeholder="Reason" required></textarea>
+
+            <button class="contact__button" type="submit">Send</button>
+          </form>
+        </section>
+
+        <!-- FAQ -->
+        <section class="faq">
+          <h2 class="faq__title">Frequently Asked Questions</h2>
+
+          <div class="faq__items">
+            <button class="faq__item" type="button">
+              <span>What is Filmalisa?</span>
+              <i class="fa-solid fa-plus"></i>
+            </button>
+
+            <button class="faq__item" type="button">
+              <span>How much does Filmalisa cost?</span>
+              <i class="fa-solid fa-plus"></i>
+            </button>
+
+            <button class="faq__item" type="button">
+              <span>Where can I watch?</span>
+              <i class="fa-solid fa-plus"></i>
+            </button>
+
+            <button class="faq__item" type="button">
+              <span>How do I cancel?</span>
+              <i class="fa-solid fa-plus"></i>
+            </button>
+
+            <button class="faq__item" type="button">
+              <span>What can I watch on Filmalisa?</span>
+              <i class="fa-solid fa-plus"></i>
+
+            <button class="faq__item" type="button">
+              <span>Is Filmalisa good for kids?</span>
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

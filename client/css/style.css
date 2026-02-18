@@ -1,7 +1,7 @@
 /* ../css/style.css */
-
+/* LOGIN AND REGISTER */
 /* Page */
-.auth{
+.auth {
   min-height: 100vh;
   display: grid;
   place-items: center;
@@ -10,13 +10,13 @@
 }
 
 /* Container */
-.auth__container{
+.auth__container {
   width: min(520px, 100%);
   text-align: center;
 }
 
 /* Header */
-.auth__header{
+.auth__header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,13 +24,13 @@
   margin-bottom: 28px;
 }
 
-.auth__logo{
+.auth__logo {
   width: 210px;
   height: auto;
   display: block;
 }
 
-.auth__brand{
+.auth__brand {
   margin: 0;
   font-family: var(--numans-font-family);
   font-weight: 400;
@@ -39,7 +39,7 @@
   color: var(--title-text-color);
 }
 
-.auth__title{
+.auth__title {
   margin: 0;
   font-family: var(--poppins-font-family);
   font-weight: 500;
@@ -48,7 +48,7 @@
 }
 
 /* Form */
-.auth__form{
+.auth__form {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -56,21 +56,21 @@
 }
 
 /* Field */
-.field{
+.field {
   position: relative;
   height: 52px;
   border-radius: 12px;
   background: var(--login-register-input-color);
   /*  */
-  outline: 1px solid rgba(195,200,212,0.10);
+  outline: 1px solid rgba(195, 200, 212, 0.1);
   overflow: hidden;
 }
 
-.field:focus-within{
+.field:focus-within {
   outline: 1px solid rgba(179, 0, 255, 0.35);
 }
 
-.field__input{
+.field__input {
   width: 100%;
   height: 100%;
   border: 0;
@@ -82,12 +82,12 @@
   font-size: 14px;
 }
 
-.field__input::placeholder{
-  color: rgba(195,200,212,0.45);
+.field__input::placeholder {
+  color: rgba(195, 200, 212, 0.45);
 }
 
 /* Left icons via pseudo background element */
-.field__icon{
+.field__icon {
   position: absolute;
   left: 14px;
   top: 50%;
@@ -101,7 +101,7 @@
 }
 
 /* Right toggle (eye) */
-.field__toggle{
+.field__toggle {
   position: absolute;
   right: 10px;
   top: 50%;
@@ -117,42 +117,42 @@
   background-size: 20px;
 }
 
-.field--email .field__icon{
+.field--email .field__icon {
   background-image: url("../Assets/images/login-register/email.svg");
 }
 
-.field--password .field__icon{
+.field--password .field__icon {
   background-image: url("../Assets/images/login-register/password&name.svg");
 }
 
-.field--password .field__input{
+.field--password .field__input {
   padding-right: 52px; /* eye üçün yer */
 }
 
-.field--password .field__toggle{
+.field--password .field__toggle {
   background-image: url("../Assets/images/login-register/eye.svg");
 }
 
 /* Actions */
-.auth__actions{
+.auth__actions {
   text-align: left;
   margin-top: -6px;
 }
 
-.auth__link{
+.auth__link {
   font-family: var(--poppins-font-family);
   font-size: 12px;
-  color: rgba(195,200,212,0.65);
+  color: rgba(195, 200, 212, 0.65);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
-.auth__link:hover{
+.auth__link:hover {
   color: var(--hover-color);
 }
 
 /* Button */
-.auth__button{
+.auth__button {
   margin-top: 10px;
   height: 54px;
   border-radius: 12px;
@@ -165,6 +165,285 @@
   letter-spacing: 0.2px;
 }
 
-.auth__button:hover{
+.auth__button:hover {
   filter: brightness(1.04);
+}
+
+/* LANDING PAGE */
+/* header */
+body {
+  background-color: black;
+}
+.landing__top {
+  background-image: url(../Assets/images/netflix.jpg);
+  max-height: 700px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+}
+
+.landing__top::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  /* 1) Linear gradient: yuxarı/aşağı daha tünd
+     2) Radial gradient: vignette (kənarlar tünd)
+  */
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(0, 0, 0, 0.9) 100%
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0.09) 0%,
+      rgba(0, 0, 0, 0.28) 78%,
+      rgba(0, 0, 0, 0.9) 100%
+    );
+}
+
+/* Header + hero overlay-nin üstündə qalsın */
+.landing__top > * {
+  position: relative;
+  z-index: 1;
+}
+.site-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 188px;
+}
+.site-header__brand {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 14px;
+}
+.site-header__title {
+  font-size: 30px;
+  font-family: var(--numans-font-family);
+  line-height: 80px;
+  color: var(--title-text-color);
+}
+.site-header__button {
+  padding: 8px 17px;
+  border-radius: 4px;
+  background-color: var(--button-bg-color);
+  text-align: center;
+  font-family: var(--roboto-font-family);
+  border: none;
+}
+.site-header__button a {
+  text-decoration: none;
+  color: white;
+}
+
+/* main */
+/* hero */
+/* sectionlar arasi mesafe marginle verilir */
+/* daxile space vermek ucun ise padding sectionu olur */
+
+.hero {
+  width: 100%;
+  padding-bottom: 186px;
+}
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.hero__title {
+  font-family: var(--roboto-font-family);
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 62px;
+  color: white;
+}
+.hero__subtitle {
+  font-family: var(--roboto-font-family);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 30px;
+  color: white;
+}
+.hero__note {
+  font-family: var(--roboto-font-family);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+  color: white;
+}
+
+.hero__form {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+}
+/* 
+input emailin olcusu niye duz islemir ki bir
+halda parente 100 faiz vermisem ozunun max 
+width i de 368pxdi 
+*/
+.input--email {
+  background-color: transparent;
+  max-width: 368px;
+  border: 1px solid grey;
+}
+.input--email::placeholder {
+  font-family: var(--roboto-font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #bcbcbc;
+}
+.hero__button {
+  border: none;
+  border-radius: 4px;
+  max-width: 208px;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  padding: 12px 24px;
+  background-color: var(--button-bg-color);
+  color: white;
+  font-size: 24px;
+  font-weight: 500;
+  font-family: var(--roboto-font-family);
+}
+
+.feature {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 76px;
+}
+.feature__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  max-width: 550px;
+}
+.feature__title {
+  font-family: var(--roboto-font-family);
+  font-weight: 700;
+  font-size: 48px;
+  font-style: bold;
+  line-height: 62px;
+  color: white;
+}
+.feature__desc {
+  font-family: var(--roboto-font-family);
+  font-weight: 400;
+  font-size: 24px;
+  font-style: bold;
+  line-height: 30px;
+  color: white;
+}
+.contact {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 16px;
+  margin-bottom: 140px;
+}
+
+.contact__title {
+  font-family: var(--roboto-font-family);
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 62px;
+  color: #fff;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* form mərkəz */
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  width: min(478px, 100%);
+  gap: 35px;
+  align-items: center; /* button da ortalansın */
+}
+
+/* INPUT əsas stil burda olmalıdır */
+.contact__input {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-family: var(--roboto-font-family);
+  font-size: 16px;
+  line-height: 24px;
+  outline: none;
+}
+
+/* textarea hündür */
+.input--textarea {
+  min-height: 125px;
+  resize: vertical;
+}
+
+.contact__input::placeholder {
+  color: #bdbcbb;
+  font-weight: 500;
+}
+
+/* focus effekti */
+.contact__input:focus {
+  border-color: rgba(15, 239, 253, 0.55); /* hover-color-a yaxın */
+}
+
+.contact__button {
+  border: 0;
+  border-radius: 4px;
+  width: 208px;
+  padding: 12px 24px;
+  background-color: var(--button-bg-color);
+  color: #fff;
+  font-size: 24px;
+  font-weight: 500;
+  font-family: var(--roboto-font-family);
+  cursor: pointer;
+}
+.faq {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+.faq__title {
+  font-family: var(--roboto-font-family);
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 62px;
+  color: white;
+}
+.faq__items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 8px;
+}
+.faq__item {
+  background-color: #2a2a2a;
+  color: white;
+  padding:27px 24px;
 }

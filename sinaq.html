@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main class="landing__main">
+        <!-- HERO -->
+        <section class="hero">
+          <div class="hero__content">
+            <h2 class="hero__title">Unlimited movies, TV shows, and more</h2>
+            <p class="hero__subtitle">Filmalisa is a movie search platform</p>
+            <p class="hero__note">
+              Ready to watch? Enter your email to create or restart your membership.
+            </p>
+
+            <!-- form semantik olaraq daha düzgündür -->
+            <form class="hero__form" action="#" method="post">
+              <input
+                type="email"
+                name="email"
+                class="input input--email"
+                placeholder="Email address"
+                autocomplete="email"
+                required
+              />
+
+              <button class="btn btn--primary btn--md" type="submit">
+                Get Started
+                <img src="../../Assets/images/arrow.svg" alt="" class="btn__icon" />
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <!-- FEATURES -->
+        <section class="features">
+          <div class="feature">
+            <div class="feature__text">
+              <h2 class="feature__title">Enjoy on your TV.</h2>
+              <p class="feature__desc">
+                Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.
+              </p>
+            </div>
+            <img src="../../Assets/images/section1.svg" alt="" class="feature__image" />
+          </div>
+
+          <div class="feature feature--reverse">
+            <img src="../../Assets/images/section2.svg" alt="" class="feature__image" />
+            <div class="feature__text">
+              <h2 class="feature__title">Watch everywhere</h2>
+              <p class="feature__desc">
+                Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature__text">
+              <h2 class="feature__title">Create profiles for kids</h2>
+              <p class="feature__desc">
+                Send kids on adventures with their favorite characters in a space made just for them—free with your membership.
+              </p>
+            </div>
+            <img src="../../Assets/images/section3.svg" alt="" class="feature__image" />
+          </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="contact">
+          <h2 class="contact__title">Contact Us</h2>
+
+          <form class="contact__form" action="#" method="post">
+            <input class="input" type="text" name="fullname" placeholder="Fullname" required />
+            <input class="input" type="email" name="email" placeholder="Email address" required />
+            <textarea class="input input--textarea" name="reason" placeholder="Reason" required></textarea>
+
+            <button class="btn btn--primary btn--lg" type="submit">Send</button>
+          </form>
+        </section>
+
+        <!-- FAQ -->
+        <section class="faq">
+          <h2 class="faq__title">Frequently Asked Questions</h2>
+
+          <div class="faq__items">
+            <button class="faq__item" type="button">
+              <span>What is Filmalisa?</span>
+              <img src="../../Assets/images/plus.svg" alt="" class="faq__icon" />
+            </button>
+
+            <button class="faq__item" type="button">
+              <span>How much does Filmalisa cost?</span>
+              <img src="../../Assets/images/plus.svg" alt="" class="faq__icon" />
+            </button>
+
+            <button class="faq__item" type="button">
+              <span>Where can I watch?</span>
+              <img src="../../Assets/images/plus.svg" alt="" class="faq__icon" />
+            </button>
+
+            <button class="faq__item" type="button">
+              <span>How do I cancel?</span>
+              <img src="../../Assets/images/plus.svg" alt="" class="faq__icon" />
+            </button>
+
+            <button class="faq__item" type="button">
+              <span>What can I watch on Filmalisa?</span>
+              <img src="../../Assets/images/plus.svg" alt="" class="faq__icon" />
+            </button>
+
+            <button class="faq__item" type="button">
+              <span>Is Filmalisa good for kids?</span>
+              <img src="../../Assets/images/plus.svg" alt="" class="faq__icon" />
+            </button>
+          </div>
+        </section>
+      </main>
+</body>
+</html>
