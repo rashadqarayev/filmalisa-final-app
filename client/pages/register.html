@@ -33,13 +33,9 @@
             autocomplete="current-full name"
             required
           />
+          <span class="field__icon" aria-hidden="true"></span>
 
           <!-- JS gələndə bu button ilə show/hide edəcəksən -->
-          <button
-            class="field__toggle"
-            type="button"
-            aria-label="Show password"
-          ></button>
         </div>
         <div class="field field--email">
           <input
@@ -51,8 +47,8 @@
             autocomplete="email"
             required
           />
+          <span class="field__icon" aria-hidden="true"></span>
         </div>
-
         <div class="field field--password">
           <input
             class="field__input"
@@ -63,6 +59,7 @@
             autocomplete="current-password"
             required
           />
+          <span class="field__icon" aria-hidden="true"></span>
 
           <!-- JS gələndə bu button ilə show/hide edəcəksən -->
           <button
@@ -74,7 +71,9 @@
 
         <div class="auth__actions">
           <!-- burda artiq registere gonderir useri logine klik edende -->
-          <a class="auth__link" href="./login.html">Do you have a account? Login here</a>
+          <a class="auth__link" href="./login.html"
+            >Do you have a account? Login here</a
+          >
         </div>
 
         <button class="auth__button" type="submit">login</button>
