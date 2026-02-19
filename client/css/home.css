@@ -1,0 +1,206 @@
+/* HOME PAGE */
+
+/* =========================
+   SIDEBAR
+========================= */
+.home {
+  background-color: #1d1d1d;
+  margin-left: 56px; /* sidebar fixed oldugu ucun kontent ust-uste dusmesin */
+}
+
+.sidebar__container {
+  background-color: #1d1d1d80;
+  height: 100vh;
+  width: 56px;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.sidebar__links {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.sidebar__logo {
+  padding-bottom: 67px;
+  padding-top: 40px;
+}
+
+.sidebar__icon {
+  width: 32px;
+  height: 32px;
+  color: white;
+}
+
+.sidebar__icon:hover {
+  color: var(--hover-color);
+}
+
+/* =========================
+   HERO / HEADER
+========================= */
+.hero__container {
+  position: relative; /* ::after overlay duz otursun */
+  background: url(../Assets/images/godzilla.jpg);
+  min-height: 420px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* qara overlay gradient */
+.hero__container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.45) 45%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  z-index: 0;
+}
+
+/* hero icindeki yazilar/button overlay-in ustunde qalsin */
+.hero__container > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  padding: 120px;
+  padding-left: 160px;
+  color: white;
+  font-family: var(--roboto-font-family);
+  gap: 6px;
+}
+
+.hero__catogory {
+  color: var(--hover-color);
+  font-size: 12px;
+  background-color: rgb(104, 104, 104);
+  border-radius: 5px;
+  padding: 2px;
+  width: fit-content;
+}
+
+.hero__title {
+  font-size: 40px;
+  font-weight: 500;
+}
+
+.hero__desc {
+  font-size: 12px;
+  width: 450px;
+}
+
+/* =========================
+   HERO BUTTON (qara + animasiyali gradient border + glow)
+========================= */
+.hero__button {
+  padding: 15px 28px;
+  width: 220px;
+  height: 64px;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+
+  position: relative;
+  z-index: 0;
+
+  background: #0b0b10; /* button-un ozu qara */
+  color: #fff;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+/* Gradient border (yalniz kenar) */
+.hero__button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 3px; /* border qalınlığı */
+
+  --angle: 0deg;
+  background: conic-gradient(
+    from var(--angle),
+    #42c6ff,
+    #7b61ff,
+    #b16cff,
+    #ff3bd4,
+    #ff5a5f,
+    #ffd166,
+    #2dd4bf,
+    #42c6ff
+  );
+  animation: spin 3s linear infinite;
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  z-index: -1;
+}
+
+/* Glow arxa planda */
+.hero__button::after {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border-radius: inherit;
+
+  --angle: 0deg;
+  background: conic-gradient(
+    from var(--angle),
+    #42c6ff,
+    #7b61ff,
+    #b16cff,
+    #ff3bd4,
+    #ff5a5f,
+    #ffd166,
+    #2dd4bf,
+    #42c6ff
+  );
+  animation: spin 3s linear infinite;
+
+  filter: blur(18px);
+  opacity: 0.55;
+  z-index: -2;
+}
+
+/* animasiya ucun */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin {
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* Mobil ucun istersen (optional)
+@media (max-width: 768px){
+  .home{ margin-left: 0; }
+  .sidebar__container{ display:none; }
+  .hero__content{ padding: 60px 20px; }
+}
+*/

@@ -172,7 +172,7 @@
 
 /* LANDING PAGE */
 /* header */
-body {
+.landing {
   background-color: black;
 }
 .landing__top {
@@ -477,16 +477,16 @@ width i de 368pxdi
   transition: all 0.3 ease;
 }
 /* FOOTER */
-.footer{
-width: 100%;
+.footer {
+  width: 100%;
 }
 
-.footer__container{
-width: 100%;
-max-width: 1100px;
+.footer__container {
+  width: 100%;
+  max-width: 1100px;
 }
 
-.footer__links{
+.footer__links {
   display: flex;
   flex-direction: row;
   /* gap: 120px; */
@@ -494,11 +494,11 @@ max-width: 1100px;
   padding-left: 118px;
   padding-right: 160px;
 }
-.footer__col{
+.footer__col {
   min-width: 260px;
 }
-.footer__col li a{
-  color: #B3B3B3;
+.footer__col li a {
+  color: #b3b3b3;
   font-family: var(--roboto-font-family);
   font-size: 14px;
   line-height: 18px;
