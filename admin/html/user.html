@@ -1,125 +1,104 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User</title>
 
-
-
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
     <!-- CSS ler -->
-    <link rel="stylesheet" href="../../assets/styles/global/root-element.css">
-    <link rel="stylesheet" href="../../assets/styles/global/global.css">
-    <link rel="stylesheet" href="../../assets/styles/admin/user.css">
+    <link rel="stylesheet" href="../../global.css" />
+    <link rel="stylesheet" href="../css/user.css" />
+  </head>
 
-</head>
-
-
-
-
-
-
-<body>
-
-
+  <body>
     <div class="user-container">
+      <aside class="asideContainer">
+        <div class="upperAside">
+          <div class="logoArea">
+            <img src="../../assets/images/filmalisalogo.png" alt="" />
+            <p class="aside-text">filmalisa</p>
+          </div>
 
+          <!-- SIDEBAR (DIV -> A) -->
+          <a href="./dashboard.html" class="sideBar-item dashBoardItem">
+            <img src="../../assets/images/dashboard.svg" alt="" />
+            <span class="sideBar-text">Dashboard</span>
+          </a>
 
-        <aside class="asideContainer ">
-            <div class="upperAside ">
-                <div class="logoArea">
-                    <img src="../../assets/images/filmalisalogo.png" alt="">
-                    <p class="aside-text">filmalisa</p>
+          <a href="./movies.html" class="sideBar-item movieItem">
+            <img src="../../assets/images/Group.svg" alt="" />
+            <span class="sideBar-text">Movies</span>
+          </a>
 
-                </div>
+          <a href="./categories.html" class="sideBar-item categoriesItem">
+            <img src="../../assets/images/star.svg" alt="" />
+            <span class="sideBar-text">Categories</span>
+          </a>
 
-                <!-- SIDEBAR (DIV -> A) -->
-                <a href="./dashboard.html" class="sideBar-item dashBoardItem">
-                    <img src="../../assets/images/dashboard.svg" alt="">
-                    <span class="sideBar-text">Dashboard</span>
-                </a>
+          <a href="./user.html" class="sideBar-item usersItem">
+            <img src="../../assets/images/user.png" alt="" />
+            <span class="sideBar-text">Users</span>
+          </a>
 
-                <a href="./movies.html" class="sideBar-item movieItem">
-                    <img src="../../assets/images/Group.svg" alt="">
-                    <span class="sideBar-text">Movies</span>
-                </a>
+          <a href="./comment.html" class="sideBar-item commentsItem">
+            <img src="../../assets/images/comment.png" alt="" />
+            <span class="sideBar-text">Comments</span>
+          </a>
 
-                <a href="./categories.html" class="sideBar-item categoriesItem">
-                    <img src="../../assets/images/star.svg" alt="">
-                    <span class="sideBar-text">Categories</span>
-                </a>
+          <a href="./contactUs.html" class="sideBar-item contactItem">
+            <img src="../../assets/images/faq.svg" alt="" />
+            <span class="sideBar-text">Contact</span>
+          </a>
 
-                <a href="./user.html" class="sideBar-item usersItem">
-                    <img src="../../assets/images/user.png" alt="">
-                    <span class="sideBar-text">Users</span>
-                </a>
+          <a href="./actors.html" class="sideBar-item actorItem">
+            <img src="../../assets/images/user.png" alt="" />
+            <span class="sideBar-text">Actors</span>
+          </a>
+        </div>
 
-                <a href="./comment.html" class="sideBar-item commentsItem">
-                    <img src="../../assets/images/comment.png" alt="">
-                    <span class="sideBar-text">Comments</span>
-                </a>
+        <div class="lowerAside">
+          <img src="../../assets/images/logout.svg" alt="" />
+          <p class="logout-text">Logout</p>
+        </div>
+      </aside>
 
-                <a href="./contactUs.html" class="sideBar-item contactItem">
-                    <img src="../../assets/images/faq.svg" alt="">
-                    <span class="sideBar-text">Contact</span>
-                </a>
+      <main>
+        <header class="header">
+          <div class="leftHeaderSection">
+            <p class="admin-text">Hi Admin</p>
+            <p class="page-text">User</p>
+          </div>
 
-                <a href="./actors.html" class="sideBar-item actorItem">
-                    <img src="../../assets/images/user.png" alt="" />
-                    <span class="sideBar-text">Actors</span>
-                </a>
+          <div class="rightHeaderSection">
+            <div class="rightSection">
+              <img src="../../assets/images/adminman.svg" alt="user-image" />
+              <p class="profileName">Admin</p>
             </div>
+          </div>
+        </header>
 
-
-            <div class="lowerAside">
-                <img src="../../assets/images/logout.svg" alt="">
-                <p class="logout-text">Logout</p>
-            </div>
-        </aside>
-
-        <main>
-
-            <header class="header">
-                <div class="leftHeaderSection">
-                    <p class="admin-text">Hi Admin</p>
-                    <p class="page-text">User</p>
-                </div>
-
-                <div class="rightHeaderSection">
-
-
-
-                    <div class="rightSection">
-                        <img src="../../assets/images/adminman.svg" alt="user-image">
-                        <p class="profileName">Admin</p>
-                    </div>
-
-                </div>
-            </header>
-
-            <section class="section">
-                <table class="table">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Fullname</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Image</th>
-                        </tr>
-                    </thead>
-                    <tbody id="usersTableBody">
-
-
-                        
-                        <!-- <tr class="table-row">
+        <section class="section">
+          <table class="table">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Fullname</th>
+                <th scope="col">Email</th>
+                <th scope="col">Image</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody">
+              <!-- <tr class="table-row">
                             <th scope="row">1</th>
 
 
@@ -136,32 +115,18 @@
 
 
                         </tr> -->
-
-
-
-
-                    </tbody>
-                </table>
-
-
-
-
-
-            </section>
-
-
-        </main>
-
-
+            </tbody>
+          </table>
+        </section>
+      </main>
     </div>
 
-
-    <script src="../../js/admin/adminCheckAuth.js"></script>
-    <script src="../../js/admin/active.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="../../js/admin/users.js"></script>
-    <script src="../../js/admin/logout.js"></script>
-</body>
-
+    <!-- Load API dependencies in order -->
+    <script src="../js/HttpClient.js"></script>
+    
+    <!-- Load API as ES6 module -->
+    <script type="module" src="../js/users.js"></script>
+  </body>
 </html>
