@@ -1,0 +1,159 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* PAGE BASE */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-primary);
+  background: var(--bg-color);
+}
+
+/* PAGE */
+.login-page {
+  min-height: 100vh;
+  width: 100%;
+  background: var(--bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* BOX */
+.login-box {
+  width: 720px;
+  max-width: calc(100% - 40px);
+  padding: 50px 40px;
+  border-radius: 16px;
+  background: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* LOGO */
+.login-logo img {
+  width: 249px;
+  height: 150px;
+  display: block;
+}
+
+/* BRAND */
+.brand-title {
+  font-family: 'Numans', sans-serif;
+  font-weight: 400;
+  font-size: 70px;
+  line-height: 80px;
+  letter-spacing: -0.02em;
+  color: var(--header-name-color);
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* TITLE */
+.login-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 80px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: rgba(195, 200, 212, 1);
+  margin-top: -6px;
+  margin-bottom: 14px;
+}
+
+/* FORM */
+.login-form {
+  width: 618px;               /* Figma: Fill 618px */
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;                  /* Figma Gap */
+}
+
+/* INPUT WRAPPER */
+.form-group {
+  position: relative;
+  width: 100%;
+}
+
+/* INPUT */
+.form-group input {
+  width: 100%;
+  height: 64px;               /* Figma Hug 64px */
+  border-radius: 12px;        /* Figma Radius */
+  border: 1px solid var(--input-bg-color);
+  background: transparent;
+  color: var(--card-number-color);
+  outline: none;
+  font-size: 14px;
+
+  /* Figma padding + icon space */
+  padding: 12px 16px 12px 44px;
+}
+
+.form-group input::placeholder {
+  color: var(--text-placeholder);
+}
+
+.form-group input:focus {
+  border-color: var(--primary-color);
+}
+
+/* LEFT ICON */
+.input-icon {
+  position: absolute;
+  left: 16px;                 /* Figma padding left */
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.input-icon img {
+  width: 18px;
+  height: 18px;
+}
+
+/* EYE ICON */
+.toggle-eye {
+  position: absolute;
+  right: 16px;                /* Figma padding right */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--sidebar-text-color);
+}
+
+/* HELPER LINK */
+.helper-link {
+  font-size: 14px;
+  color: rgba(153, 163, 190, 1);
+  margin-top: -4px;
+}
+
+/* BUTTON */
+.login-button {
+  width: 100%;
+  height: 64px;               /* Input ilə eyni hündürlük */
+  border: none;
+  border-radius: 12px;
+  background: var(--primary-color);
+  color: var(--card-number-color);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.login-button:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}

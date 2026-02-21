@@ -1,0 +1,132 @@
+* {
+    box-sizing: border-box;
+}
+
+p {
+    margin: 0;
+}
+
+
+
+
+main {
+    font-family: poppins, sans-serif;
+    width: 100%;
+    margin-left: 25px;
+      height: 100vh;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.mainContent {
+    padding-right: 50px;
+}
+
+.admin-text {
+    color: rgba(204, 204, 204, 1);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.page-text {
+    color: rgba(255, 255, 255, 1);
+    font-weight: 500;
+}
+
+.dashBoard-header {
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+ 
+
+
+
+
+.dashBoardContainer {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    font-family: 'Raleway', sans-serif;
+    /* flex-shrink: 1; */
+}
+
+/*sidebar header bitis hisse */
+main {
+    flex: 1;
+    min-width: 0;
+    margin-left: 25px;
+}
+
+.mainContent {
+    padding-right: 50px;
+}
+
+.cards-container {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 28px;
+    align-items: start;
+}
+
+.favoriteCard,
+.statCard,
+.categoriesCard {
+    height: 203px;
+    border-radius: 30px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--card-bg);
+    width: 100%;
+    justify-self: start;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background-color 0.35s ease;
+    }
+    
+    .favoriteCard {
+    max-width: 288px;
+}
+
+.categoriesCard {
+    max-width: 288px;
+}
+
+.statCard {
+    max-width: 288px;
+}
+
+.statCard--purple {
+    max-width: 234px;
+    background-color: var(--card-bg-purple);
+}
+
+.dashboard-text {
+    font-size: 15px;
+    color: rgba(215, 215, 215, 1);
+    font-weight: 500;
+}
+
+.dashboard-number {
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--card-number-color);
+}
+
+.favoriteCard:hover,
+.categoriesCard:hover,
+.statCard:hover {
+    cursor: pointer;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.statCard-purple:hover {
+    transform: translateY(-4px);
+    background-color: var(--card-bg-purple);
+}
