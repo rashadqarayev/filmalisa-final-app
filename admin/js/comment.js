@@ -8,41 +8,42 @@ const token = localStorage.getItem("access_token");
 const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
 
 function showDeleteModal(movieId, commentId) {
-    currentMovieId = movieId;
-    currentId = commentId;
-    modal.show();
+  currentMovieId = movieId;
+  currentId = commentId;
+  modal.show();
 }
 async function fetchDatas() {
-    const options = {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    };
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
-    try {
-        const response = await fetch("https://api.sarkhanrahimli.dev/api/filmalisa/admin/comments", options);
-        const data = await response.json();
-        RenderData(data)
-    }
-    catch (error) {
-        console.error("Error fetching comments:", error);
-    }
+  try {
+    const response = await fetch("/api/filmalisa/admin/comments", options);
+    const data = await response.json();
+    RenderData(data);
+  } catch (error) {
+    console.error("Error fetching comments:", error);
+  }
 }
 
 fetchDatas();
 
 function RenderData(item) {
- 
-
-    const filteredData = item.data.map(item => {
-         const formattedDate = new Date(item.created_at).toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric"
-    });
-        return(`   <tr class="table-row"> 
+  const filteredData = item.data
+    .map((item) => {
+      const formattedDate = new Date(item.created_at).toLocaleDateString(
+        "en-GB",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        }
+      );
+      return `   <tr class="table-row"> 
         <td class="comment-user">
                     <span>${item.user.full_name}</span>
                   </td>
@@ -64,27 +65,31 @@ function RenderData(item) {
                  onclick="showDeleteModal(${item.movie.id}, ${item.id})"
                     ></i>
                   </td>
-                </tr>`)
-    }).join("");
-    commentTableBody.innerHTML = filteredData;
+                </tr>`;
+    })
+    .join("");
+  commentTableBody.innerHTML = filteredData;
 }
 async function deleteComment() {
-    const options = {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-    };
+  const options = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
-    try {
-        const response = await fetch(`https://api.sarkhanrahimli.dev/api/filmalisa/admin/movies/${currentMovieId}/comment/${currentId}`, options);
-       if(response.ok){
-        fetchDatas();
-        modal.hide();
-       }}
-       catch (error) {
-        console.error("Error deleting comment:", error);
+  try {
+    const response = await fetch(
+      `https://api.sarkhanrahimli.dev/api/filmalisa/admin/movies/${currentMovieId}/comment/${currentId}`,
+      options
+    );
+    if (response.ok) {
+      fetchDatas();
+      modal.hide();
     }
+  } catch (error) {
+    console.error("Error deleting comment:", error);
+  }
 }
 confirmDeleteBtn.addEventListener("click", deleteComment);
