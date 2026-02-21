@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="az">
+<head>
+    <!-- <script src="../../js/client/login.js"></script> -->
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <link rel="stylesheet" href="../../assets/styles/global/root-element.css" />
+    <link rel="stylesheet" href="../../assets/styles/client/login.css" />
+</head>
+<body>
+
+    <div class="login-page">
+        <div class="login-box">
+            <div class="login-logo">
+                <img src="../../assets/images/admin.logo.svg" alt="Logo" />
+            </div>
+            <h1 class="brand-title">filmalisa</h1>
+            <h2 class="login-title">login</h2>
+
+            <p id="warning" style="color: #ff4b2b; display: none; text-align: center; margin-bottom: 10px; font-size: 14px;"></p>
+
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <span class="input-icon">
+                        <img src="../../assets/images/admin.username.svg" alt="email icon" />
+                    </span>
+                    <input type="email" id="email" placeholder="email" required />
+                </div>
+
+                <div class="form-group">
+                    <span class="input-icon">
+                        <img src="../../assets/images/admin.password.svg" alt="password icon" />
+                    </span>
+                    <input type="password" placeholder="password" id="password" required />
+                    <span class="toggle-eye" id="togglePassword"></span>
+                </div>
+
+                <a href="./register.html" class="helper-link">Register here</a>
+                <button type="submit" class="login-button">login</button>
+            </form>
+        </div>
+    </div>
+    <script src="../../js/client/login.js"></script>
+
+</body>
+</html>

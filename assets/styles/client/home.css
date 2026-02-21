@@ -1,0 +1,273 @@
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px 0;
+  gap: 18px;
+  background: #0f0f0f;
+  z-index: 999;
+}
+
+.menu__item {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  transition: 0.2s;
+}
+
+.menu__item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.menu__item.active {
+  background: rgba(255, 255, 255, 0.12);
+  outline: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.menu__item img {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+.menu__item img.image {
+  width: 50px;
+  height: 50px;
+}
+/* PAGE OFFSET (menu fixed olduğuna görə) */
+body {
+  background: #121212;
+  color: #fff;
+}
+
+/* ===== SECTION 1 (TOXUNMURAM) ===== */
+.section1 {
+  width: 100%;
+  margin-top: 30px;
+}
+
+/* CAROUSEL */
+.hero-carousel {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  /* border-radius: 20px; */
+}
+
+/* SLIDE */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* IMAGE */
+.hero-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* DARK OVERLAY (Netflix effekti) */
+.hero-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2));
+}
+
+/* WATCH BUTTON */
+.watch-btn {
+  position: absolute;
+  left: 200px;
+  bottom: 150px;
+  padding: 12px 26px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 2;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 0, 128, 0.18),
+    rgba(0, 255, 255, 0.18)
+  );
+}
+.watch-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(1.05);
+}
+
+/* DOTS */
+.hero-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.hero-dots button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: 0.3s;
+}
+
+.hero-dots button.active {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* ===== ORTAQ SECTION STILI (Action/Comedy) ===== */
+.section {
+  margin-left: 56px; /* menu width */
+  padding: 18px 18px 0 18px;
+}
+
+.section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.section__title {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* WRAPPERS: horizontal scroll */
+.action__wrapper {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scroll-behavior: smooth;
+}
+
+.comedy__wrapper {
+  display: flex;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scroll-behavior: smooth;
+}
+
+/* scroll barı gözə dəyməsin */
+.action__wrapper::-webkit-scrollbar,
+.comedy__wrapper::-webkit-scrollbar {
+  height: 0;
+}
+
+/* ===== ACTION CARD (AYRI) ===== */
+.action-card {
+  flex: 0 0 auto;
+  width: 292px;
+  height: 440px;
+  position: relative;
+  background: transparent;
+}
+
+.action-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===== COMEDY CARD (AYRI) ===== */
+.comedy-card {
+  flex: 0 0 auto;
+  width: 504px;
+  height: 736px;
+  overflow: hidden;
+  position: relative;
+  background: transparent;
+}
+
+.comedy-card img {
+  width: 100%;
+  height: 100%; /* Comedy şəkilləri böyüsün deyirsənsə bunu artır */
+  object-fit: cover;
+  display: block;
+}
+.category-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(15, 239, 253);
+  background: rgba(29, 29, 29, 0.5);
+
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+
+  width: fit-content;
+  position: absolute;
+  left: 14px;
+  bottom: 60px;
+  z-index: 3;
+
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 500;
+
+  color: rgb(15, 239, 253);
+  background: rgba(0, 0, 0, 0.6);
+
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+
+  width: fit-content;
+  /* hug kimi */
+}
+
+.movie-name {
+  color: #fff;
+  font-size: 24px;
+  line-height: 40px;
+  font-weight: 500;
+  margin: 0;
+  position: absolute;
+  left: 14px;
+  bottom: 20px;
+  z-index: 3;
+  color: #fff;
+  font-weight: 600;
+}
+.action-card {
+  overflow: hidden;
+}
+/* category yeri */
+.action-card .category-name,
+.comedy-card .category-name {
+  left: 14px;
+  bottom: 62px;
+}
+
+/* movie name yeri */
+.action-card .movie-name,
+.comedy-card .movie-name {
+  left: 14px;
+  bottom: 14px;
+}
