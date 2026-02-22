@@ -3,7 +3,7 @@
  * This file demonstrates real-world usage patterns
  */
 
-import { adminAPI } from "./AdminAPI.js";
+import { AdminService } from "../services/AdminService.js";
 
 // ============================================
 // 1. LOGIN EXAMPLE
@@ -15,74 +15,49 @@ export async function handleLogin(event) {
   const password = document.getElementById("password").value;
 
   try {
-    const response = await adminAPI.auth.login(email, password);
+    const response = await AdminService.auth.login(email, password);
 
     console.log("response", response);
 
     if (response.result) {
-      adminAPI.showSuccess("Login successful!");
+      AdminService.showSuccess("Login successful!");
       // redirect to dashboard
-        window.location.href = "/admin/html/dashboard.html";
+      window.location.href = "/admin/html/dashboard.html";
     } else {
-      adminAPI.showError(response.message || "Login failed");
+      AdminService.showError(response.message || "Login failed");
     }
   } catch (error) {
-    const message = adminAPI.handleError(
+    const message = AdminService.handleError(
       error,
       "Login failed. Please try again."
     );
-    adminAPI.showError(message);
+    AdminService.showError(message);
   } finally {
-    adminAPI.toggleLoading(false);
+    AdminService.toggleLoading(false);
   }
 }
 
 // ============================================
 // 2. DASHBOARD STATISTICS EXAMPLE
 // ============================================
-async function loadDashboardStats() {
-  try {
-    adminAPI.toggleLoading(true);
-
-    const response = await adminAPI.dashboard.getStatistics();
-
-    if (response.result) {
-      const stats = response.data;
-
-      // Update dashboard UI
-      document.getElementById("total-users").textContent = stats.users;
-      document.getElementById("total-movies").textContent = stats.movies;
-      document.getElementById("total-actors").textContent = stats.actors;
-      document.getElementById("total-categories").textContent =
-        stats.categories;
-      document.getElementById("total-comments").textContent = stats.comments;
-      document.getElementById("total-contacts").textContent = stats.contacts;
-      document.getElementById("total-favorites").textContent = stats.favorites;
-    }
-  } catch (error) {
-    adminAPI.showError("Failed to load dashboard statistics");
-  } finally {
-    adminAPI.toggleLoading(false);
-  }
-}
 
 // ============================================
 // 3. CATEGORIES MANAGEMENT EXAMPLE
 // ============================================
 async function loadCategories() {
   try {
-    adminAPI.toggleLoading(true);
+    AdminService.toggleLoading(true);
 
-    const response = await adminAPI.categories.getAllCategories();
+    const response = await AdminService.categories.getAllCategories();
 
     if (response.result) {
       const categories = response.data;
       renderCategoriesTable(categories);
     }
   } catch (error) {
-    adminAPI.showError("Failed to load categories");
+    AdminService.showError("Failed to load categories");
   } finally {
-    adminAPI.toggleLoading(false);
+    AdminService.toggleLoading(false);
   }
 }
 
@@ -112,41 +87,41 @@ async function createCategory() {
   const name = document.getElementById("category-name").value;
 
   if (!name.trim()) {
-    adminAPI.showError("Category name is required");
+    AdminService.showError("Category name is required");
     return;
   }
 
   try {
-    adminAPI.toggleLoading(true);
+    AdminService.toggleLoading(true);
 
-    const response = await adminAPI.categories.createCategory(name);
+    const response = await AdminService.categories.createCategory(name);
 
     if (response.result) {
-      adminAPI.showSuccess("Category created successfully!");
+      AdminService.showSuccess("Category created successfully!");
       document.getElementById("category-name").value = "";
       loadCategories(); // Reload the list
     }
   } catch (error) {
-    adminAPI.showError("Failed to create category");
+    AdminService.showError("Failed to create category");
   } finally {
-    adminAPI.toggleLoading(false);
+    AdminService.toggleLoading(false);
   }
 }
 
 async function updateCategory(id, newName) {
   try {
-    adminAPI.toggleLoading(true);
+    AdminService.toggleLoading(true);
 
-    const response = await adminAPI.categories.updateCategory(id, newName);
+    const response = await AdminService.categories.updateCategory(id, newName);
 
     if (response.result) {
-      adminAPI.showSuccess("Category updated successfully!");
+      AdminService.showSuccess("Category updated successfully!");
       loadCategories(); // Reload the list
     }
   } catch (error) {
-    adminAPI.showError("Failed to update category");
+    AdminService.showError("Failed to update category");
   } finally {
-    adminAPI.toggleLoading(false);
+    AdminService.toggleLoading(false);
   }
 }
 
@@ -156,18 +131,18 @@ async function deleteCategory(id) {
   }
 
   try {
-    adminAPI.toggleLoading(true);
+    AdminService.toggleLoading(true);
 
-    const response = await adminAPI.categories.deleteCategory(id);
+    const response = await AdminService.categories.deleteCategory(id);
 
     if (response.result) {
-      adminAPI.showSuccess("Category deleted successfully!");
+      AdminService.showSuccess("Category deleted successfully!");
       loadCategories(); // Reload the list
     }
   } catch (error) {
-    adminAPI.showError("Failed to delete category");
+    AdminService.showError("Failed to delete category");
   } finally {
-    adminAPI.toggleLoading(false);
+    AdminService.toggleLoading(false);
   }
 }
 
@@ -176,18 +151,18 @@ async function deleteCategory(id) {
 // ============================================
 async function loadActors() {
   try {
-    adminAPI.toggleLoading(true);
+    AdminService.toggleLoading(true);
 
-    const response = await adminAPI.actors.getAllActors();
+    const response = await AdminService.actors.getAllActors();
 
     if (response.result) {
       const actors = response.data;
       renderActorsTable(actors);
     }
   } catch (error) {
-    adminAPI.showError("Failed to load actors");
+    AdminService.showError("Failed to load actors");
   } finally {
-    adminAPI.toggleLoading(false);
+    AdminService.toggleLoading(false);
   }
 }
 
@@ -225,19 +200,19 @@ async function createActor(event) {
   };
 
   try {
-    adminAPI.toggleLoading(true);
+    AdminService.toggleLoading(true);
 
-    const response = await adminAPI.actors.createActor(actorData);
+    const response = await AdminService.actors.createActor(actorData);
 
     if (response.result) {
-      adminAPI.showSuccess("Actor created successfully!");
+      AdminService.showSuccess("Actor created successfully!");
       document.getElementById("actor-form").reset();
       loadActors(); // Reload the list
     }
   } catch (error) {
-    adminAPI.showError("Failed to create actor");
+    AdminService.showError("Failed to create actor");
   } finally {
-    adminAPI.toggleLoading(false);
+    AdminService.toggleLoading(false);
   }
 }
 
@@ -247,18 +222,18 @@ async function deleteActor(id) {
   }
 
   try {
-    adminAPI.toggleLoading(true);
+    AdminService.toggleLoading(true);
 
-    const response = await adminAPI.actors.deleteActor(id);
+    const response = await AdminService.actors.deleteActor(id);
 
     if (response.result) {
-      adminAPI.showSuccess("Actor deleted successfully!");
+      AdminService.showSuccess("Actor deleted successfully!");
       loadActors(); // Reload the list
     }
   } catch (error) {
-    adminAPI.showError("Failed to delete actor");
+    AdminService.showError("Failed to delete actor");
   } finally {
-    adminAPI.toggleLoading(false);
+    AdminService.toggleLoading(false);
   }
 }
 
@@ -267,18 +242,18 @@ async function deleteActor(id) {
 // ============================================
 async function loadMovies() {
   try {
-    adminAPI.toggleLoading(true);
+    AdminService.toggleLoading(true);
 
-    const response = await adminAPI.movies.getAllMovies();
+    const response = await AdminService.movies.getAllMovies();
 
     if (response.result) {
       const movies = response.data;
       renderMoviesGrid(movies);
     }
   } catch (error) {
-    adminAPI.showError("Failed to load movies");
+    AdminService.showError("Failed to load movies");
   } finally {
-    adminAPI.toggleLoading(false);
+    AdminService.toggleLoading(false);
   }
 }
 
@@ -325,19 +300,19 @@ async function createMovie(event) {
   };
 
   try {
-    adminAPI.toggleLoading(true);
+    AdminService.toggleLoading(true);
 
-    const response = await adminAPI.movies.createMovie(movieData);
+    const response = await AdminService.movies.createMovie(movieData);
 
     if (response.result) {
-      adminAPI.showSuccess("Movie created successfully!");
+      AdminService.showSuccess("Movie created successfully!");
       document.getElementById("movie-form").reset();
       loadMovies(); // Reload the list
     }
   } catch (error) {
-    adminAPI.showError("Failed to create movie");
+    AdminService.showError("Failed to create movie");
   } finally {
-    adminAPI.toggleLoading(false);
+    AdminService.toggleLoading(false);
   }
 }
 
@@ -347,18 +322,18 @@ async function deleteMovie(id) {
   }
 
   try {
-    adminAPI.toggleLoading(true);
+    AdminService.toggleLoading(true);
 
-    const response = await adminAPI.movies.deleteMovie(id);
+    const response = await AdminService.movies.deleteMovie(id);
 
     if (response.result) {
-      adminAPI.showSuccess("Movie deleted successfully!");
+      AdminService.showSuccess("Movie deleted successfully!");
       loadMovies(); // Reload the list
     }
   } catch (error) {
-    adminAPI.showError("Failed to delete movie");
+    AdminService.showError("Failed to delete movie");
   } finally {
-    adminAPI.toggleLoading(false);
+    AdminService.toggleLoading(false);
   }
 }
 
@@ -371,17 +346,17 @@ async function searchMovies() {
   }
 
   try {
-    adminAPI.toggleLoading(true);
+    AdminService.toggleLoading(true);
 
-    const response = await adminAPI.movies.searchMovies(query);
+    const response = await AdminService.movies.searchMovies(query);
 
     if (response.result) {
       renderMoviesGrid(response.data);
     }
   } catch (error) {
-    adminAPI.showError("Failed to search movies");
+    AdminService.showError("Failed to search movies");
   } finally {
-    adminAPI.toggleLoading(false);
+    AdminService.toggleLoading(false);
   }
 }
 
@@ -390,18 +365,18 @@ async function searchMovies() {
 // ============================================
 async function loadUsers() {
   try {
-    adminAPI.toggleLoading(true);
+    AdminService.toggleLoading(true);
 
-    const response = await adminAPI.users.getAllUsers();
+    const response = await AdminService.users.getAllUsers();
 
     if (response.result) {
       const users = response.data;
       renderUsersTable(users);
     }
   } catch (error) {
-    adminAPI.showError("Failed to load users");
+    AdminService.showError("Failed to load users");
   } finally {
-    adminAPI.toggleLoading(false);
+    AdminService.toggleLoading(false);
   }
 }
 
@@ -435,18 +410,18 @@ function renderUsersTable(users) {
 // ============================================
 async function loadComments() {
   try {
-    adminAPI.toggleLoading(true);
+    AdminService.toggleLoading(true);
 
-    const response = await adminAPI.comments.getAllComments();
+    const response = await AdminService.comments.getAllComments();
 
     if (response.result) {
       const comments = response.data;
       renderCommentsTable(comments);
     }
   } catch (error) {
-    adminAPI.showError("Failed to load comments");
+    AdminService.showError("Failed to load comments");
   } finally {
-    adminAPI.toggleLoading(false);
+    AdminService.toggleLoading(false);
   }
 }
 
@@ -478,18 +453,21 @@ async function deleteComment(movieId, commentId) {
   }
 
   try {
-    adminAPI.toggleLoading(true);
+    AdminService.toggleLoading(true);
 
-    const response = await adminAPI.comments.deleteComment(movieId, commentId);
+    const response = await AdminService.comments.deleteComment(
+      movieId,
+      commentId
+    );
 
     if (response.result) {
-      adminAPI.showSuccess("Comment deleted successfully!");
+      AdminService.showSuccess("Comment deleted successfully!");
       loadComments(); // Reload the list
     }
   } catch (error) {
-    adminAPI.showError("Failed to delete comment");
+    AdminService.showError("Failed to delete comment");
   } finally {
-    adminAPI.toggleLoading(false);
+    AdminService.toggleLoading(false);
   }
 }
 
@@ -498,18 +476,18 @@ async function deleteComment(movieId, commentId) {
 // ============================================
 async function loadContacts() {
   try {
-    adminAPI.toggleLoading(true);
+    AdminService.toggleLoading(true);
 
-    const response = await adminAPI.contacts.getAllContacts();
+    const response = await AdminService.contacts.getAllContacts();
 
     if (response.result) {
       const contacts = response.data;
       renderContactsTable(contacts);
     }
   } catch (error) {
-    adminAPI.showError("Failed to load contacts");
+    AdminService.showError("Failed to load contacts");
   } finally {
-    adminAPI.toggleLoading(false);
+    AdminService.toggleLoading(false);
   }
 }
 
@@ -540,18 +518,18 @@ async function deleteContact(id) {
   }
 
   try {
-    adminAPI.toggleLoading(true);
+    AdminService.toggleLoading(true);
 
-    const response = await adminAPI.contacts.deleteContact(id);
+    const response = await AdminService.contacts.deleteContact(id);
 
     if (response.result) {
-      adminAPI.showSuccess("Contact deleted successfully!");
+      AdminService.showSuccess("Contact deleted successfully!");
       loadContacts(); // Reload the list
     }
   } catch (error) {
-    adminAPI.showError("Failed to delete contact");
+    AdminService.showError("Failed to delete contact");
   } finally {
-    adminAPI.toggleLoading(false);
+    AdminService.toggleLoading(false);
   }
 }
 
@@ -560,7 +538,7 @@ async function deleteContact(id) {
 // ============================================
 async function loadProfile() {
   try {
-    const response = await adminAPI.profile.getProfile();
+    const response = await AdminService.profile.getProfile();
 
     if (response.result) {
       const profile = response.data;
@@ -583,7 +561,7 @@ async function loadProfile() {
 // ============================================
 function handleLogout() {
   if (confirm("Are you sure you want to logout?")) {
-    adminAPI.auth.logout();
+    AdminService.auth.logout();
   }
 }
 
@@ -593,12 +571,12 @@ function handleLogout() {
 document.addEventListener("DOMContentLoaded", () => {
   // Check authentication
   if (
-    !adminAPI.isAuthenticated() &&
+    !AdminService.isAuthenticated() &&
     !window.location.pathname.includes("login.html")
   ) {
     window.location.href = "/admin/html/login.html";
   }
 
   // Set language (optional)
-  adminAPI.setLanguage("en"); // or 'az'
+  AdminService.setLanguage("en"); // or 'az'
 });

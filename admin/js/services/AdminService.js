@@ -1,22 +1,20 @@
 // Import dependencies
-import { httpClient } from "./HttpClient.js";
-import {
-  authService,
-  profileService,
-  usersService,
-  categoriesService,
-  actorsService,
-  moviesService,
-  contactsService,
-  commentsService,
-  dashboardService,
-} from "./ApiServices.js";
+import { httpClient } from "../config/HttpClient.js";
+import { actorsService } from "./ActorsService.js";
+import { authService } from "./AuthService.js";
+import { profileService } from "./ProfileService.js";
+import { categoriesService } from "./CategoriesService.js";
+import { dashboardService } from "./DashboardService.js";
+import { contactsService } from "./ContactsService.js";
+import { commentsService } from "./CommentsService.js";
+import { usersService } from "./UsersService.js";
+import { moviesService } from "./MoviesService.js";
 
 /**
- * AdminAPI - Main API class that combines all services
+ * AdminService - Main API class that combines all services
  * Provides a single interface for all admin API operations
  */
-class AdminAPI {
+class AdminService {
   constructor() {
     // Initialize HTTP client
     this.http = httpClient;
@@ -106,8 +104,8 @@ class AdminAPI {
 }
 
 // Create and export global API instance
-export const adminAPI = new AdminAPI();
-export default AdminAPI;
+export const adminService = new AdminService();
+export default AdminService;
 
 /**
  * Usage Examples:

@@ -1,76 +1,184 @@
-const categoryModal = document.getElementById('categoryModal');
-const deleteModal = document.getElementById('deleteModal');
-const categoryForm = document.getElementById('categoryForm');
-const modalInput = document.querySelector('.modalInput');
-const modalTitle = document.getElementById('modalTitle');
-const tableBody = document.getElementById('categoryTableBody');
-const createBtn = document.querySelector('.create-btn');
-const confirmDeleteBtn = document.getElementById('confirmDelete');
+// filepath: /Users/rashad/Desktop/course-final-project/admin/js/categories.js
+import { adminService } from "./services/AdminService.js";
+import { Pagination } from "./util/pagination.js";
 
-let editingRow = null; 
-let rowToDelete = null; 
+// ── Auth guard ───────────────────────────────────────────────────────────────
+if (!adminService.isAuthenticated()) {
+  window.location.href = "/admin/html/login.html";
+}
 
-// --- CREATE MODALINI AÇ ---
-createBtn.onclick = () => {
-    editingRow = null;
-    modalTitle.innerText = "Create New Category";
-    modalInput.value = "";
-    categoryModal.showModal();
-};
+// ── DOM refs ─────────────────────────────────────────────────────────────────
+const categoryModal = document.getElementById("categoryModal");
+const deleteModal = document.getElementById("deleteModal");
+const categoryForm = document.getElementById("categoryForm");
+const modalInput = document.querySelector(".modalInput");
+const modalTitle = document.getElementById("modalTitle");
+const tableBody = document.getElementById("categoryTableBody");
+const createBtn = document.querySelector(".create-btn");
+const confirmDeleteBtn = document.getElementById("confirmDelete");
 
-// --- TABLE ÜZƏRİNDƏ KLİKLƏR (EDIT & DELETE) ---
-tableBody.addEventListener('click', (e) => {
-    const row = e.target.closest('tr');
-    if (!row) return;
+// ── State ────────────────────────────────────────────────────────────────────
+let editingId = null; // ID being edited (null = create mode)
+let deletingId = null; // ID to delete
 
-    // DELETE MODALI
-    if (e.target.classList.contains('delete-btn')) {
-        rowToDelete = row;
-        deleteModal.showModal();
-    }
+// ── Pagination ────────────────────────────────────────────────────────────────
+let paginationEl = document.getElementById("categories-pagination");
+if (!paginationEl) {
+  paginationEl = document.createElement("div");
+  paginationEl.id = "categories-pagination";
+  paginationEl.className = "pagination-container";
+  document.querySelector(".section")?.after(paginationEl);
+}
 
-    // EDIT MODALI
-    if (e.target.classList.contains('edit-btn')) {
-        editingRow = row;
-        modalTitle.innerText = "Edit Category";
-        modalInput.value = row.cells[1].innerText;
-        categoryModal.showModal();
-    }
+const pager = new Pagination({
+  containerSelector: paginationEl,
+  itemsPerPage: 8,
+  onPageChange: (pageItems) => renderTable(pageItems),
 });
 
-// --- SİLMƏNİ TƏSDİQLƏ ---
-confirmDeleteBtn.onclick = () => {
-    if (rowToDelete) {
-        // Gələcəkdə burada API istəyi olacaq: const id = rowToDelete.cells[0].innerText;
-        rowToDelete.remove();
-        rowToDelete = null;
-        deleteModal.close();
-    }
-};
+// ── Helpers ──────────────────────────────────────────────────────────────────
+function showPlaceholder(msg) {
+  tableBody.innerHTML = `
+    <tr>
+      <td colspan="3" style="text-align:center;padding:24px;color:#aaa;">${msg}</td>
+    </tr>`;
+  paginationEl.innerHTML = "";
+}
 
-// --- FORM SUBMIT (CREATE & UPDATE) ---
-categoryForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const value = modalInput.value.trim();
-    if (!value) return;
+function escapeHtml(text) {
+  const d = document.createElement("div");
+  d.textContent = text;
+  return d.innerHTML;
+}
 
-    if (editingRow) {
-        // Redaktə rejimi
-        editingRow.cells[1].innerText = value;
+// ── Render table ─────────────────────────────────────────────────────────────
+function renderTable(categories) {
+  if (!categories.length) {
+    tableBody.innerHTML = `
+      <tr>
+        <td colspan="3" style="text-align:center;padding:24px;color:#aaa;">No categories found.</td>
+      </tr>`;
+    return;
+  }
+  tableBody.innerHTML = categories
+    .map(
+      (cat) => `
+      <tr data-id="${cat.id}">
+        <th scope="row">${cat.id}</th>
+        <td>${escapeHtml(cat.name)}</td>
+        <td class="operation">
+          <i class="fa-solid fa-pen-to-square edit-btn"   style="cursor:pointer;" title="Edit"></i>
+          <i class="fa-solid fa-trash            delete-btn" style="cursor:pointer;" title="Delete"></i>
+        </td>
+      </tr>`
+    )
+    .join("");
+}
+
+// ── Load all categories from API ──────────────────────────────────────────────
+async function loadCategories() {
+  showPlaceholder("Loading…");
+  try {
+    const res = await adminService.categories.getAllCategories();
+    if (res.result && res.data) {
+      pager.setData(res.data); // hands off to pagination → triggers renderTable
     } else {
-        // Yeni yaratma rejimi
-        const newId = tableBody.rows.length + 1;
-        const newRow = `
-            <tr>
-                <th scope="row">${newId}</th>
-                <td>${value}</td>
-                <td class="operation">
-                    <i class="fa-solid fa-pen-to-square edit-btn"></i>
-                    <i class="fa-solid fa-trash delete-btn"></i>
-                </td>
-            </tr>`;
-        tableBody.insertAdjacentHTML('beforeend', newRow);
+      showPlaceholder(res.message || "Failed to load categories.");
     }
+  } catch (err) {
+    console.error(err);
+    showPlaceholder("Error loading categories.");
+  }
+}
 
-    categoryModal.close();
+// ── Open CREATE modal ─────────────────────────────────────────────────────────
+createBtn.addEventListener("click", () => {
+  editingId = null;
+  modalTitle.innerText = "Create New Category";
+  modalInput.value = "";
+  categoryModal.showModal();
 });
+
+// ── Table delegation → EDIT / DELETE ─────────────────────────────────────────
+tableBody.addEventListener("click", (e) => {
+  const row = e.target.closest("tr");
+  if (!row) return;
+  const id = parseInt(row.dataset.id);
+
+  if (e.target.classList.contains("edit-btn")) {
+    editingId = id;
+    modalTitle.innerText = "Edit Category";
+    modalInput.value = row.cells[1].innerText;
+    categoryModal.showModal();
+  }
+
+  if (e.target.classList.contains("delete-btn")) {
+    deletingId = id;
+    deleteModal.showModal();
+  }
+});
+
+// ── Form submit → POST (create) or PUT (update) ───────────────────────────────
+categoryForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const name = modalInput.value.trim();
+  if (!name) return;
+
+  const btn = categoryForm.querySelector(".modalSubmit");
+  btn.disabled = true;
+  btn.textContent = "Saving…";
+
+  try {
+    const res = editingId
+      ? await adminService.categories.updateCategory(editingId, name)
+      : await adminService.categories.createCategory(name);
+
+    if (res.result) {
+      categoryModal.close();
+      await loadCategories();
+    } else {
+      alert(res.message || "Failed to save category.");
+    }
+  } catch (err) {
+    console.error(err);
+    alert(err.message || "Failed to save category.");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Save Changes";
+  }
+});
+
+// ── Confirm DELETE ────────────────────────────────────────────────────────────
+confirmDeleteBtn.addEventListener("click", async () => {
+  if (!deletingId) return;
+
+  confirmDeleteBtn.disabled = true;
+  confirmDeleteBtn.textContent = "Deleting…";
+
+  try {
+    const res = await adminService.categories.deleteCategory(deletingId);
+    if (res.result) {
+      deleteModal.close();
+      deletingId = null;
+      await loadCategories();
+    } else {
+      alert(res.message || "Failed to delete category.");
+    }
+  } catch (err) {
+    console.error(err);
+    alert(err.message || "Failed to delete category.");
+  } finally {
+    confirmDeleteBtn.disabled = false;
+    confirmDeleteBtn.textContent = "Bəli, Sil";
+  }
+});
+
+// ── Logout ────────────────────────────────────────────────────────────────────
+document.querySelector(".logout-text")?.addEventListener("click", () => {
+  if (confirm("Are you sure you want to logout?")) {
+    adminService.auth.logout();
+  }
+});
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+document.addEventListener("DOMContentLoaded", loadCategories);

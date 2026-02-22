@@ -239,3 +239,69 @@ p {
 .sideBar-item.active img {
   filter: brightness(0) invert(1);
 }
+
+/* ── Shared Pagination ─────────────────────────────────────────────────────── */
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px 24px;
+  margin-top: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.pg-info {
+  color: #aaa;
+  font-size: 13px;
+}
+
+.pg-info strong {
+  color: #fff;
+}
+
+.pg-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pg-btn {
+  padding: 6px 12px;
+  background: #2a2a3e;
+  color: #ccc;
+  border: 1px solid #3a3a52;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  min-width: 36px;
+}
+
+.pg-btn:hover:not(:disabled) {
+  background: #6c5ce7;
+  color: #fff;
+  border-color: #6c5ce7;
+}
+
+.pg-btn.pg-active {
+  background: #6c5ce7;
+  color: #fff;
+  border-color: #6c5ce7;
+  font-weight: 600;
+  cursor: default;
+}
+
+.pg-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.pg-ellipsis {
+  color: #555;
+  padding: 0 4px;
+  font-size: 14px;
+}

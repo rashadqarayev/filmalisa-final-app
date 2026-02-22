@@ -7,20 +7,20 @@ if (!adminService.isAuthenticated()) {
 }
 
 // ── DOM refs ─────────────────────────────────────────────────────────────────
-const commentTableBody = document.querySelector(".comment-table-body");
-const modalEl = document.getElementById("deleteModal");
+const tableBody = document.getElementById("contactsTableBody");
+const deleteModalEl = document.getElementById("deleteModal");
 const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
-const modal = new bootstrap.Modal(modalEl);
+const deleteItemName = document.getElementById("deleteItemName");
+const deleteModal = new bootstrap.Modal(deleteModalEl);
 
-// ── State ────────────────────────────────────────────────────────────────────
-let currentMovieId = null;
-let currentId = null;
+// ── State ─────────────────────────────────────────────────────────────────────
+let deletingId = null;
 
 // ── Pagination ────────────────────────────────────────────────────────────────
-let paginationEl = document.getElementById("comments-pagination");
+let paginationEl = document.getElementById("contacts-pagination");
 if (!paginationEl) {
   paginationEl = document.createElement("div");
-  paginationEl.id = "comments-pagination";
+  paginationEl.id = "contacts-pagination";
   paginationEl.className = "pagination-container";
   document.querySelector(".section")?.after(paginationEl);
 }
@@ -28,24 +28,16 @@ if (!paginationEl) {
 const pager = new Pagination({
   containerSelector: paginationEl,
   itemsPerPage: 8,
-  onPageChange: (pageItems) => renderComments(pageItems),
+  onPageChange: (pageItems) => renderTable(pageItems),
 });
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function showPlaceholder(msg) {
-  commentTableBody.innerHTML = `
+  tableBody.innerHTML = `
     <tr>
-      <td colspan="6" style="text-align:center;padding:24px;color:#aaa;">${msg}</td>
+      <td colspan="5" style="text-align:center;padding:24px;color:#aaa;">${msg}</td>
     </tr>`;
   paginationEl.innerHTML = "";
-}
-
-function formatDate(dateStr) {
-  return new Date(dateStr).toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
 }
 
 function escapeHtml(text) {
@@ -55,86 +47,87 @@ function escapeHtml(text) {
 }
 
 // ── Render ────────────────────────────────────────────────────────────────────
-function renderComments(comments) {
-  if (!comments.length) {
-    commentTableBody.innerHTML = `
+function renderTable(contacts) {
+  if (!contacts.length) {
+    tableBody.innerHTML = `
       <tr>
-        <td colspan="6" style="text-align:center;padding:24px;color:#aaa;">No comments found.</td>
+        <td colspan="5" style="text-align:center;padding:24px;color:#aaa;">No contacts found.</td>
       </tr>`;
     return;
   }
 
-  commentTableBody.innerHTML = comments
+  tableBody.innerHTML = contacts
     .map(
-      (item) => `
-      <tr class="table-row">
-        <td class="comment-user">
-          <span>${escapeHtml(item.user?.full_name ?? "Unknown")}</span>
-        </td>
-        <td class="comment-text">${escapeHtml(item.comment)}</td>
-        <td>${escapeHtml(item.movie?.title ?? "—")}</td>
-        <td>${formatDate(item.created_at)}</td>
-        <td class="movie-image">
-          <img src="${item.movie?.cover_url ?? ""}" alt="movie image" />
-        </td>
+      (c) => `
+      <tr class="table-row" data-id="${c.id}">
+        <th scope="row">${c.id}</th>
+        <td>${escapeHtml(c.full_name ?? c.name ?? "—")}</td>
+        <td>${escapeHtml(c.email ?? "—")}</td>
+        <td>${escapeHtml(c.reason ?? c.reason ?? "—")}</td>
         <td class="operation">
-          <i
-            class="fa-solid fa-trash"
-            style="cursor:pointer;color:red;"
-            title="Delete"
-            onclick="showDeleteModal(${item.movie?.id}, ${item.id})"
-          ></i>
+          <i class="fa-solid fa-trash"
+             style="cursor:pointer;color:red;"
+             title="Delete"
+             data-id="${c.id}"
+             data-name="${escapeHtml(c.full_name ?? c.name ?? String(c.id))}">
+          </i>
         </td>
       </tr>`
     )
     .join("");
 }
 
-// ── Load comments ─────────────────────────────────────────────────────────────
-async function loadComments() {
+// ── Load contacts ─────────────────────────────────────────────────────────────
+async function loadContacts() {
   showPlaceholder("Loading…");
   try {
-    const res = await adminService.comments.getAllComments();
+    const res = await adminService.contacts.getAllContacts();
     if (res.result && res.data) {
       pager.setData(res.data);
     } else {
-      showPlaceholder(res.message || "Failed to load comments.");
+      showPlaceholder(res.message || "Failed to load contacts.");
     }
   } catch (err) {
     console.error(err);
-    showPlaceholder("Error loading comments.");
+    showPlaceholder("Error loading contacts.");
   }
 }
 
-// ── Delete modal ──────────────────────────────────────────────────────────────
-window.showDeleteModal = function (movieId, commentId) {
-  currentMovieId = movieId;
-  currentId = commentId;
-  modal.show();
+// ── Delete via table click delegation ────────────────────────────────────────
+tableBody.addEventListener("click", (e) => {
+  const btn = e.target.closest(".fa-trash");
+  if (!btn) return;
+
+  deletingId = parseInt(btn.dataset.id);
+  if (deleteItemName) deleteItemName.textContent = btn.dataset.name;
+  deleteModal.show();
+});
+
+// Keep the global function for any inline onclick still in HTML
+window.showDeleteModal = (id, name = "") => {
+  deletingId = id;
+  if (deleteItemName) deleteItemName.textContent = name;
+  deleteModal.show();
 };
 
 confirmDeleteBtn.addEventListener("click", async () => {
-  if (!currentMovieId || !currentId) return;
+  if (!deletingId) return;
 
   confirmDeleteBtn.disabled = true;
   confirmDeleteBtn.textContent = "Deleting…";
 
   try {
-    const res = await adminService.comments.deleteComment(
-      currentMovieId,
-      currentId
-    );
+    const res = await adminService.contacts.deleteContact(deletingId);
     if (res.result) {
-      modal.hide();
-      currentMovieId = null;
-      currentId = null;
-      await loadComments();
+      deleteModal.hide();
+      deletingId = null;
+      await loadContacts();
     } else {
-      alert(res.message || "Failed to delete comment.");
+      alert(res.message || "Failed to delete contact.");
     }
   } catch (err) {
     console.error(err);
-    alert(err.message || "Failed to delete comment.");
+    alert(err.message || "Failed to delete contact.");
   } finally {
     confirmDeleteBtn.disabled = false;
     confirmDeleteBtn.textContent = "Delete";
@@ -149,4 +142,4 @@ document.querySelector(".logout-text")?.addEventListener("click", () => {
 });
 
 // ── Init ──────────────────────────────────────────────────────────────────────
-document.addEventListener("DOMContentLoaded", loadComments);
+document.addEventListener("DOMContentLoaded", loadContacts);
