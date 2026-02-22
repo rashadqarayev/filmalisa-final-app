@@ -88,13 +88,16 @@ HttpClient.js (No dependencies)
 ## What Each Module Exports
 
 ### HttpClient.js
+
 ```javascript
 export const httpClient = new HttpClient();
 export default HttpClient;
 ```
+
 **Provides:** HTTP request methods (GET, POST, PUT, DELETE, PATCH)
 
 ### ApiServices.js
+
 ```javascript
 export const authService = new AuthService(httpClient);
 export const profileService = new ProfileService(httpClient);
@@ -106,13 +109,16 @@ export const contactsService = new ContactsService(httpClient);
 export const commentsService = new CommentsService(httpClient);
 export const dashboardService = new DashboardService(httpClient);
 ```
+
 **Provides:** 9 service instances, each with domain-specific API methods
 
 ### AdminAPI.js
+
 ```javascript
 export const adminAPI = new AdminAPI();
 export default AdminAPI;
 ```
+
 **Provides:** Unified interface to all services + helper methods
 
 ## What adminAPI Contains
@@ -129,10 +135,10 @@ adminAPI = {
   contacts: contactsService,     // getAllContacts(), deleteContact()
   comments: commentsService,     // getAllComments(), deleteComment()
   dashboard: dashboardService,   // getStatistics(), getOverview()
-  
+
   // HTTP client
   http: httpClient,
-  
+
   // Helper methods
   setLanguage(lang),
   isAuthenticated(),
@@ -147,9 +153,10 @@ adminAPI = {
 ## How to Use in Your Pages
 
 ### Import Pattern
+
 ```javascript
 // At the top of your JS file
-import { adminAPI } from './AdminAPI.js';
+import { adminAPI } from "./AdminAPI.js";
 
 // Now you have access to everything!
 await adminAPI.auth.login(email, password);
@@ -158,16 +165,19 @@ await adminAPI.dashboard.getStatistics();
 ```
 
 ### No Need to Import Separately
+
 ❌ **DON'T DO THIS:**
+
 ```javascript
-import { httpClient } from './HttpClient.js';
-import { authService } from './ApiServices.js';
-import { adminAPI } from './AdminAPI.js';
+import { httpClient } from "./HttpClient.js";
+import { authService } from "./ApiServices.js";
+import { adminAPI } from "./AdminAPI.js";
 ```
 
 ✅ **DO THIS:**
+
 ```javascript
-import { adminAPI } from './AdminAPI.js';
+import { adminAPI } from "./AdminAPI.js";
 // adminAPI already has everything!
 ```
 
@@ -255,20 +265,24 @@ import { adminAPI } from './AdminAPI.js';
 ## Key Concepts
 
 ### 1. Single Source of Truth
+
 - `adminAPI` is the ONLY thing you import in page files
 - It gives you access to everything you need
 
 ### 2. Automatic Dependencies
+
 - Browser handles loading dependencies
 - You don't need to worry about load order
 - Modules load only once and are cached
 
 ### 3. No Global Pollution
+
 - No more `window.adminAPI` or global variables
 - Each module has its own scope
 - Only exported values are accessible
 
 ### 4. Clear Dependencies
+
 - Easy to see what each file needs
 - Better for code maintenance
 - Helps with debugging
@@ -276,36 +290,49 @@ import { adminAPI } from './AdminAPI.js';
 ## Comparison: Old vs New
 
 ### Old Way (Global Scripts)
+
 ```html
 <!-- HTML -->
-<script src="../js/HttpClient.js"></script>      <!-- 1 -->
-<script src="../js/ApiServices.js"></script>     <!-- 2 -->
-<script src="../js/AdminAPI.js"></script>        <!-- 3 -->
-<script src="../js/helpers.js"></script>         <!-- 4 -->
-<script src="../js/page.js"></script>            <!-- 5 -->
+<script src="../js/HttpClient.js"></script>
+<!-- 1 -->
+<script src="../js/ApiServices.js"></script>
+<!-- 2 -->
+<script src="../js/AdminAPI.js"></script>
+<!-- 3 -->
+<script src="../js/helpers.js"></script>
+<!-- 4 -->
+<script src="../js/page.js"></script>
+<!-- 5 -->
 ```
+
 ```javascript
 // page.js (no imports, uses globals)
 // Hopes that adminAPI is defined
 const response = await adminAPI.auth.login(email, password);
 ```
+
 **Problems:**
+
 - ❌ Must load in exact order
 - ❌ Pollutes global namespace
 - ❌ Hard to track dependencies
 - ❌ Easy to make mistakes
 
 ### New Way (ES6 Modules)
+
 ```html
 <!-- HTML -->
 <script type="module" src="../js/page.js"></script>
 ```
+
 ```javascript
 // page.js
-import { adminAPI } from './AdminAPI.js';
+import { adminAPI } from "./AdminAPI.js";
 const response = await adminAPI.auth.login(email, password);
 ```
+
 **Benefits:**
+
 - ✅ Browser handles load order
 - ✅ Clean namespace
 - ✅ Clear dependencies
@@ -314,15 +341,17 @@ const response = await adminAPI.auth.login(email, password);
 ## Browser Support
 
 ES6 modules work in all modern browsers:
+
 - ✅ Chrome 61+
 - ✅ Firefox 60+
 - ✅ Safari 11+
 - ✅ Edge 16+
 
 **Note:** Requires serving files via HTTP (not file://)
+
 - Use Live Server, http-server, or similar
 - Local web server required for development
 
 ---
 
-*This diagram shows how everything connects in your admin panel!*
+_This diagram shows how everything connects in your admin panel!_

@@ -41,54 +41,61 @@ function setupEventListeners() {
 ## Examples by Page
 
 ### Dashboard (dashboard.js)
+
 ```javascript
-import { adminAPI } from './AdminAPI.js';
+import { adminAPI } from "./AdminAPI.js";
 
 if (!adminAPI.isAuthenticated()) {
-  window.location.href = '/admin/html/login.html';
+  window.location.href = "/admin/html/login.html";
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   await loadDashboardStats();
 });
 
 async function loadDashboardStats() {
   try {
     const response = await adminAPI.dashboard.getStatistics();
-    
+
     if (response.result) {
-      document.getElementById('total-users').textContent = response.data.users;
-      document.getElementById('total-movies').textContent = response.data.movies;
-      document.getElementById('total-actors').textContent = response.data.actors;
-      document.getElementById('total-categories').textContent = response.data.categories;
-      document.getElementById('total-comments').textContent = response.data.comments;
-      document.getElementById('total-contacts').textContent = response.data.contacts;
+      document.getElementById("total-users").textContent = response.data.users;
+      document.getElementById("total-movies").textContent =
+        response.data.movies;
+      document.getElementById("total-actors").textContent =
+        response.data.actors;
+      document.getElementById("total-categories").textContent =
+        response.data.categories;
+      document.getElementById("total-comments").textContent =
+        response.data.comments;
+      document.getElementById("total-contacts").textContent =
+        response.data.contacts;
     }
   } catch (error) {
-    console.error('Failed to load dashboard stats:', error);
+    console.error("Failed to load dashboard stats:", error);
   }
 }
 
 // Logout handler
-document.querySelector('.logout-text')?.addEventListener('click', () => {
-  if (confirm('Are you sure you want to logout?')) {
+document.querySelector(".logout-text")?.addEventListener("click", () => {
+  if (confirm("Are you sure you want to logout?")) {
     adminAPI.auth.logout();
-    window.location.href = '/admin/html/login.html';
+    window.location.href = "/admin/html/login.html";
   }
 });
 ```
 
 ### Categories (categories.js)
+
 ```javascript
-import { adminAPI } from './AdminAPI.js';
+import { adminAPI } from "./AdminAPI.js";
 
 if (!adminAPI.isAuthenticated()) {
-  window.location.href = '/admin/html/login.html';
+  window.location.href = "/admin/html/login.html";
 }
 
 let categories = [];
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   await loadCategories();
   setupEventListeners();
 });
@@ -101,13 +108,15 @@ async function loadCategories() {
       renderCategories(categories);
     }
   } catch (error) {
-    console.error('Failed to load categories:', error);
+    console.error("Failed to load categories:", error);
   }
 }
 
 function renderCategories(data) {
-  const tbody = document.getElementById('categories-tbody');
-  tbody.innerHTML = data.map(cat => `
+  const tbody = document.getElementById("categories-tbody");
+  tbody.innerHTML = data
+    .map(
+      (cat) => `
     <tr>
       <td>${cat.id}</td>
       <td>${cat.name}</td>
@@ -117,57 +126,64 @@ function renderCategories(data) {
         <button onclick="deleteCategory(${cat.id})">Delete</button>
       </td>
     </tr>
-  `).join('');
+  `
+    )
+    .join("");
 }
 
 function setupEventListeners() {
-  document.getElementById('create-btn')?.addEventListener('click', openCreateModal);
-  document.getElementById('category-form')?.addEventListener('submit', handleSubmit);
+  document
+    .getElementById("create-btn")
+    ?.addEventListener("click", openCreateModal);
+  document
+    .getElementById("category-form")
+    ?.addEventListener("submit", handleSubmit);
 }
 
 async function handleSubmit(e) {
   e.preventDefault();
-  const name = document.getElementById('category-name').value;
-  
+  const name = document.getElementById("category-name").value;
+
   try {
     const response = await adminAPI.categories.createCategory(name);
     if (response.result) {
-      alert('Category created successfully!');
+      alert("Category created successfully!");
       await loadCategories();
       closeModal();
     }
   } catch (error) {
-    alert('Failed to create category');
+    alert("Failed to create category");
   }
 }
 
 async function deleteCategory(id) {
-  if (!confirm('Are you sure?')) return;
-  
+  if (!confirm("Are you sure?")) return;
+
   try {
     const response = await adminAPI.categories.deleteCategory(id);
     if (response.result) {
-      alert('Category deleted!');
+      alert("Category deleted!");
       await loadCategories();
     }
   } catch (error) {
-    alert('Failed to delete category');
+    alert("Failed to delete category");
   }
 }
 ```
 
 ### Actors (actors.js)
+
 ```javascript
-import { adminAPI } from './AdminAPI.js';
+import { adminAPI } from "./AdminAPI.js";
 
 if (!adminAPI.isAuthenticated()) {
-  window.location.href = '/admin/html/login.html';
+  window.location.href = "/admin/html/login.html";
 }
 
 let actors = [];
 let editingActorId = null;
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   await loadActors();
   setupEventListeners();
 });
@@ -180,13 +196,15 @@ async function loadActors() {
       renderActors(actors);
     }
   } catch (error) {
-    console.error('Failed to load actors:', error);
+    console.error("Failed to load actors:", error);
   }
 }
 
 function renderActors(data) {
-  const tbody = document.getElementById('actorsTableBody');
-  tbody.innerHTML = data.map(actor => `
+  const tbody = document.getElementById("actorsTableBody");
+  tbody.innerHTML = data
+    .map(
+      (actor) => `
     <tr>
       <td>${actor.id}</td>
       <td>${actor.name}</td>
@@ -197,21 +215,27 @@ function renderActors(data) {
         <button onclick="deleteActor(${actor.id})">Delete</button>
       </td>
     </tr>
-  `).join('');
+  `
+    )
+    .join("");
 }
 
 function setupEventListeners() {
-  document.querySelector('.create-btn')?.addEventListener('click', openCreateModal);
-  document.getElementById('actorForm')?.addEventListener('submit', handleSubmit);
+  document
+    .querySelector(".create-btn")
+    ?.addEventListener("click", openCreateModal);
+  document
+    .getElementById("actorForm")
+    ?.addEventListener("submit", handleSubmit);
 }
 
 async function handleSubmit(e) {
   e.preventDefault();
-  
+
   const actorData = {
-    name: document.getElementById('actorName').value,
-    surname: document.getElementById('actorSurname').value,
-    img_url: document.getElementById('actorImage').value
+    name: document.getElementById("actorName").value,
+    surname: document.getElementById("actorSurname").value,
+    img_url: document.getElementById("actorImage").value,
   };
 
   try {
@@ -223,26 +247,26 @@ async function handleSubmit(e) {
     }
 
     if (response.result) {
-      alert(editingActorId ? 'Actor updated!' : 'Actor created!');
+      alert(editingActorId ? "Actor updated!" : "Actor created!");
       await loadActors();
       closeModal();
     }
   } catch (error) {
-    alert('Operation failed');
+    alert("Operation failed");
   }
 }
 
 async function deleteActor(id) {
-  if (!confirm('Are you sure?')) return;
-  
+  if (!confirm("Are you sure?")) return;
+
   try {
     const response = await adminAPI.actors.deleteActor(id);
     if (response.result) {
-      alert('Actor deleted!');
+      alert("Actor deleted!");
       await loadActors();
     }
   } catch (error) {
-    alert('Failed to delete actor');
+    alert("Failed to delete actor");
   }
 }
 
@@ -252,23 +276,20 @@ window.deleteActor = deleteActor;
 ```
 
 ### Movies (movies-page.js)
+
 ```javascript
-import { adminAPI } from './AdminAPI.js';
+import { adminAPI } from "./AdminAPI.js";
 
 if (!adminAPI.isAuthenticated()) {
-  window.location.href = '/admin/html/login.html';
+  window.location.href = "/admin/html/login.html";
 }
 
 let movies = [];
 let categories = [];
 let actors = [];
 
-document.addEventListener('DOMContentLoaded', async () => {
-  await Promise.all([
-    loadMovies(),
-    loadCategories(),
-    loadActors()
-  ]);
+document.addEventListener("DOMContentLoaded", async () => {
+  await Promise.all([loadMovies(), loadCategories(), loadActors()]);
   setupEventListeners();
 });
 
@@ -280,7 +301,7 @@ async function loadMovies() {
       renderMovies(movies);
     }
   } catch (error) {
-    console.error('Failed to load movies:', error);
+    console.error("Failed to load movies:", error);
   }
 }
 
@@ -292,7 +313,7 @@ async function loadCategories() {
       renderCategoryOptions(categories);
     }
   } catch (error) {
-    console.error('Failed to load categories:', error);
+    console.error("Failed to load categories:", error);
   }
 }
 
@@ -304,18 +325,22 @@ async function loadActors() {
       renderActorOptions(actors);
     }
   } catch (error) {
-    console.error('Failed to load actors:', error);
+    console.error("Failed to load actors:", error);
   }
 }
 
 function setupEventListeners() {
-  document.getElementById('search-input')?.addEventListener('input', handleSearch);
-  document.getElementById('movie-form')?.addEventListener('submit', handleSubmit);
+  document
+    .getElementById("search-input")
+    ?.addEventListener("input", handleSearch);
+  document
+    .getElementById("movie-form")
+    ?.addEventListener("submit", handleSubmit);
 }
 
 async function handleSearch(e) {
   const query = e.target.value;
-  
+
   if (!query.trim()) {
     renderMovies(movies);
     return;
@@ -327,21 +352,21 @@ async function handleSearch(e) {
       renderMovies(response.data);
     }
   } catch (error) {
-    console.error('Search failed:', error);
+    console.error("Search failed:", error);
   }
 }
 
 async function deleteMovie(id) {
-  if (!confirm('Are you sure?')) return;
-  
+  if (!confirm("Are you sure?")) return;
+
   try {
     const response = await adminAPI.movies.deleteMovie(id);
     if (response.result) {
-      alert('Movie deleted!');
+      alert("Movie deleted!");
       await loadMovies();
     }
   } catch (error) {
-    alert('Failed to delete movie');
+    alert("Failed to delete movie");
   }
 }
 
@@ -349,16 +374,17 @@ window.deleteMovie = deleteMovie;
 ```
 
 ### Users (users.js)
+
 ```javascript
-import { adminAPI } from './AdminAPI.js';
+import { adminAPI } from "./AdminAPI.js";
 
 if (!adminAPI.isAuthenticated()) {
-  window.location.href = '/admin/html/login.html';
+  window.location.href = "/admin/html/login.html";
 }
 
 let users = [];
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   await loadUsers();
 });
 
@@ -370,24 +396,30 @@ async function loadUsers() {
       renderUsers(users);
     }
   } catch (error) {
-    console.error('Failed to load users:', error);
+    console.error("Failed to load users:", error);
   }
 }
 
 function renderUsers(data) {
-  const tbody = document.getElementById('users-tbody');
-  tbody.innerHTML = data.map(user => `
+  const tbody = document.getElementById("users-tbody");
+  tbody.innerHTML = data
+    .map(
+      (user) => `
     <tr>
       <td>${user.id}</td>
       <td>${user.full_name}</td>
       <td>${user.email}</td>
-      <td>${user.img_url ? `<img src="${user.img_url}" width="40">` : 'No image'}</td>
+      <td>${
+        user.img_url ? `<img src="${user.img_url}" width="40">` : "No image"
+      }</td>
       <td>${new Date(user.created_at).toLocaleDateString()}</td>
       <td>
         <button onclick="viewUser(${user.id})">View</button>
       </td>
     </tr>
-  `).join('');
+  `
+    )
+    .join("");
 }
 
 async function viewUser(id) {
@@ -395,10 +427,10 @@ async function viewUser(id) {
     const response = await adminAPI.users.getUserById(id);
     if (response.result) {
       // Show user details modal
-      console.log('User details:', response.data);
+      console.log("User details:", response.data);
     }
   } catch (error) {
-    console.error('Failed to load user:', error);
+    console.error("Failed to load user:", error);
   }
 }
 
@@ -406,16 +438,17 @@ window.viewUser = viewUser;
 ```
 
 ### Comments (comment.js)
+
 ```javascript
-import { adminAPI } from './AdminAPI.js';
+import { adminAPI } from "./AdminAPI.js";
 
 if (!adminAPI.isAuthenticated()) {
-  window.location.href = '/admin/html/login.html';
+  window.location.href = "/admin/html/login.html";
 }
 
 let comments = [];
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   await loadComments();
 });
 
@@ -427,36 +460,42 @@ async function loadComments() {
       renderComments(comments);
     }
   } catch (error) {
-    console.error('Failed to load comments:', error);
+    console.error("Failed to load comments:", error);
   }
 }
 
 function renderComments(data) {
-  const tbody = document.getElementById('comments-tbody');
-  tbody.innerHTML = data.map(comment => `
+  const tbody = document.getElementById("comments-tbody");
+  tbody.innerHTML = data
+    .map(
+      (comment) => `
     <tr>
       <td>${comment.id}</td>
       <td>${comment.movie.title}</td>
       <td>${comment.comment}</td>
       <td>${new Date(comment.created_at).toLocaleDateString()}</td>
       <td>
-        <button onclick="deleteComment(${comment.movie.id}, ${comment.id})">Delete</button>
+        <button onclick="deleteComment(${comment.movie.id}, ${
+        comment.id
+      })">Delete</button>
       </td>
     </tr>
-  `).join('');
+  `
+    )
+    .join("");
 }
 
 async function deleteComment(movieId, commentId) {
-  if (!confirm('Are you sure?')) return;
-  
+  if (!confirm("Are you sure?")) return;
+
   try {
     const response = await adminAPI.comments.deleteComment(movieId, commentId);
     if (response.result) {
-      alert('Comment deleted!');
+      alert("Comment deleted!");
       await loadComments();
     }
   } catch (error) {
-    alert('Failed to delete comment');
+    alert("Failed to delete comment");
   }
 }
 
@@ -464,16 +503,17 @@ window.deleteComment = deleteComment;
 ```
 
 ### Contacts (contactUS-page.js)
+
 ```javascript
-import { adminAPI } from './AdminAPI.js';
+import { adminAPI } from "./AdminAPI.js";
 
 if (!adminAPI.isAuthenticated()) {
-  window.location.href = '/admin/html/login.html';
+  window.location.href = "/admin/html/login.html";
 }
 
 let contacts = [];
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   await loadContacts();
 });
 
@@ -485,13 +525,15 @@ async function loadContacts() {
       renderContacts(contacts);
     }
   } catch (error) {
-    console.error('Failed to load contacts:', error);
+    console.error("Failed to load contacts:", error);
   }
 }
 
 function renderContacts(data) {
-  const tbody = document.getElementById('contacts-tbody');
-  tbody.innerHTML = data.map(contact => `
+  const tbody = document.getElementById("contacts-tbody");
+  tbody.innerHTML = data
+    .map(
+      (contact) => `
     <tr>
       <td>${contact.id}</td>
       <td>${contact.full_name}</td>
@@ -502,20 +544,22 @@ function renderContacts(data) {
         <button onclick="deleteContact(${contact.id})">Delete</button>
       </td>
     </tr>
-  `).join('');
+  `
+    )
+    .join("");
 }
 
 async function deleteContact(id) {
-  if (!confirm('Are you sure?')) return;
-  
+  if (!confirm("Are you sure?")) return;
+
   try {
     const response = await adminAPI.contacts.deleteContact(id);
     if (response.result) {
-      alert('Contact deleted!');
+      alert("Contact deleted!");
       await loadContacts();
     }
   } catch (error) {
-    alert('Failed to delete contact');
+    alert("Failed to delete contact");
   }
 }
 
@@ -534,6 +578,7 @@ window.deleteContact = deleteContact;
 ## Common Patterns
 
 ### Loading Data
+
 ```javascript
 async function loadData() {
   try {
@@ -551,16 +596,17 @@ async function loadData() {
 ```
 
 ### Creating/Updating
+
 ```javascript
 async function handleSubmit(e) {
   e.preventDefault();
   const data = getFormData();
-  
+
   try {
-    const response = editingId 
+    const response = editingId
       ? await adminAPI.[service].update[Resource](editingId, data)
       : await adminAPI.[service].create[Resource](data);
-    
+
     if (response.result) {
       alert('Success!');
       await loadData();
@@ -573,10 +619,11 @@ async function handleSubmit(e) {
 ```
 
 ### Deleting
+
 ```javascript
 async function deleteItem(id) {
   if (!confirm('Are you sure?')) return;
-  
+
   try {
     const response = await adminAPI.[service].delete[Resource](id);
     if (response.result) {
