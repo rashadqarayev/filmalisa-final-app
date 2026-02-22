@@ -102,11 +102,6 @@ export class Pagination {
     const start = (current - 1) * this._perPage + 1;
     const end = Math.min(current * this._perPage, this._data.length);
 
-    if (total <= 1) {
-      this._container.innerHTML = "";
-      return;
-    }
-
     this._container.innerHTML = `
       <div class="pg-info">
         Showing <strong>${start}–${end}</strong> of <strong>${
