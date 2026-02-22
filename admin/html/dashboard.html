@@ -20,6 +20,7 @@
 
   <body>
     <div class="dashBoardContainer">
+      <!-- Navbar start -->
       <aside class="asideContainer">
         <div class="upperAside">
           <div class="logoArea">
@@ -68,6 +69,7 @@
           <span class="logout-text">Logout</span>
         </div>
       </aside>
+      <!-- Navbar end -->
 
       <!-- MAIN -->
       <main>
@@ -140,11 +142,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Load API dependencies in order -->
-    <script src="../js/HttpClient.js"></script>
-    <script src="../js/ApiServices.js"></script>
-
-    <!-- Load API as ES6 module -->
+    <!-- Load dashboard as ES6 module (it will import all dependencies) -->
     <script type="module" src="../js/dashboard.js"></script>
   </body>
 </html>

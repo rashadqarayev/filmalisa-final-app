@@ -14,6 +14,13 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
     <!-- CSS ler -->
     <link rel="stylesheet" href="../../global.css" />
@@ -45,7 +52,7 @@
             <span class="sideBar-text">Categories</span>
           </a>
 
-          <a href="./user.html" class="sideBar-item usersItem">
+          <a href="./user.html" class="sideBar-item usersItem active">
             <img src="../../assets/images/user.png" alt="" />
             <span class="sideBar-text">Users</span>
           </a>
@@ -95,6 +102,7 @@
                 <th scope="col">Fullname</th>
                 <th scope="col">Email</th>
                 <th scope="col">Image</th>
+                <th scope="col">Operation</th>
               </tr>
             </thead>
             <tbody id="usersTableBody">
@@ -122,9 +130,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Load API dependencies in order -->
-    <script src="../js/HttpClient.js"></script>
 
     <!-- Load API as ES6 module -->
     <script type="module" src="../js/users.js"></script>

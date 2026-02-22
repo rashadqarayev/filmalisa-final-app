@@ -106,25 +106,8 @@
                 <th scope="col">Remove</th>
               </tr>
             </thead>
-            <tbody>
-              <tr class="table-row">
-                <th scope="row">1</th>
-
-                <td>Xeyyam Elizade</td>
-
-                <td>Xeyyamelizade5@gmail.com</td>
-
-                <td>Super</td>
-
-                <td class="operation">
-                  <i
-                    class="fa-solid fa-trash"
-                    onclick="showDeleteModal()"
-                    style="cursor: pointer"
-                  >
-                  </i>
-                </td>
-              </tr>
+            <tbody id="contactsTableBody">
+              <!-- populated by JS -->
             </tbody>
           </table>
 
@@ -159,7 +142,7 @@
                   <button class="btn-cancel" data-bs-dismiss="modal">
                     Cancel
                   </button>
-                  <button class="btn-delete-confirm" data-bs-dismiss="modal">
+                  <button class="btn-delete-confirm" id="confirmDeleteBtn">
                     Delete
                   </button>
                 </div>
@@ -173,6 +156,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Load API as ES6 module -->
-    <script type="module" src="../js/contactUS-page.js"></script>
+    <script type="module" src="../js/contactUs.js"></script>
   </body>
 </html>
