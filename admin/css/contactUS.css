@@ -153,3 +153,11 @@ main {
 .modal.fade .modal-dialog {
     transition: transform 0.3s ease-out;
 }
+.pagination-container {
+  width: 90%;
+  margin: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}

@@ -110,6 +110,7 @@
           </div>
         </header>
 
+
         <!-- TABLE SECTION -->
         <section class="section">
           <table class="table">
@@ -125,38 +126,9 @@
             </thead>
 
             <tbody id="moviesTbody">
-              <!-- Nümunə row (JS ilə dolduracaqsan, indi görünsün deyə saxladım)bbbb -->
-              <tr class="table-row">
-                <th scope="row">1</th>
+              <!-- Nümunə row (JS ilə doldurulacaq-->
 
-                <td class="title-movie">
-                  <img
-                    src="../../assets/images/table-inner-img.svg"
-                    alt="icon"
-                  />
-                  <p>Lost in space</p>
-                </td>
-
-                <td>Lorem ipsum test...</td>
-                <td>Action</td>
-                <td><span>7.6</span></td>
-
-                <td class="operation">
-                  <i
-                    class="fa-solid fa-pen-to-square edit-btn"
-                    style="cursor: pointer"
-                    data-bs-toggle="modal"
-                    data-bs-target="#editModal"
-                  ></i>
-
-                  <i
-                    class="fa-solid fa-trash"
-                    style="cursor: pointer"
-                    data-bs-toggle="modal"
-                    data-bs-target="#deleteModal"
-                  ></i>
-                </td>
-              </tr>
+              
             </tbody>
           </table>
         </section>
@@ -174,24 +146,21 @@
         <div class="modal-content edit-form">
           <!-- sol -->
           <div class="editModal">
-            <input id="movieTitle" type="text" placeholder="title" />
-            <textarea id="movieOverview" placeholder="overview"></textarea>
-            <input id="movieCover" type="text" placeholder="cover url" />
+            <input id="movieTitle" type="text" placeholder="Title" />
+            <textarea id="movieOverview" placeholder="Overview"></textarea>
+            <input id="movieCover" type="text" placeholder="Cover Url" />
             <input
               id="movieTrailer"
               type="text"
-              placeholder="fragman (youtube embed url)"
+              placeholder="Fragman (youtube embed url)"
             />
-            <input id="movieWatch" type="text" placeholder="watch url" />
-            <input id="movieImdb" type="text" placeholder="imdb" />
-            <input id="movieRuntime" type="text" placeholder="runtime minute" />
+            <input id="movieWatch" type="text" placeholder="Watch Url" />
+            <input id="movieImdb" type="text" placeholder="IMDB" />
+            <input id="movieRuntime" type="text" placeholder="Runtime minute" />
 
+            
             <select id="catSelect" class="form-select dark-select">
-              <option value="Action">Action</option>
-              <option value="Drama">Drama</option>
-              <option value="Comedy">Comedy</option>
-              <option value="Sci-Fi">Sci-Fi</option>
-              <option value="Horror">Horror</option>
+              
             </select>
 
             <!-- Actors Custom Multi-Select -->
@@ -201,7 +170,7 @@
                 <div class="cms-tags" id="cmsTags">
                   <span class="cms-placeholder">Select Actors</span>
                 </div>
-                <span class="cms-arrow">&#8964;</span>
+                <span class="cms-arrow"></span>
               </div>
               <!-- Dropdown list -->
               <div class="cms-dropdown" id="cmsDropdown">
@@ -258,7 +227,8 @@
           <div class="modal-body">
             <span id="deleteModalText">
               Are you sure you want to delete
-              <strong id="deleteItemName" style="color: #fff"></strong>? This
+              <strong id="deleteItemName" style="color: #fff"></strong>? 
+               <br> This
               action cannot be undone.
             </span>
           </div>
@@ -282,5 +252,6 @@
 
     <!-- Load API as ES6 module -->
     <script type="module" src="../js/movies.js"></script>
+    <!-- <script src="../js/util/pagination.js"></script> -->
   </body>
 </html>

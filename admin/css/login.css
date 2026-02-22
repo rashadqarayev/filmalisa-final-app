@@ -149,3 +149,12 @@ body {
   display: none;
   color: red;
 }
+
+.pagination-container {
+  width: 90%;
+  margin: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}

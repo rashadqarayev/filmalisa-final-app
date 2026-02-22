@@ -33,18 +33,22 @@ main {
 table .title-movie {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   gap: 10px;
+  width: 100%;
+  height: 80px;
 
   p {
     margin: 0;
   }
 }
 
+
 .title-movie img {
   width: 30px;
   height: 30px;
   object-fit: cover;
+  border-radius: 50%;
 }
 
 .operation i:first-child {
@@ -64,26 +68,28 @@ table .title-movie {
 }
 
 .operation i:hover {
+    transition: all 0.3s ease;
   transform: scale(1.2);
   opacity: 0.8;
 }
 
 /* Delete confirm modal */
 #deleteModal .modal-content {
-  background: #1e1e30;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--bg-color);
+  /* border: 1px solid rgba(255, 255, 255, 0.08); */
   border-radius: 10px;
 }
 
 #deleteModal .modal-header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  /* border-bottom: 1px solid rgba(255, 255, 255, 0.07); */
+  border: none;
   padding: 16px 20px;
 }
 
 #deleteModal .modal-title {
   font-size: 15px;
   font-weight: 600;
-  color: #fff;
+  color: var(--card-number-color);
 }
 
 #deleteModal .btn-close {
@@ -93,29 +99,41 @@ table .title-movie {
 #deleteModal .modal-body {
   padding: 20px;
   color: #aaa;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.6;
 }
 
 #deleteModal .modal-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  /* border-top: 1px solid rgba(255, 255, 255, 0.07); */
+  border: none;
   padding: 12px 20px;
   gap: 8px;
 }
 
 .btn-cancel {
-  background: #2a2a3e;
+  background: #2a27cf;
   color: #ccc;
-  border: 1px solid #3a3a52;
+  /* border: 1px solid #3a3a52; */
+  border: none;
   padding: 7px 18px;
   border-radius: 6px;
-  font-size: 13px;
+  font-size: 16px;
   cursor: pointer;
 }
 
 .btn-cancel:hover {
-  background: #333350;
+  background: #1111d8;
   color: #fff;
+}
+
+
+.btn-close{
+    border-radius: 50%;
+    background-color: rgb(199,177,174 );
+    &:hover{
+        background-color: rgb(3,252,36);
+
+    }
 }
 
 .btn-delete-confirm {
@@ -124,7 +142,7 @@ table .title-movie {
   border: none;
   padding: 7px 18px;
   border-radius: 6px;
-  font-size: 13px;
+  font-size: 16px;
   cursor: pointer;
 }
 
@@ -139,6 +157,7 @@ table .title-movie {
   color: #232b54;
   border-radius: 24px;
   transition: all 1s ease-in;
+  overflow: visible !important;
 }
 
 .edit-modal textarea {
@@ -166,6 +185,7 @@ table .title-movie {
   padding: 40px 0px;
   gap: 20px;
   margin-left: 40px;
+  overflow: visible !important;
 }
 
 .edit-right {
@@ -202,11 +222,14 @@ table .title-movie {
   background-color: #171616;
 }
 
+
+
 .edit-form {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+  overflow: visible !important;
 }
 
 .edit-modal .modal-header {
@@ -223,17 +246,38 @@ table .title-movie {
 
 .edit-modal select {
   display: flex;
-  border: none;
+  /* border: none; */
   outline: none;
+  /* border-radius: 8px; */
   padding: 8px 16px;
-  color: #232b54;
-
-  border-radius: 12px;
-  border: 1px solid #232b54;
-  background-color: #171616;
-  align-items: flex-start;
+  color: #323b54;
+  font-size: 18px;
+  line-height: 16px;
+  font-weight: 400;
+  min-height: 38px;
+  border-radius: 8px;
+  /* border: 1px solid #323b54; */
+  /* background-color: #171616; */
+  align-items: center;
   justify-content: flex-start;
 }
+
+.edit-modal option {
+  background-color: #171616;
+  color: #323b54;
+  font-size: 18px;
+  line-height: 16px;
+  font-weight: 400;
+  border: none;
+}
+
+.edit-modal select:focus, 
+.edit-modal select {
+    outline: none !important;
+    box-shadow: none !important; /* Göy kölgəni silir */
+    border: 1px solid #323b54 !important; /* Standart rəngdə saxlayır */
+}
+
 
 .footer-div {
   /* width: 60%; */
@@ -266,6 +310,7 @@ table .title-movie {
 .custom-multiselect {
   position: relative;
   width: 100%;
+  z-index: 100;
 }
 
 /* Trigger row — styled exactly like .edit-modal select */
@@ -273,20 +318,22 @@ table .title-movie {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
   min-height: 38px;
   padding: 6px 16px;
+  box-sizing: border-box;
   border-radius: 8px;
   border: 1px solid #323b54;
   background-color: #171616;
   cursor: pointer;
   user-select: none;
   gap: 8px;
-  flex-wrap: nowrap;
 }
 
 .cms-trigger:focus-within,
 .cms-trigger.open {
   border-color: #6c5ce7;
+  /* transition: all 0.5s ease; */
 }
 
 /* Tag area inside trigger */
@@ -336,28 +383,36 @@ table .title-movie {
 /* Arrow chevron */
 .cms-arrow {
   color: #323b54;
-  font-size: 18px;
-  transition: transform 0.2s;
+  font-size: 12px;
+  transition: transform 0.3s ease;
   flex-shrink: 0;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  line-height: 16px;
 }
 
+
+
 .custom-multiselect.open .cms-arrow {
-  transform: rotate(180deg);
+  transform: scaleY(-1);
 }
 
 /* Dropdown panel */
 .cms-dropdown {
   display: none;
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  right: 0;
-  z-index: 9999;
+  position: fixed;
+  z-index: 10000;
   background: #1a1a2e;
   border: 1px solid #323b54;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  min-width: 200px;
+  width: 100%;
+  max-width: 400px;
 }
 
 .custom-multiselect.open .cms-dropdown {
@@ -464,4 +519,18 @@ table .title-movie {
 /* Modallar açılarkən yumşaq keçid olması üçün (opsional) */
 .modal.fade .modal-dialog {
   transition: transform 0.3s ease-out;
+}
+
+
+
+
+.pagination-container {
+  width: 90%;
+  margin: 24px;
+  margin-bottom: 50px;
+
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }

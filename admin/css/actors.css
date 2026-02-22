@@ -190,4 +190,11 @@ dialog:not([open]) {
     cursor: pointer;
 }
 
-
+.pagination-container {
+  width: 90%;
+  margin: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}

@@ -1,5 +1,6 @@
 import { adminService } from "./services/AdminService.js";
 import { setActiveNavItem } from "./util/active.js";
+import { Pagination } from "./util/pagination.js";
 
 // Check authentication
 if (!adminService.isAuthenticated()) {
@@ -14,8 +15,6 @@ let currentEditId = null;
 let allMovies = [];
 let allCategories = [];
 let allActors = [];
-let currentPage = 1;
-let itemsPerPage = 10;
 let filteredMovies = [];
 
 // DOM Elements
@@ -25,6 +24,21 @@ const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
 const deleteItemName = document.getElementById("deleteItemName");
 const catSelect = document.getElementById("catSelect");
 const previewImg = document.getElementById("previewImg");
+
+// Pagination setup
+let paginationEl = document.getElementById("movies-pagination");
+if (!paginationEl) {
+  paginationEl = document.createElement("div");
+  paginationEl.id = "movies-pagination";
+  paginationEl.className = "pagination-container";
+  document.querySelector(".section")?.after(paginationEl);
+}
+
+const pager = new Pagination({
+  containerSelector: paginationEl,
+  itemsPerPage: 6,
+  onPageChange: (pageItems) => renderMoviesTable(pageItems),
+});
 
 // Custom multi-select elements
 const cmsWrapper = document.getElementById("actorsMultiSelect");
@@ -41,12 +55,22 @@ const selectedActorIds = new Set();
 // CUSTOM MULTI-SELECT LOGIC
 // ============================================
 
+/** Position the fixed dropdown relative to the trigger */
+function cmsPositionDropdown() {
+  const triggerRect = cmsTrigger.getBoundingClientRect();
+  cmsDropdown.style.position = "fixed";
+  cmsDropdown.style.left = triggerRect.left + "px";
+  cmsDropdown.style.top = (triggerRect.bottom + 4) + "px";
+  cmsDropdown.style.width = triggerRect.width + "px";
+}
+
 /** Toggle dropdown open/closed */
 function cmsToggle(forceClose = false) {
   if (forceClose || cmsWrapper.classList.contains("open")) {
     cmsWrapper.classList.remove("open");
   } else {
     cmsWrapper.classList.add("open");
+    cmsPositionDropdown();
     cmsSearch.value = "";
     cmsFilterList("");
     cmsSearch.focus();
@@ -166,6 +190,19 @@ document.addEventListener("click", (e) => {
   }
 });
 
+// Reposition dropdown on window resize/scroll
+window.addEventListener("resize", () => {
+  if (cmsWrapper.classList.contains("open")) {
+    cmsPositionDropdown();
+  }
+});
+
+document.addEventListener("scroll", () => {
+  if (cmsWrapper.classList.contains("open")) {
+    cmsPositionDropdown();
+  }
+}, true);
+
 // Form inputs
 const movieTitleInput = document.getElementById("movieTitle");
 const movieOverviewInput = document.getElementById("movieOverview");
@@ -198,9 +235,7 @@ async function loadMovies() {
     if (response.result && response.data) {
       allMovies = response.data;
       filteredMovies = [...allMovies];
-      currentPage = 1;
-      renderMoviesTable();
-      renderPagination();
+      pager.setData(filteredMovies);
     } else {
       console.error("Failed to load movies:", response.message);
     }
@@ -249,15 +284,10 @@ async function loadActors() {
 /**
  * Render movies table
  */
-function renderMoviesTable() {
+function renderMoviesTable(pageItems = filteredMovies) {
   if (!moviesTbody) return;
 
-  // Get paginated movies
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedMovies = filteredMovies.slice(startIndex, endIndex);
-
-  if (paginatedMovies.length === 0) {
+  if (!pageItems || pageItems.length === 0) {
     moviesTbody.innerHTML = `
       <tr>
         <td colspan="6" style="text-align: center; padding: 20px;">
@@ -268,7 +298,7 @@ function renderMoviesTable() {
     return;
   }
 
-  moviesTbody.innerHTML = paginatedMovies
+  moviesTbody.innerHTML = pageItems
     .map(
       (movie) => `
     <tr class="table-row">
@@ -324,173 +354,6 @@ function renderCategoryOptions(categories) {
 function renderActorOptions(actors) {
   cmsBuildList();
   cmsRenderTags();
-}
-
-/**
- * Render pagination controls
- */
-function renderPagination() {
-  const totalPages = Math.ceil(filteredMovies.length / itemsPerPage);
-
-  // Find or create pagination container
-  let paginationContainer = document.getElementById("pagination-container");
-
-  if (!paginationContainer) {
-    // Create pagination container after the table
-    const section = document.querySelector(".section");
-    paginationContainer = document.createElement("div");
-    paginationContainer.id = "pagination-container";
-    paginationContainer.style.cssText = `
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px;
-      margin-top: 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 8px;
-    `;
-    section.appendChild(paginationContainer);
-  }
-
-  if (totalPages <= 1) {
-    paginationContainer.innerHTML = "";
-    return;
-  }
-
-  // Generate pagination HTML
-  paginationContainer.innerHTML = `
-    <div style="color: #fff;">
-      Showing ${(currentPage - 1) * itemsPerPage + 1} to ${Math.min(
-    currentPage * itemsPerPage,
-    filteredMovies.length
-  )} of ${filteredMovies.length} movies
-    </div>
-    <div style="display: flex; gap: 10px; align-items: center;">
-      <button 
-        onclick="goToPage(${currentPage - 1})" 
-        ${currentPage === 1 ? "disabled" : ""}
-        style="padding: 8px 12px; background: ${
-          currentPage === 1 ? "#444" : "#6c5ce7"
-        }; color: #fff; border: none; border-radius: 4px; cursor: ${
-    currentPage === 1 ? "not-allowed" : "pointer"
-  };">
-        Previous
-      </button>
-      
-      <div style="display: flex; gap: 5px;">
-        ${generatePageButtons(currentPage, totalPages)}
-      </div>
-      
-      <button 
-        onclick="goToPage(${currentPage + 1})" 
-        ${currentPage === totalPages ? "disabled" : ""}
-        style="padding: 8px 12px; background: ${
-          currentPage === totalPages ? "#444" : "#6c5ce7"
-        }; color: #fff; border: none; border-radius: 4px; cursor: ${
-    currentPage === totalPages ? "not-allowed" : "pointer"
-  };">
-        Next
-      </button>
-      
-      <select 
-        onchange="changeItemsPerPage(this.value)" 
-        style="padding: 8px; background: #2d3436; color: #fff; border: 1px solid #6c5ce7; border-radius: 4px; cursor: pointer;">
-        <option value="5" ${
-          itemsPerPage === 5 ? "selected" : ""
-        }>5 per page</option>
-        <option value="10" ${
-          itemsPerPage === 10 ? "selected" : ""
-        }>10 per page</option>
-        <option value="20" ${
-          itemsPerPage === 20 ? "selected" : ""
-        }>20 per page</option>
-        <option value="50" ${
-          itemsPerPage === 50 ? "selected" : ""
-        }>50 per page</option>
-      </select>
-    </div>
-  `;
-}
-
-/**
- * Generate page number buttons
- */
-function generatePageButtons(current, total) {
-  let buttons = "";
-  const maxButtons = 5;
-  let startPage = Math.max(1, current - Math.floor(maxButtons / 2));
-  let endPage = Math.min(total, startPage + maxButtons - 1);
-
-  if (endPage - startPage < maxButtons - 1) {
-    startPage = Math.max(1, endPage - maxButtons + 1);
-  }
-
-  // First page button
-  if (startPage > 1) {
-    buttons += `
-      <button onclick="goToPage(1)" style="padding: 8px 12px; background: #2d3436; color: #fff; border: 1px solid #6c5ce7; border-radius: 4px; cursor: pointer;">
-        1
-      </button>
-    `;
-    if (startPage > 2) {
-      buttons += '<span style="color: #fff; padding: 0 5px;">...</span>';
-    }
-  }
-
-  // Page number buttons
-  for (let i = startPage; i <= endPage; i++) {
-    buttons += `
-      <button 
-        onclick="goToPage(${i})" 
-        style="padding: 8px 12px; background: ${
-          i === current ? "#6c5ce7" : "#2d3436"
-        }; color: #fff; border: 1px solid #6c5ce7; border-radius: 4px; cursor: pointer; font-weight: ${
-      i === current ? "bold" : "normal"
-    };">
-        ${i}
-      </button>
-    `;
-  }
-
-  // Last page button
-  if (endPage < total) {
-    if (endPage < total - 1) {
-      buttons += '<span style="color: #fff; padding: 0 5px;">...</span>';
-    }
-    buttons += `
-      <button onclick="goToPage(${total})" style="padding: 8px 12px; background: #2d3436; color: #fff; border: 1px solid #6c5ce7; border-radius: 4px; cursor: pointer;">
-        ${total}
-      </button>
-    `;
-  }
-
-  return buttons;
-}
-
-/**
- * Go to specific page
- */
-function goToPage(page) {
-  const totalPages = Math.ceil(filteredMovies.length / itemsPerPage);
-
-  if (page < 1 || page > totalPages) return;
-
-  currentPage = page;
-  renderMoviesTable();
-  renderPagination();
-
-  // Scroll to top of table
-  document.querySelector(".section")?.scrollIntoView({ behavior: "smooth" });
-}
-
-/**
- * Change items per page
- */
-function changeItemsPerPage(value) {
-  itemsPerPage = parseInt(value);
-  currentPage = 1;
-  renderMoviesTable();
-  renderPagination();
 }
 
 // ============================================
@@ -777,8 +640,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 // Make functions available globally for onclick handlers
 window.editMovie = editMovie;
 window.showDeleteModal = showDeleteModal;
-window.goToPage = goToPage;
-window.changeItemsPerPage = changeItemsPerPage;
 
 /**
  * Search/Filter movies
@@ -797,9 +658,7 @@ function searchMovies(query) {
     );
   }
 
-  currentPage = 1;
-  renderMoviesTable();
-  renderPagination();
+  pager.setData(filteredMovies);
 }
 
 // Add search input to the page if it doesn't exist

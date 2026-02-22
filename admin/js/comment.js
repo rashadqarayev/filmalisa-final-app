@@ -27,7 +27,7 @@ if (!paginationEl) {
 
 const pager = new Pagination({
   containerSelector: paginationEl,
-  itemsPerPage: 8,
+  itemsPerPage: 7,
   onPageChange: (pageItems) => renderComments(pageItems),
 });
 
