@@ -3,7 +3,7 @@
  * This file demonstrates real-world usage patterns
  */
 
-import { AdminService } from "../services/AdminService.js";
+import { adminService } from "../services/AdminService.js";
 
 // ============================================
 // 1. LOGIN EXAMPLE
@@ -15,23 +15,23 @@ export async function handleLogin(event) {
   const password = document.getElementById("password").value;
 
   try {
-    const response = await AdminService.auth.login(email, password);
+    const response = await adminService.auth.login(email, password);
 
     console.log("response", response);
 
     if (response.result) {
-      AdminService.showSuccess("Login successful!");
+      adminService.showSuccess("Login successful!");
       // redirect to dashboard
       window.location.href = "/admin/html/dashboard.html";
     } else {
       AdminService.showError(response.message || "Login failed");
     }
   } catch (error) {
-    const message = AdminService.handleError(
+    const message = adminService.handleError(
       error,
       "Login failed. Please try again."
     );
-    AdminService.showError(message);
+    adminService.showError(message);
   } finally {
     AdminService.toggleLoading(false);
   }
@@ -55,9 +55,9 @@ async function loadCategories() {
       renderCategoriesTable(categories);
     }
   } catch (error) {
-    AdminService.showError("Failed to load categories");
+    adminService.showError("Failed to load categories");
   } finally {
-    AdminService.toggleLoading(false);
+    adminService.toggleLoading(false);
   }
 }
 
@@ -87,41 +87,41 @@ async function createCategory() {
   const name = document.getElementById("category-name").value;
 
   if (!name.trim()) {
-    AdminService.showError("Category name is required");
+    adminService.showError("Category name is required");
     return;
   }
 
   try {
-    AdminService.toggleLoading(true);
+    adminService.toggleLoading(true);
 
-    const response = await AdminService.categories.createCategory(name);
+    const response = await adminService.categories.createCategory(name);
 
     if (response.result) {
-      AdminService.showSuccess("Category created successfully!");
+      adminService.showSuccess("Category created successfully!");
       document.getElementById("category-name").value = "";
       loadCategories(); // Reload the list
     }
   } catch (error) {
-    AdminService.showError("Failed to create category");
+    adminService.showError("Failed to create category");
   } finally {
-    AdminService.toggleLoading(false);
+    adminService.toggleLoading(false);
   }
 }
 
 async function updateCategory(id, newName) {
   try {
-    AdminService.toggleLoading(true);
+    adminService.toggleLoading(true);
 
-    const response = await AdminService.categories.updateCategory(id, newName);
+    const response = await adminService.categories.updateCategory(id, newName);
 
     if (response.result) {
-      AdminService.showSuccess("Category updated successfully!");
+      adminService.showSuccess("Category updated successfully!");
       loadCategories(); // Reload the list
     }
   } catch (error) {
-    AdminService.showError("Failed to update category");
+    adminService.showError("Failed to update category");
   } finally {
-    AdminService.toggleLoading(false);
+    adminService.toggleLoading(false);
   }
 }
 
@@ -131,18 +131,18 @@ async function deleteCategory(id) {
   }
 
   try {
-    AdminService.toggleLoading(true);
+    adminService.toggleLoading(true);
 
-    const response = await AdminService.categories.deleteCategory(id);
+    const response = await adminService.categories.deleteCategory(id);
 
     if (response.result) {
-      AdminService.showSuccess("Category deleted successfully!");
+      adminService.showSuccess("Category deleted successfully!");
       loadCategories(); // Reload the list
     }
   } catch (error) {
-    AdminService.showError("Failed to delete category");
+    adminService.showError("Failed to delete category");
   } finally {
-    AdminService.toggleLoading(false);
+    adminService.toggleLoading(false);
   }
 }
 
@@ -151,18 +151,18 @@ async function deleteCategory(id) {
 // ============================================
 async function loadActors() {
   try {
-    AdminService.toggleLoading(true);
+    adminService.toggleLoading(true);
 
-    const response = await AdminService.actors.getAllActors();
+    const response = await adminService.actors.getAllActors();
 
     if (response.result) {
       const actors = response.data;
       renderActorsTable(actors);
     }
   } catch (error) {
-    AdminService.showError("Failed to load actors");
+    adminService.showError("Failed to load actors");
   } finally {
-    AdminService.toggleLoading(false);
+    adminService.toggleLoading(false);
   }
 }
 
@@ -200,19 +200,19 @@ async function createActor(event) {
   };
 
   try {
-    AdminService.toggleLoading(true);
+    adminService.toggleLoading(true);
 
-    const response = await AdminService.actors.createActor(actorData);
+    const response = await adminService.actors.createActor(actorData);
 
     if (response.result) {
-      AdminService.showSuccess("Actor created successfully!");
+      adminService.showSuccess("Actor created successfully!");
       document.getElementById("actor-form").reset();
       loadActors(); // Reload the list
     }
   } catch (error) {
-    AdminService.showError("Failed to create actor");
+    adminService.showError("Failed to create actor");
   } finally {
-    AdminService.toggleLoading(false);
+    adminService.toggleLoading(false);
   }
 }
 
@@ -222,18 +222,18 @@ async function deleteActor(id) {
   }
 
   try {
-    AdminService.toggleLoading(true);
+    adminService.toggleLoading(true);
 
-    const response = await AdminService.actors.deleteActor(id);
+    const response = await adminService.actors.deleteActor(id);
 
     if (response.result) {
-      AdminService.showSuccess("Actor deleted successfully!");
+      adminService.showSuccess("Actor deleted successfully!");
       loadActors(); // Reload the list
     }
   } catch (error) {
-    AdminService.showError("Failed to delete actor");
+    adminService.showError("Failed to delete actor");
   } finally {
-    AdminService.toggleLoading(false);
+    adminService.toggleLoading(false);
   }
 }
 
@@ -242,18 +242,18 @@ async function deleteActor(id) {
 // ============================================
 async function loadMovies() {
   try {
-    AdminService.toggleLoading(true);
+    adminService.toggleLoading(true);
 
-    const response = await AdminService.movies.getAllMovies();
+    const response = await adminService.movies.getAllMovies();
 
     if (response.result) {
       const movies = response.data;
       renderMoviesGrid(movies);
     }
   } catch (error) {
-    AdminService.showError("Failed to load movies");
+    adminService.showError("Failed to load movies");
   } finally {
-    AdminService.toggleLoading(false);
+    adminService.toggleLoading(false);
   }
 }
 
@@ -300,19 +300,19 @@ async function createMovie(event) {
   };
 
   try {
-    AdminService.toggleLoading(true);
+    adminService.toggleLoading(true);
 
-    const response = await AdminService.movies.createMovie(movieData);
+    const response = await adminService.movies.createMovie(movieData);
 
     if (response.result) {
-      AdminService.showSuccess("Movie created successfully!");
+      adminService.showSuccess("Movie created successfully!");
       document.getElementById("movie-form").reset();
       loadMovies(); // Reload the list
     }
   } catch (error) {
-    AdminService.showError("Failed to create movie");
+    adminService.showError("Failed to create movie");
   } finally {
-    AdminService.toggleLoading(false);
+    adminService.toggleLoading(false);
   }
 }
 
@@ -322,18 +322,18 @@ async function deleteMovie(id) {
   }
 
   try {
-    AdminService.toggleLoading(true);
+    adminService.toggleLoading(true);
 
-    const response = await AdminService.movies.deleteMovie(id);
+    const response = await adminService.movies.deleteMovie(id);
 
     if (response.result) {
-      AdminService.showSuccess("Movie deleted successfully!");
+      adminService.showSuccess("Movie deleted successfully!");
       loadMovies(); // Reload the list
     }
   } catch (error) {
-    AdminService.showError("Failed to delete movie");
+    adminService.showError("Failed to delete movie");
   } finally {
-    AdminService.toggleLoading(false);
+    adminService.toggleLoading(false);
   }
 }
 
@@ -346,17 +346,17 @@ async function searchMovies() {
   }
 
   try {
-    AdminService.toggleLoading(true);
+    adminService.toggleLoading(true);
 
-    const response = await AdminService.movies.searchMovies(query);
+    const response = await adminService.movies.searchMovies(query);
 
     if (response.result) {
       renderMoviesGrid(response.data);
     }
   } catch (error) {
-    AdminService.showError("Failed to search movies");
+    adminService.showError("Failed to search movies");
   } finally {
-    AdminService.toggleLoading(false);
+    adminService.toggleLoading(false);
   }
 }
 
@@ -365,18 +365,18 @@ async function searchMovies() {
 // ============================================
 async function loadUsers() {
   try {
-    AdminService.toggleLoading(true);
+    adminService.toggleLoading(true);
 
-    const response = await AdminService.users.getAllUsers();
+    const response = await adminService.users.getAllUsers();
 
     if (response.result) {
       const users = response.data;
       renderUsersTable(users);
     }
   } catch (error) {
-    AdminService.showError("Failed to load users");
+    adminService.showError("Failed to load users");
   } finally {
-    AdminService.toggleLoading(false);
+    adminService.toggleLoading(false);
   }
 }
 
@@ -410,18 +410,18 @@ function renderUsersTable(users) {
 // ============================================
 async function loadComments() {
   try {
-    AdminService.toggleLoading(true);
+    adminService.toggleLoading(true);
 
-    const response = await AdminService.comments.getAllComments();
+    const response = await adminService.comments.getAllComments();
 
     if (response.result) {
       const comments = response.data;
       renderCommentsTable(comments);
     }
   } catch (error) {
-    AdminService.showError("Failed to load comments");
+    adminService.showError("Failed to load comments");
   } finally {
-    AdminService.toggleLoading(false);
+    adminService.toggleLoading(false);
   }
 }
 
@@ -453,21 +453,21 @@ async function deleteComment(movieId, commentId) {
   }
 
   try {
-    AdminService.toggleLoading(true);
+    adminService.toggleLoading(true);
 
-    const response = await AdminService.comments.deleteComment(
+    const response = await adminService.comments.deleteComment(
       movieId,
       commentId
     );
 
     if (response.result) {
-      AdminService.showSuccess("Comment deleted successfully!");
+      adminService.showSuccess("Comment deleted successfully!");
       loadComments(); // Reload the list
     }
   } catch (error) {
-    AdminService.showError("Failed to delete comment");
+    adminService.showError("Failed to delete comment");
   } finally {
-    AdminService.toggleLoading(false);
+    adminService.toggleLoading(false);
   }
 }
 
@@ -476,18 +476,18 @@ async function deleteComment(movieId, commentId) {
 // ============================================
 async function loadContacts() {
   try {
-    AdminService.toggleLoading(true);
+    adminService.toggleLoading(true);
 
-    const response = await AdminService.contacts.getAllContacts();
+    const response = await adminService.contacts.getAllContacts();
 
     if (response.result) {
       const contacts = response.data;
       renderContactsTable(contacts);
     }
   } catch (error) {
-    AdminService.showError("Failed to load contacts");
+    adminService.showError("Failed to load contacts");
   } finally {
-    AdminService.toggleLoading(false);
+    adminService.toggleLoading(false);
   }
 }
 
@@ -518,18 +518,18 @@ async function deleteContact(id) {
   }
 
   try {
-    AdminService.toggleLoading(true);
+    adminService.toggleLoading(true);
 
-    const response = await AdminService.contacts.deleteContact(id);
+    const response = await adminService.contacts.deleteContact(id);
 
     if (response.result) {
-      AdminService.showSuccess("Contact deleted successfully!");
+      adminService.showSuccess("Contact deleted successfully!");
       loadContacts(); // Reload the list
     }
   } catch (error) {
-    AdminService.showError("Failed to delete contact");
+    adminService.showError("Failed to delete contact");
   } finally {
-    AdminService.toggleLoading(false);
+    adminService.toggleLoading(false);
   }
 }
 
@@ -538,7 +538,7 @@ async function deleteContact(id) {
 // ============================================
 async function loadProfile() {
   try {
-    const response = await AdminService.profile.getProfile();
+    const response = await adminService.profile.getProfile();
 
     if (response.result) {
       const profile = response.data;
@@ -561,7 +561,7 @@ async function loadProfile() {
 // ============================================
 function handleLogout() {
   if (confirm("Are you sure you want to logout?")) {
-    AdminService.auth.logout();
+    adminService.auth.logout();
   }
 }
 
@@ -571,12 +571,12 @@ function handleLogout() {
 document.addEventListener("DOMContentLoaded", () => {
   // Check authentication
   if (
-    !AdminService.isAuthenticated() &&
+    !adminService.isAuthenticated() &&
     !window.location.pathname.includes("login.html")
   ) {
     window.location.href = "/admin/html/login.html";
   }
 
   // Set language (optional)
-  AdminService.setLanguage("en"); // or 'az'
+  adminService.setLanguage("en"); // or 'az'
 });

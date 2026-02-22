@@ -142,6 +142,8 @@ confirmDeleteBtn.addEventListener("click", async () => {
 });
 
 // ── Logout ────────────────────────────────────────────────────────────────────
+
+
 document.querySelector(".logout-text")?.addEventListener("click", () => {
   if (confirm("Are you sure you want to logout?")) {
     adminService.auth.logout();

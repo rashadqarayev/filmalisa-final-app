@@ -1,5 +1,9 @@
 import { handleLogin } from "./util/examples.js";
 
+
+
+
+
 // Attach event listener when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.querySelector(".login-form");
@@ -7,3 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
     loginForm.addEventListener("submit", handleLogin);
   }
 });
+
+
+

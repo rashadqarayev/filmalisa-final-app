@@ -42,6 +42,7 @@ body {
   height: 150px;
   display: block;
   transform: translate(-40px, 18px);
+  margin-left: 90px
 }
 
 /* TITLE */
@@ -52,6 +53,7 @@ body {
   height: 80px;
   color: #cfcfcf;
   letter-spacing: -2%;
+    margin-left: 90px
 }
 
 /* =========================

@@ -69,45 +69,54 @@ main {
 }
 
 #deleteModal .modal-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.07); */
+    border: none;
     padding: 16px 20px;
 }
 
 #deleteModal .modal-title {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 600;
     color: #fff;
 }
 
 #deleteModal .btn-close {
     filter: invert(1) opacity(0.5);
+    border-radius: 50%;
+    background-color: #1175f01c;
+
+    &:hover {
+        background-color: #27c90b;
+        filter: invert(1) opacity(0.8);
+    }
 }
 
 #deleteModal .modal-body {
     padding: 20px;
     color: #aaa;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.6;
 }
 
 #deleteModal .modal-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    /* border-top: 1px solid rgba(255, 255, 255, 0.07); */
+    border: none;
     padding: 12px 20px;
     gap: 8px;
 }
 
 .btn-cancel {
-    background: #2a2a3e;
+    background: #3232f0;
     color: #ccc;
     border: 1px solid #3a3a52;
     padding: 7px 18px;
     border-radius: 6px;
-    font-size: 13px;
+    font-size: 16px;
     cursor: pointer;
 }
 
 .btn-cancel:hover {
-    background: #333350;
+    background: #2929cd;
     color: #fff;
 }
 
@@ -117,7 +126,7 @@ main {
     border: none;
     padding: 7px 18px;
     border-radius: 6px;
-    font-size: 13px;
+    font-size: 16px;
     cursor: pointer;
 }
 

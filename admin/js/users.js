@@ -71,9 +71,7 @@ function renderUsers(users) {
             style="width:45px;height:45px;border-radius:50%;object-fit:cover;"
           />
         </td>
-        <td class="operation">
-          <i class="fa-solid fa-trash delete-btn" style="cursor:pointer;color:red;" title="Delete"></i>
-        </td>
+       
       </tr>`
     )
     .join("");
