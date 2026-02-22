@@ -1,5 +1,7 @@
 import { adminService } from "./services/AdminService.js";
 import { Pagination } from "./util/pagination.js";
+import { showToast } from "./util/toast.js";
+import "./util/active.js";
 
 // ── Auth guard ───────────────────────────────────────────────────────────────
 if (!adminService.isAuthenticated()) {
@@ -11,7 +13,7 @@ const tableBody = document.getElementById("contactsTableBody");
 const deleteModalEl = document.getElementById("deleteModal");
 const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
 const deleteItemName = document.getElementById("deleteItemName");
-const deleteModal = new bootstrap.Modal(deleteModalEl);
+const deleteModal = deleteModalEl;
 
 // ── State ─────────────────────────────────────────────────────────────────────
 let deletingId = null;
@@ -85,10 +87,11 @@ async function loadContacts() {
     if (res.result && res.data) {
       pager.setData(res.data);
     } else {
+      showToast("Error!", res.message || "Failed to load contacts.", "error");
       showPlaceholder(res.message || "Failed to load contacts.");
     }
   } catch (err) {
-    console.error(err);
+    showToast("Error!", "An error occurred while loading contacts.", "error");
     showPlaceholder("Error loading contacts.");
   }
 }
@@ -100,14 +103,14 @@ tableBody.addEventListener("click", (e) => {
 
   deletingId = parseInt(btn.dataset.id);
   if (deleteItemName) deleteItemName.textContent = btn.dataset.name;
-  deleteModal.show();
+  deleteModal.showModal();
 });
 
 // Keep the global function for any inline onclick still in HTML
 window.showDeleteModal = (id, name = "") => {
   deletingId = id;
   if (deleteItemName) deleteItemName.textContent = name;
-  deleteModal.show();
+  deleteModal.showModal();
 };
 
 confirmDeleteBtn.addEventListener("click", async () => {
@@ -119,26 +122,24 @@ confirmDeleteBtn.addEventListener("click", async () => {
   try {
     const res = await adminService.contacts.deleteContact(deletingId);
     if (res.result) {
-      deleteModal.hide();
+      deleteModal.close();
       deletingId = null;
+      showToast("Success!", "Contact deleted successfully!", "success");
       await loadContacts();
     } else {
-      alert(res.message || "Failed to delete contact.");
+      showToast("Error!", res.message || "Failed to delete contact.", "error");
     }
   } catch (err) {
-    console.error(err);
-    alert(err.message || "Failed to delete contact.");
+    showToast("Error!", err.message || "Failed to delete contact.", "error");
   } finally {
     confirmDeleteBtn.disabled = false;
-    confirmDeleteBtn.textContent = "Delete";
+    confirmDeleteBtn.textContent = "Yes, Delete";
   }
 });
 
 // ── Logout ────────────────────────────────────────────────────────────────────
 document.querySelector(".logout-text")?.addEventListener("click", () => {
-  if (confirm("Are you sure you want to logout?")) {
-    adminService.auth.logout();
-  }
+  adminService.auth.logout();
 });
 
 // ── Init ──────────────────────────────────────────────────────────────────────

@@ -1,6 +1,7 @@
 import { adminService } from "./services/AdminService.js";
-import { setActiveNavItem } from "./util/active.js";
+import { setActiveNavItem, initStorageListener } from "./util/active.js";
 import { Pagination } from "./util/pagination.js";
+import { showToast } from "./util/toast.js";
 
 // Check authentication
 if (!adminService.isAuthenticated()) {
@@ -216,8 +217,7 @@ const movieAdultInput = document.getElementById("movieAdult");
 // Bootstrap modals
 const editModalElement = document.getElementById("editModal");
 const editModal = new bootstrap.Modal(editModalElement);
-const deleteModalElement = document.getElementById("deleteModal");
-const deleteModal = new bootstrap.Modal(deleteModalElement);
+const deleteModal = document.getElementById("deleteModal");
 
 // ============================================
 // LOAD DATA FUNCTIONS
@@ -230,17 +230,14 @@ async function loadMovies() {
   try {
     const response = await adminService.movies.getAllMovies();
 
-    console.log("Movies response:", response);
-
     if (response.result && response.data) {
       allMovies = response.data;
       filteredMovies = [...allMovies];
       pager.setData(filteredMovies);
     } else {
-      console.error("Failed to load movies:", response.message);
+      showToast("Error!", response.message || "Failed to load movies.", "error");
     }
   } catch (error) {
-    console.error("Error loading movies:", error);
     adminService.showError("Failed to load movies");
   }
 }
@@ -257,7 +254,7 @@ async function loadCategories() {
       renderCategoryOptions(allCategories);
     }
   } catch (error) {
-    console.error("Error loading categories:", error);
+    // silently ignore category load error for dropdown
   }
 }
 
@@ -273,7 +270,7 @@ async function loadActors() {
       renderActorOptions(allActors);
     }
   } catch (error) {
-    console.error("Error loading actors:", error);
+    // silently ignore actor load error for dropdown
   }
 }
 
@@ -410,7 +407,6 @@ async function editMovie(movieId) {
       editModal.show();
     }
   } catch (error) {
-    console.error("Error loading movie:", error);
     adminService.showError("Failed to load movie details");
   }
 }
@@ -425,7 +421,7 @@ function showDeleteModal(movieId, movieTitle) {
     deleteItemName.textContent = movieTitle;
   }
 
-  deleteModal.show();
+  deleteModal.showModal();
 }
 
 /**
@@ -459,12 +455,12 @@ function resetForm() {
 async function saveMovie() {
   // Validate required fields
   if (!movieTitleInput.value.trim()) {
-    alert("Please enter movie title");
+    showToast("Error!", "Please enter movie title", "error");
     return;
   }
 
   if (!catSelect.value) {
-    alert("Please select a category");
+    showToast("Error!", "Please select a category", "error");
     return;
   }
 
@@ -517,7 +513,6 @@ async function saveMovie() {
       adminService.showError(response.message || "Failed to save movie");
     }
   } catch (error) {
-    console.error("Error saving movie:", error);
     adminService.showError("Failed to save movie");
   }
 }
@@ -539,11 +534,11 @@ async function deleteMovie() {
 
       // Reset current edit ID
       currentEditId = null;
+      deleteModal.close();
     } else {
       adminService.showError(response.message || "Failed to delete movie");
     }
   } catch (error) {
-    console.error("Error deleting movie:", error);
     adminService.showError("Failed to delete movie");
   }
 }
@@ -620,10 +615,7 @@ if (editModalElement) {
 
 // Logout handler
 document.querySelector(".logout-text")?.addEventListener("click", () => {
-  if (confirm("Are you sure you want to logout?")) {
-    adminService.auth.logout();
-    window.location.href = "/admin/html/login.html";
-  }
+  adminService.auth.logout();
 });
 
 // ============================================
@@ -631,8 +623,7 @@ document.querySelector(".logout-text")?.addEventListener("click", () => {
 // ============================================
 
 document.addEventListener("DOMContentLoaded", async () => {
-  console.log("Movies page initialized");
-
+  initStorageListener();
   // Load all data
   await Promise.all([loadMovies(), loadCategories(), loadActors()]);
 });

@@ -228,27 +228,125 @@ table .title-movie {
 }
 
 /* ═════════════════════════════════════════════════════════════════════════════
-   DELETE MODAL STYLING
+   DELETE DIALOG MODAL
 ═════════════════════════════════════════════════════════════════════════════ */
 
-#deleteModal .modal-content {
-  background: var(--bg-color);
+#deleteModal.actorModal {
   border: none;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0;
+  background: transparent;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  outline: none;
+}
+
+#deleteModal.actorModal::backdrop {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+}
+
+#deleteModal .modalBox {
+  width: 420px;
+  padding: 35px;
+  border-radius: 24px;
+  background: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  text-align: center;
 }
 
 #deleteModal .modal-header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 20px 0;
+  border: none;
+}
+
+#deleteModal #deleteModalTitle {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+#deleteModal .close-modal {
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: #9ca3af;
+  font-size: 20px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#deleteModal .close-modal:hover {
+  background: rgba(243, 0, 0, 0.1);
   color: white;
 }
 
-#deleteModal .modal-body {
-  color: #e0e0e0;
+#deleteModal .delete-content p {
+  color: #efefef;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.6;
 }
 
-#deleteModal .modal-footer {
-  border-top: none;
+#deleteModal .warning-text {
+  margin-top: 8px;
+  color: #9ca3af !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+}
+
+#deleteModal .modal-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+#deleteModal .modalSubmit {
+  flex: 1;
+  height: 50px;
+  border-radius: 14px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+#deleteModal .btn-danger {
+  background: linear-gradient(135deg, #ff4b2b 0%, #dc3545 100%);
+  flex: 2;
+}
+
+#deleteModal .btn-danger:hover {
+  box-shadow: 0 8px 20px rgba(220, 53, 69, 0.35);
+  transform: translateY(-2px);
+}
+
+#deleteModal .btn-cancel {
+  background: #243ab8;
+  color: #a0a0a0;
+  flex: 2;
+}
+
+#deleteModal .btn-cancel:hover {
+  background: #29288d;
+  color: white;
+  box-shadow: 0 8px 20px rgba(72, 48, 206, 0.3);
+  transform: translateY(-2px);
 }
 
 .pagination-container {

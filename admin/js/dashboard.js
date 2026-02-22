@@ -1,5 +1,6 @@
 import { adminService } from "./services/AdminService.js";
-import { setActiveNavItem } from "./util/active.js";
+import { setActiveNavItem, initStorageListener } from "./util/active.js";
+import { showToast } from "./util/toast.js";
 
 // Check authentication
 if (!adminService.isAuthenticated()) {
@@ -72,7 +73,7 @@ async function loadDashboardStats() {
       animateCounter(contactsCountElement, stats.contacts);
     }
   } catch (error) {
-    console.error("Failed to load dashboard statistics:", error);
+    showToast("Error!", "Failed to load dashboard statistics.", "error");
   }
 }
 
@@ -83,8 +84,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Logout handler
 document.querySelector(".logout-text")?.addEventListener("click", () => {
-  if (confirm("Are you sure you want to logout?")) {
-    adminService.auth.logout();
-    window.location.href = "/admin/html/login.html";
-  }
+  adminService.auth.logout();
 });

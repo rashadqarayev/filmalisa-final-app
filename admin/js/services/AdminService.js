@@ -9,6 +9,7 @@ import { contactsService } from "./ContactsService.js";
 import { commentsService } from "./CommentsService.js";
 import { usersService } from "./UsersService.js";
 import { moviesService } from "./MoviesService.js";
+import { showToast } from "../util/toast.js";
 
 /**
  * AdminService - Main API class that combines all services
@@ -62,8 +63,6 @@ class AdminService {
    * @returns {string} User-friendly error message
    */
   handleError(error, defaultMessage = "An error occurred") {
-    console.error("API Error:", error);
-
     if (error.message) {
       return error.message;
     }
@@ -87,9 +86,7 @@ class AdminService {
    * @param {string} message - Success message
    */
   showSuccess(message) {
-    console.log("Success:", message);
-    // You can implement a toast notification here
-    alert(message);
+    showToast("Success!", message, "success");
   }
 
   /**
@@ -97,9 +94,7 @@ class AdminService {
    * @param {string} message - Error message
    */
   showError(message) {
-    console.error("Error:", message);
-    // You can implement a toast notification here
-    alert(message);
+    showToast("Error!", message, "error");
   }
 }
 

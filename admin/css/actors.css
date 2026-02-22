@@ -57,36 +57,37 @@ main {
     color: #dc3545;
 }
 
-/* --- MODAL DİZAYNI (TÜND FON) --- */
-.custom-modal {
+/* --- MODAL DESIGN --- */
+.actorModal {
     border: none;
-    border-radius: 15px;
     padding: 0;
-    width: 420px;
-    background-color: #1f2937; /* Header-ə uyğun tünd rəng */
-    color: #ffffff;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    
-    /* Mərkəzləşdirmə */
+    background: transparent;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    margin: 0;
+    outline: none;
 }
 
-/* Dialog default olaraq gizli qalır */
 dialog:not([open]) {
     display: none;
 }
 
-/* Arxa fon (Backdrop) */
-.custom-modal::backdrop {
-    background-color: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(5px);
+.actorModal::backdrop {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
 }
 
 .modalBox {
-    padding: 24px;
+    width: 420px;
+    padding: 35px;
+    border-radius: 24px;
+    background: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
 /* Modal Header */
@@ -94,100 +95,149 @@ dialog:not([open]) {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #374151;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border: none;
+}
+
+#modalTitle,
+#deleteModalTitle {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .close-modal {
-    background: none;
+    background: rgba(255, 255, 255, 0.05);
     border: none;
-    font-size: 24px;
     color: #9ca3af;
+    font-size: 20px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
     cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .close-modal:hover {
-    color: #fff;
+    background: rgba(243, 0, 0, 0.1);
+    color: white;
 }
 
-/* Form elementləri */
+/* Form inputs */
 .input-group {
-    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#actorForm {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 
 .input-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
     color: #d1d5db;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .input-group input {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #4b5563;
-    border-radius: 8px;
-    background-color: #111827;
+    height: 50px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0 16px;
     color: #fff;
     outline: none;
+    font-size: 14px;
+    transition: 0.3s;
+    box-sizing: border-box;
 }
 
 .input-group input:focus {
-    border-color: #3b82f6;
+    border-color: rgba(155, 81, 224, 0.5);
+    background: rgba(155, 81, 224, 0.05);
 }
 
-/* Düymələr */
+.input-group input::placeholder {
+    color: #6b7280;
+}
+
+/* Buttons */
 .modalSubmit {
     width: 100%;
-    padding: 12px;
-    background-color: #3b82f6;
-    color: white;
+    height: 50px;
+    border-radius: 14px;
     border: none;
-    border-radius: 8px;
-    cursor: pointer;
+    background: linear-gradient(135deg, #245196 0%, #484ae6 100%);
+    color: white;
+    font-size: 15px;
     font-weight: 600;
-    transition: 0.3s;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .modalSubmit:hover {
-    background-color: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(72, 74, 230, 0.35);
 }
 
-/* Silmə Modalı Xüsusi */
-.delete-modal .modalBox {
+/* Delete Modal */
+.delete-box {
     text-align: center;
 }
 
-.delete-modal h2 {
-    color: #ef4444;
-    font-size: 1.3rem;
-    margin-bottom: 10px;
+.delete-content {
+    padding: 4px 0;
+}
+
+.delete-content p {
+    color: #efefef;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.warning-text {
+    margin-top: 8px;
+    color: #9ca3af !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
 }
 
 .modal-buttons {
     display: flex;
     gap: 12px;
-    justify-content: center;
-    margin-top: 25px;
+    margin-top: 8px;
 }
 
 .btn-danger {
-    background: #dc3545;
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 6px;
-    cursor: pointer;
+    background: linear-gradient(135deg, #ff4b2b 0%, #dc3545 100%) !important;
+    flex: 2;
 }
 
-.btn-secondary {
-    background: #4b5563;
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 6px;
-    cursor: pointer;
+.btn-danger:hover {
+    box-shadow: 0 8px 20px rgba(220, 53, 69, 0.35) !important;
+    transform: translateY(-2px);
+}
+
+.btn-cancel {
+    background: #243ab8 !important;
+    color: #a0a0a0 !important;
+    flex: 2;
+}
+
+.btn-cancel:hover {
+    background: #29288d !important;
+    color: white !important;
+    box-shadow: 0 8px 20px rgba(72, 48, 206, 0.3) !important;
+    transform: translateY(-2px);
 }
 
 .pagination-container {

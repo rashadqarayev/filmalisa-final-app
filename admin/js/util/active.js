@@ -41,11 +41,27 @@ function setActiveNavItem() {
 // Export the function
 export { setActiveNavItem };
 
+/**
+ * Storage Event Listener
+ * Automatically redirects to login if token is removed from another tab
+ */
+export function initStorageListener() {
+  window.addEventListener("storage", (event) => {
+    if (event.key === "admin_access_token" && !event.newValue) {
+      window.location.href = "/admin/html/login.html";
+    }
+  });
+}
+
 // Auto-run when imported (for backward compatibility)
 if (typeof window !== "undefined") {
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", setActiveNavItem);
+    document.addEventListener("DOMContentLoaded", () => {
+      setActiveNavItem();
+      initStorageListener();
+    });
   } else {
     setActiveNavItem();
+    initStorageListener();
   }
 }

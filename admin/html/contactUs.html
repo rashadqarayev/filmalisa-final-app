@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact US</title>
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/admin.logo.svg" />
 
     <link
       rel="stylesheet"
@@ -112,44 +113,23 @@
             </tbody>
           </table>
 
-          <!--Delete modal-->
-          <div
-            class="modal fade"
-            id="deleteModal"
-            tabindex="-1"
-            aria-hidden="true"
-          >
-            <div
-              class="modal-dialog modal-dialog-centered"
-              style="max-width: 400px"
-            >
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Delete Content</h5>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <span id="deleteModalText"
-                    >Are you sure you want to delete
-                    <strong id="deleteItemName" style="color: #fff"></strong>?
-                    This action cannot be undone.</span
-                  >
-                </div>
-                <div class="modal-footer d-flex justify-content-end">
-                  <button class="btn-cancel" data-bs-dismiss="modal">
-                    Cancel
-                  </button>
-                  <button class="btn-delete-confirm" id="confirmDeleteBtn">
-                    Delete
-                  </button>
-                </div>
+          <!-- Delete modal -->
+          <dialog id="deleteModal" class="actorModal">
+            <div class="modalBox delete-box">
+              <div class="modal-header">
+                <h2 id="deleteModalTitle">Delete Contact</h2>
+                <button type="button" class="close-modal" onclick="deleteModal.close()">×</button>
+              </div>
+              <div class="delete-content">
+                <p>Are you sure you want to delete <strong id="deleteItemName"></strong>?</p>
+                <p class="warning-text">This action cannot be undone.</p>
+              </div>
+              <div class="modal-buttons">
+                <button id="confirmDeleteBtn" class="modalSubmit btn-danger">Yes, Delete</button>
+                <button type="button" onclick="deleteModal.close()" class="modalSubmit btn-cancel">Cancel</button>
               </div>
             </div>
-          </div>
+          </dialog>
         </section>
       </main>
     </div>

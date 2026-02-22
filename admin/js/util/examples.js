@@ -17,14 +17,13 @@ export async function handleLogin(event) {
   try {
     const response = await adminService.auth.login(email, password);
 
-    console.log("response", response);
-
     if (response.result) {
       adminService.showSuccess("Login successful!");
-      // redirect to dashboard
-      window.location.href = "/admin/html/dashboard.html";
+      setTimeout(() => {
+        window.location.href = "/admin/html/dashboard.html";
+      }, 1500);
     } else {
-      AdminService.showError(response.message || "Login failed");
+      adminService.showError(response.message || "Login failed. Access denied.");
     }
   } catch (error) {
     const message = adminService.handleError(
@@ -552,7 +551,7 @@ async function loadProfile() {
       }
     }
   } catch (error) {
-    console.error("Failed to load profile");
+    // handle error silently
   }
 }
 
@@ -560,9 +559,7 @@ async function loadProfile() {
 // 10. LOGOUT EXAMPLE
 // ============================================
 function handleLogout() {
-  if (confirm("Are you sure you want to logout?")) {
-    adminService.auth.logout();
-  }
+  adminService.auth.logout();
 }
 
 // ============================================

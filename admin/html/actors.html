@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Actors</title>
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/admin.logo.svg" />
 
     <link
       rel="stylesheet"
@@ -130,7 +131,7 @@
           </table>
 
           <!-- create and edit modal -->
-          <dialog id="actorModal" class="custom-modal">
+          <dialog id="actorModal" class="actorModal">
             <div class="modalBox">
               <div class="modal-header">
                 <h2 id="modalTitle">Create Actor</h2>
@@ -168,7 +169,6 @@
                     type="url"
                     id="actorImage"
                     placeholder="https://example.com/photo.jpg"
-                    required
                   />
                 </div>
                 <button type="submit" class="modalSubmit">Save Changes</button>
@@ -177,18 +177,30 @@
           </dialog>
 
           <!-- delete modal -->
-          <dialog id="deleteModal" class="custom-modal delete-modal">
-            <div class="modalBox">
-              <h2>Silmək istədiyinizə əminsiniz?</h2>
-              <p>Bu əməliyyat geri qaytarıla bilməz.</p>
+          <dialog id="deleteModal" class="actorModal">
+            <div class="modalBox delete-box">
+              <div class="modal-header">
+                <h2 id="deleteModalTitle">Delete Actor</h2>
+                <button
+                  type="button"
+                  class="close-modal"
+                  onclick="deleteModal.close()"
+                >
+                  ×
+                </button>
+              </div>
+              <div class="delete-content">
+                <p>Are you sure you want to delete this actor?</p>
+                <p class="warning-text">This action cannot be undone.</p>
+              </div>
               <div class="modal-buttons">
-                <button id="confirmDelete" class="btn-danger">Bəli, Sil</button>
+                <button id="confirmDelete" class="modalSubmit btn-danger">Yes, Delete</button>
                 <button
                   type="button"
                   onclick="deleteModal.close()"
-                  class="btn-secondary"
+                  class="modalSubmit btn-cancel"
                 >
-                  Ləğv et
+                  Cancel
                 </button>
               </div>
             </div>

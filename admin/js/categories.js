@@ -2,6 +2,7 @@
 import { adminService } from "./services/AdminService.js";
 import { Pagination } from "./util/pagination.js";
 import { showToast } from "./util/toast.js";
+import "./util/active.js";
 
 // ── Auth guard ───────────────────────────────────────────────────────────────
 if (!adminService.isAuthenticated()) {
@@ -87,7 +88,6 @@ async function loadCategories() {
       showPlaceholder(res.message || "Failed to load categories.");
     }
   } catch (err) {
-    console.error(err);
     showToast("Error!", "Failed to load categories.", "error");
     showPlaceholder("Error loading categories.");
   }
@@ -117,7 +117,6 @@ tableBody.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete-btn")) {
     deletingId = id;
     deleteModal.showModal();
-    showToast("Warning!", "Are you sure you want to delete this category?", "error");
   }
 });
 
@@ -130,8 +129,6 @@ categoryForm.addEventListener("submit", async (e) => {
   const btn = categoryForm.querySelector(".modalSubmit");
   btn.disabled = true;
   btn.textContent = "Saving…";
-  console.log(editingId ? `Updating category ${editingId}...` : "Creating new category...");
-  showToast("Saving...", "Please wait while we save the category.", "success");
 
   try {
     const res = editingId
@@ -140,15 +137,14 @@ categoryForm.addEventListener("submit", async (e) => {
 
     if (res.result) {
       categoryModal.close();
-      const successMsg = editingId ? "Kateqoriya uğurla güncəlləndi!" : "Kateqoriya uğurla yaradıldı!";
-      showToast("Uğurlu!", successMsg, "success");
+      const successMsg = editingId ? "Category updated successfully!" : "Category created successfully!";
+      showToast("Success!", successMsg, "success");
       await loadCategories();
     } else {
-      showToast("Xəta!", res.message || "Kateqoriya saxlanmadı.", "error");
+      showToast("Error!", res.message || "Failed to save category.", "error");
     }
   } catch (err) {
-    console.error(err);
-    showToast("Xəta!", err.message || "Kateqoriya saxlanmadı.", "error");
+    showToast("Error!", err.message || "Failed to save category.", "error");
   } finally {
     btn.disabled = false;
     btn.textContent = "Save Changes";
@@ -161,32 +157,28 @@ confirmDeleteBtn.addEventListener("click", async () => {
 
   confirmDeleteBtn.disabled = true;
   confirmDeleteBtn.textContent = "Deleting…";
-  showToast("Siliniyor...", "Kateqoriya siliniyor, lütfen bekleyiniz.", "success");
 
   try {
     const res = await adminService.categories.deleteCategory(deletingId);
     if (res.result) {
       deleteModal.close();
       deletingId = null;
-      showToast("Uğurlu!", "Kateqoriya uğurla silindi!", "success");
+      showToast("Success!", "Category deleted successfully!", "success");
       await loadCategories();
     } else {
-      showToast("Xəta!", res.message || "Kateqoriya silinərkən problem yarandı.", "error");
+      showToast("Error!", res.message || "Failed to delete category.", "error");
     }
   } catch (err) {
-    console.error(err);
-    showToast("Xəta!", err.message || "Kateqoriya silinərkən problem yarandı.", "error");
+    showToast("Error!", err.message || "Failed to delete category.", "error");
   } finally {
     confirmDeleteBtn.disabled = false;
-    confirmDeleteBtn.textContent = "Bəli, Sil";
+    confirmDeleteBtn.textContent = "Yes, Delete";
   }
 });
 
 // ── Logout ────────────────────────────────────────────────────────────────────
 document.querySelector(".logout-text")?.addEventListener("click", () => {
-  if (confirm("Are you sure you want to logout?")) {
-    adminService.auth.logout();
-  }
+  adminService.auth.logout();
 });
 
 // ── Init ──────────────────────────────────────────────────────────────────────

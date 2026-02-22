@@ -44,10 +44,6 @@ class HttpClient {
 
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
-    } else {
-      console.warn(
-        "HttpClient: No auth token found in localStorage (key: admin_access_token)"
-      );
     }
 
     return headers;
@@ -75,7 +71,6 @@ class HttpClient {
    * @throws {Error} Formatted error
    */
   handleError(error) {
-    console.error("API Error:", error);
     throw error;
   }
 

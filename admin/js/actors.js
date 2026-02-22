@@ -1,5 +1,7 @@
 import { adminService } from "./services/AdminService.js";
 import { Pagination } from "./util/pagination.js";
+import { showToast } from "./util/toast.js";
+import "./util/active.js";
 
 // ── Auth guard ───────────────────────────────────────────────────────────────
 if (!adminService.isAuthenticated()) {
@@ -103,10 +105,11 @@ async function loadActors() {
     if (res.result && res.data) {
       pager.setData(res.data);
     } else {
+      showToast("Error!", res.message || "Failed to load actors.", "error");
       showPlaceholder(res.message || "Failed to load actors.");
     }
   } catch (err) {
-    console.error(err);
+    showToast("Error!", "An error occurred while loading actors.", "error");
     showPlaceholder("Error loading actors.");
   }
 }
@@ -167,13 +170,13 @@ actorForm.addEventListener("submit", async (e) => {
 
     if (res.result) {
       actorModal.close();
+      showToast("Success!", editingId ? "Actor updated successfully!" : "Actor created successfully!", "success");
       await loadActors();
     } else {
-      alert(res.message || "Failed to save actor.");
+      showToast("Error!", res.message || "Failed to save actor.", "error");
     }
   } catch (err) {
-    console.error(err);
-    alert(err.message || "Failed to save actor.");
+    showToast("Error!", err.message || "Failed to save actor.", "error");
   } finally {
     submitBtn.disabled = false;
     submitBtn.textContent = "Save Changes";
@@ -192,24 +195,22 @@ confirmDeleteBtn.addEventListener("click", async () => {
     if (res.result) {
       deleteModal.close();
       deletingId = null;
+      showToast("Success!", "Actor deleted successfully!", "success");
       await loadActors();
     } else {
-      alert(res.message || "Failed to delete actor.");
+      showToast("Error!", res.message || "Failed to delete actor.", "error");
     }
   } catch (err) {
-    console.error(err);
-    alert(err.message || "Failed to delete actor.");
+    showToast("Error!", err.message || "Failed to delete actor.", "error");
   } finally {
     confirmDeleteBtn.disabled = false;
-    confirmDeleteBtn.textContent = "Bəli, Sil";
+    confirmDeleteBtn.textContent = "Yes, Delete";
   }
 });
 
 // ── Logout ────────────────────────────────────────────────────────────────────
 document.querySelector(".logout-text")?.addEventListener("click", () => {
-  if (confirm("Are you sure you want to logout?")) {
-    adminService.auth.logout();
-  }
+  adminService.auth.logout();
 });
 
 // ── Init ──────────────────────────────────────────────────────────────────────

@@ -37,7 +37,7 @@ export class Pagination {
     }
 
     if (!this._container) {
-      console.warn("Pagination: container not found →", containerSelector);
+      return;
     }
 
     // Single permanent delegated listener on the container

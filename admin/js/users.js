@@ -1,5 +1,7 @@
 import { adminService } from "./services/AdminService.js";
 import { Pagination } from "./util/pagination.js";
+import { showToast } from "./util/toast.js";
+import "./util/active.js";
 
 // ── Auth guard ───────────────────────────────────────────────────────────────
 if (!adminService.isAuthenticated()) {
@@ -85,10 +87,11 @@ async function loadUsers() {
     if (res.result && res.data) {
       pager.setData(res.data); // hands off to pagination → triggers renderUsers
     } else {
+      showToast("Error!", res.message || "Failed to load users.", "error");
       showPlaceholder(res.message || "Failed to load users.");
     }
   } catch (err) {
-    console.error(err);
+    showToast("Error!", "An error occurred while loading users.", "error");
     showPlaceholder("Error loading users.");
   }
 }
@@ -109,15 +112,15 @@ tableBody.addEventListener("click", async (e) => {
   try {
     const res = await adminService.users.deleteUser(id);
     if (res.result) {
+      showToast("Success!", "User deleted successfully!", "success");
       await loadUsers();
     } else {
-      alert(res.message || "Failed to delete user.");
+      showToast("Error!", res.message || "Failed to delete user.", "error");
       e.target.classList.replace("fa-spinner", "fa-trash");
       e.target.style.animation = "";
     }
   } catch (err) {
-    console.error(err);
-    alert(err.message || "Failed to delete user.");
+    showToast("Error!", err.message || "Failed to delete user.", "error");
     e.target.classList.replace("fa-spinner", "fa-trash");
     e.target.style.animation = "";
   }
@@ -125,9 +128,7 @@ tableBody.addEventListener("click", async (e) => {
 
 // ── Logout ────────────────────────────────────────────────────────────────────
 document.querySelector(".logout-text")?.addEventListener("click", () => {
-  if (confirm("Are you sure you want to logout?")) {
-    adminService.auth.logout();
-  }
+  adminService.auth.logout();
 });
 
 // ── Init ──────────────────────────────────────────────────────────────────────

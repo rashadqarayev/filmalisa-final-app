@@ -1,5 +1,7 @@
 import { adminService } from "./services/AdminService.js";
 import { Pagination } from "./util/pagination.js";
+import { showToast } from "./util/toast.js";
+import "./util/active.js";
 
 // ── Auth guard ───────────────────────────────────────────────────────────────
 if (!adminService.isAuthenticated()) {
@@ -10,7 +12,7 @@ if (!adminService.isAuthenticated()) {
 const commentTableBody = document.querySelector(".comment-table-body");
 const modalEl = document.getElementById("deleteModal");
 const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
-const modal = new bootstrap.Modal(modalEl);
+const modal = modalEl;
 
 // ── State ────────────────────────────────────────────────────────────────────
 let currentMovieId = null;
@@ -98,10 +100,11 @@ async function loadComments() {
     if (res.result && res.data) {
       pager.setData(res.data);
     } else {
+      showToast("Error!", res.message || "Failed to load comments.", "error");
       showPlaceholder(res.message || "Failed to load comments.");
     }
   } catch (err) {
-    console.error(err);
+    showToast("Error!", "An error occurred while loading comments.", "error");
     showPlaceholder("Error loading comments.");
   }
 }
@@ -110,7 +113,7 @@ async function loadComments() {
 window.showDeleteModal = function (movieId, commentId) {
   currentMovieId = movieId;
   currentId = commentId;
-  modal.show();
+  modal.showModal();
 };
 
 confirmDeleteBtn.addEventListener("click", async () => {
@@ -125,19 +128,19 @@ confirmDeleteBtn.addEventListener("click", async () => {
       currentId
     );
     if (res.result) {
-      modal.hide();
+      modal.close();
       currentMovieId = null;
       currentId = null;
+      showToast("Success!", "Comment deleted successfully!", "success");
       await loadComments();
     } else {
-      alert(res.message || "Failed to delete comment.");
+      showToast("Error!", res.message || "Failed to delete comment.", "error");
     }
   } catch (err) {
-    console.error(err);
-    alert(err.message || "Failed to delete comment.");
+    showToast("Error!", err.message || "Failed to delete comment.", "error");
   } finally {
     confirmDeleteBtn.disabled = false;
-    confirmDeleteBtn.textContent = "Delete";
+    confirmDeleteBtn.textContent = "Yes, Delete";
   }
 });
 
@@ -145,9 +148,7 @@ confirmDeleteBtn.addEventListener("click", async () => {
 
 
 document.querySelector(".logout-text")?.addEventListener("click", () => {
-  if (confirm("Are you sure you want to logout?")) {
-    adminService.auth.logout();
-  }
+  adminService.auth.logout();
 });
 
 // ── Init ──────────────────────────────────────────────────────────────────────

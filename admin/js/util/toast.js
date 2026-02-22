@@ -28,17 +28,6 @@
             }, 4500);
         }
 
-        // Səhifə açılanda bir dənə avtomatik göstərək
-        window.onload = () => {
-            createToast('Xoş gəldiniz!', 'Sistem aktivdir və işləyir.');
-        };
-
-
-
-        
-
-
-
 
 export function showToast(title, message, type = 'success') {
     

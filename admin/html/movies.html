@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movies</title>
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/admin.logo.svg" />
 
     <!-- Reset -->
     <link
@@ -204,7 +205,7 @@
           <div class="edit-right">
             <img
               id="previewImg"
-              src="https://via.placeholder.com/300x450?text=Movie+Cover+Preview"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='450' viewBox='0 0 300 450'%3E%3Crect fill='%23374151' width='300' height='450'/%3E%3Ctext fill='%239CA3AF' font-family='Arial' font-size='16' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3EMovie Cover Preview%3C/text%3E%3C/svg%3E"
               alt="preview"
             />
           </div>
@@ -213,40 +214,22 @@
     </div>
 
     <!-- DELETE MODAL -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" style="max-width: 400px">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Delete Content</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-            ></button>
-          </div>
-
-          <div class="modal-body">
-            <span id="deleteModalText">
-              Are you sure you want to delete
-              <strong id="deleteItemName" style="color: #fff"></strong>? 
-               <br> This
-              action cannot be undone.
-            </span>
-          </div>
-
-          <div class="modal-footer d-flex justify-content-end">
-            <button class="btn-cancel" data-bs-dismiss="modal">Cancel</button>
-            <button
-              class="btn-delete-confirm"
-              data-bs-dismiss="modal"
-              id="confirmDeleteBtn"
-            >
-              Delete
-            </button>
-          </div>
+    <dialog id="deleteModal" class="actorModal">
+      <div class="modalBox delete-box">
+        <div class="modal-header">
+          <h2 id="deleteModalTitle">Delete Movie</h2>
+          <button type="button" class="close-modal" onclick="deleteModal.close()">×</button>
+        </div>
+        <div class="delete-content">
+          <p>Are you sure you want to delete <strong id="deleteItemName"></strong>?</p>
+          <p class="warning-text">This action cannot be undone.</p>
+        </div>
+        <div class="modal-buttons">
+          <button id="confirmDeleteBtn" class="modalSubmit btn-danger">Yes, Delete</button>
+          <button type="button" onclick="deleteModal.close()" class="modalSubmit btn-cancel">Cancel</button>
         </div>
       </div>
-    </div>
+    </dialog>
 
     <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
