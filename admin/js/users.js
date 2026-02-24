@@ -2,6 +2,7 @@ import { adminService } from "./services/AdminService.js";
 import { Pagination } from "./util/pagination.js";
 import { showToast } from "./util/toast.js";
 import "./util/active.js";
+import { showLoading, hideLoading } from "./util/loading.js";
 
 // ── Auth guard ───────────────────────────────────────────────────────────────
 if (!adminService.isAuthenticated()) {
@@ -82,6 +83,7 @@ function renderUsers(users) {
 // ── Load all users ────────────────────────────────────────────────────────────
 async function loadUsers() {
   showPlaceholder("Loading…");
+  showLoading();
   try {
     const res = await adminService.users.getAllUsers();
     if (res.result && res.data) {
@@ -93,6 +95,8 @@ async function loadUsers() {
   } catch (err) {
     showToast("Error!", "An error occurred while loading users.", "error");
     showPlaceholder("Error loading users.");
+  } finally {
+    hideLoading();
   }
 }
 

@@ -3,6 +3,7 @@ import { adminService } from "./services/AdminService.js";
 import { Pagination } from "./util/pagination.js";
 import { showToast } from "./util/toast.js";
 import "./util/active.js";
+import { showLoading, hideLoading } from "./util/loading.js";
 
 // ── Auth guard ───────────────────────────────────────────────────────────────
 if (!adminService.isAuthenticated()) {
@@ -80,6 +81,7 @@ function renderTable(categories) {
 // ── Load all categories from API ──────────────────────────────────────────────
 async function loadCategories() {
   showPlaceholder("Loading…");
+  showLoading();
   try {
     const res = await adminService.categories.getAllCategories();
     if (res.result && res.data) {
@@ -90,6 +92,8 @@ async function loadCategories() {
   } catch (err) {
     showToast("Error!", "Failed to load categories.", "error");
     showPlaceholder("Error loading categories.");
+  } finally {
+    hideLoading();
   }
 }
 

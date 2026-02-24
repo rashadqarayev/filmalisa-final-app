@@ -2,6 +2,7 @@ import { adminService } from "./services/AdminService.js";
 import { setActiveNavItem, initStorageListener } from "./util/active.js";
 import { Pagination } from "./util/pagination.js";
 import { showToast } from "./util/toast.js";
+import { showLoading, hideLoading } from "./util/loading.js";
 
 // Check authentication
 if (!adminService.isAuthenticated()) {
@@ -624,8 +625,13 @@ document.querySelector(".logout-text")?.addEventListener("click", () => {
 
 document.addEventListener("DOMContentLoaded", async () => {
   initStorageListener();
-  // Load all data
-  await Promise.all([loadMovies(), loadCategories(), loadActors()]);
+  showLoading();
+  try {
+    // Load all data
+    await Promise.all([loadMovies(), loadCategories(), loadActors()]);
+  } finally {
+    hideLoading();
+  }
 });
 
 // Make functions available globally for onclick handlers

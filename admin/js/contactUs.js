@@ -2,6 +2,7 @@ import { adminService } from "./services/AdminService.js";
 import { Pagination } from "./util/pagination.js";
 import { showToast } from "./util/toast.js";
 import "./util/active.js";
+import { showLoading, hideLoading } from "./util/loading.js";
 
 // ── Auth guard ───────────────────────────────────────────────────────────────
 if (!adminService.isAuthenticated()) {
@@ -82,6 +83,7 @@ function renderTable(contacts) {
 // ── Load contacts ─────────────────────────────────────────────────────────────
 async function loadContacts() {
   showPlaceholder("Loading…");
+  showLoading();
   try {
     const res = await adminService.contacts.getAllContacts();
     if (res.result && res.data) {
@@ -93,6 +95,8 @@ async function loadContacts() {
   } catch (err) {
     showToast("Error!", "An error occurred while loading contacts.", "error");
     showPlaceholder("Error loading contacts.");
+  } finally {
+    hideLoading();
   }
 }
 

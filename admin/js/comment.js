@@ -2,6 +2,7 @@ import { adminService } from "./services/AdminService.js";
 import { Pagination } from "./util/pagination.js";
 import { showToast } from "./util/toast.js";
 import "./util/active.js";
+import { showLoading, hideLoading } from "./util/loading.js";
 
 // ── Auth guard ───────────────────────────────────────────────────────────────
 if (!adminService.isAuthenticated()) {
@@ -95,6 +96,7 @@ function renderComments(comments) {
 // ── Load comments ─────────────────────────────────────────────────────────────
 async function loadComments() {
   showPlaceholder("Loading…");
+  showLoading();
   try {
     const res = await adminService.comments.getAllComments();
     if (res.result && res.data) {
@@ -106,6 +108,8 @@ async function loadComments() {
   } catch (err) {
     showToast("Error!", "An error occurred while loading comments.", "error");
     showPlaceholder("Error loading comments.");
+  } finally {
+    hideLoading();
   }
 }
 

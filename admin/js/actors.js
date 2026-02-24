@@ -2,6 +2,7 @@ import { adminService } from "./services/AdminService.js";
 import { Pagination } from "./util/pagination.js";
 import { showToast } from "./util/toast.js";
 import "./util/active.js";
+import { showLoading, hideLoading } from "./util/loading.js";
 
 // ── Auth guard ───────────────────────────────────────────────────────────────
 if (!adminService.isAuthenticated()) {
@@ -100,6 +101,7 @@ function renderTable(actors) {
 // ── Load actors ───────────────────────────────────────────────────────────────
 async function loadActors() {
   showPlaceholder("Loading…");
+  showLoading();
   try {
     const res = await adminService.actors.getAllActors();
     if (res.result && res.data) {
@@ -111,6 +113,8 @@ async function loadActors() {
   } catch (err) {
     showToast("Error!", "An error occurred while loading actors.", "error");
     showPlaceholder("Error loading actors.");
+  } finally {
+    hideLoading();
   }
 }
 

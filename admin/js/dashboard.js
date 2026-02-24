@@ -1,6 +1,7 @@
 import { adminService } from "./services/AdminService.js";
 import { setActiveNavItem, initStorageListener } from "./util/active.js";
 import { showToast } from "./util/toast.js";
+import { showLoading, hideLoading } from "./util/loading.js";
 
 // Check authentication
 if (!adminService.isAuthenticated()) {
@@ -57,6 +58,7 @@ function animateCounter(element, targetValue, duration = 1000) {
 
 // Load dashboard statistics
 async function loadDashboardStats() {
+  showLoading();
   try {
     const response = await adminService.dashboard.getStatistics();
 
@@ -74,6 +76,8 @@ async function loadDashboardStats() {
     }
   } catch (error) {
     showToast("Error!", "Failed to load dashboard statistics.", "error");
+  } finally {
+    hideLoading();
   }
 }
 
