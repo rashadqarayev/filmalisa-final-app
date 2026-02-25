@@ -30,8 +30,8 @@ https://api.sarkhanrahimli.dev/api/filmalisa
 
 ```json
 {
-  "email": "",
-  "password": ""
+  "email": "admin@admin.com",
+  "password": "1234"
 }
 ```
 

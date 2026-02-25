@@ -1,221 +1,253 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movies</title>
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/admin.logo.svg" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Movies</title>
+    <!-- Reset -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+    />
 
-  <!-- Reset -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../global.css" />
+    <link rel="stylesheet" href="../css/toast.css" />
+    <link rel="stylesheet" href="../css/loading.css" />
+    <link rel="stylesheet" href="../css/movies.css" />
+  </head>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="../../assets/styles/global/root-element.css" />
-  <link rel="stylesheet" href="../../assets/styles/global/global.css" />
-  <link rel="stylesheet" href="../../assets/styles/admin/movies.css" />
-</head>
-
-<body>
-  <div class="movies-container">
-    <!-- ASIDE -->
-    <aside class="asideContainer">
-      <div class="upperAside">
-        <div class="logoArea">
-          <img src="../../assets/images/filmalisalogo.png" alt="logo" />
-          <p class="aside-text">filmalisa</p>
-        </div>
-
-        <!-- SIDEBAR -->
-        <a href="./dashboard.html" class="sideBar-item dashBoardItem">
-          <img src="../../assets/images/dashboard.svg" alt="dashboard" />
-          <span class="sideBar-text">Dashboard</span>
-        </a>
-
-        <a href="./movies.html" class="sideBar-item movieItem active">
-          <img src="../../assets/images/Group.svg" alt="movies" />
-          <span class="sideBar-text">Movies</span>
-        </a>
-
-        <a href="./categories.html" class="sideBar-item categoriesItem">
-          <img src="../../assets/images/star.svg" alt="categories" />
-          <span class="sideBar-text">Categories</span>
-        </a>
-
-        <a href="./user.html" class="sideBar-item usersItem">
-          <img src="../../assets/images/user.png" alt="users" />
-          <span class="sideBar-text">Users</span>
-        </a>
-
-        <a href="./comment.html" class="sideBar-item commentsItem">
-          <img src="../../assets/images/comment.png" alt="comments" />
-          <span class="sideBar-text">Comments</span>
-        </a>
-
-        <a href="./contactUs.html" class="sideBar-item contactItem">
-          <img src="../../assets/images/faq.svg" alt="contact" />
-          <span class="sideBar-text">Contact</span>
-        </a>
-
-        <a href="./actors.html" class="sideBar-item actorItem">
-          <img src="../../assets/images/user.png" alt="" />
-          <span class="sideBar-text">Actors</span>
-        </a>
+  <body>
+    <!-- ── Page Loader ── -->
+    <div id="page-loader">
+      <div class="loader-wrapper">
+        <div class="loader-ring-1"></div>
+        <div class="loader-ring-2"></div>
+        <div class="loader-ring-3"></div>
+        <div class="loader-dot"></div>
       </div>
-
-      <div class="lowerAside">
-        <img src="../../assets/images/logout.svg" alt="logout" />
-        <p class="logout-text">Logout</p>
-      </div>
-    </aside>
-
-    <!-- MAIN -->
-    <main>
-      <!-- HEADER -->
-      <header class="header">
-        <div class="leftHeaderSection">
-          <p class="admin-text">Hi Admin</p>
-          <p class="page-text">Movies</p>
-        </div>
-
-        <div class="rightHeaderSection">
-          <button class="create-btn" type="button" data-bs-toggle="modal" data-bs-target="#editModal">
-            Create
-          </button>
-
-          <div class="rightSection">
-            <img src="../../assets/images/adminman.svg" alt="admin" />
-            <p class="profileName">Admin</p>
+      <p class="loader-label">Loading</p>
+      <div class="loader-dots"><span></span><span></span><span></span></div>
+    </div>
+    <div class="movies-container">
+      <!-- ASIDE -->
+      <aside class="asideContainer">
+        <div class="upperAside">
+          <div class="logoArea">
+            <img src="../../assets/images/filmalisalogo.png" alt="logo" />
+            <p class="aside-text">filmalisa</p>
           </div>
+
+          <!-- SIDEBAR -->
+          <a href="./dashboard.html" class="sideBar-item dashBoardItem">
+            <img src="../../assets/images/dashboard.svg" alt="dashboard" />
+            <span class="sideBar-text">Dashboard</span>
+          </a>
+
+          <a href="./movies.html" class="sideBar-item movieItem active">
+            <img src="../../assets/images/Group.svg" alt="movies" />
+            <span class="sideBar-text">Movies</span>
+          </a>
+
+          <a href="./categories.html" class="sideBar-item categoriesItem">
+            <img src="../../assets/images/star.svg" alt="categories" />
+            <span class="sideBar-text">Categories</span>
+          </a>
+
+          <a href="./user.html" class="sideBar-item usersItem">
+            <img src="../../assets/images/user.png" alt="users" />
+            <span class="sideBar-text">Users</span>
+          </a>
+
+          <a href="./comment.html" class="sideBar-item commentsItem">
+            <img src="../../assets/images/comment.png" alt="comments" />
+            <span class="sideBar-text">Comments</span>
+          </a>
+
+          <a href="./contactUs.html" class="sideBar-item contactItem">
+            <img src="../../assets/images/faq.svg" alt="contact" />
+            <span class="sideBar-text">Contact</span>
+          </a>
+
+          <a href="./actors.html" class="sideBar-item actorItem">
+            <img src="../../assets/images/user.png" alt="" />
+            <span class="sideBar-text">Actors</span>
+          </a>
         </div>
-      </header>
 
-      <!-- TABLE SECTION -->
-      <section class="section">
-        <table class="table">
-          <thead class="table-dark">
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Title</th>
-              <th scope="col">Overview</th>
-              <th scope="col">Category</th>
-              <th scope="col">IMDB</th>
-              <th scope="col">Operation</th>
-            </tr>
-          </thead>
+        <div class="lowerAside">
+          <img src="../../assets/images/logout.svg" alt="logout" />
+          <p class="logout-text">Logout</p>
+        </div>
+      </aside>
 
-          <tbody id="moviesTbody">
-            <!-- Nümunə row (JS ilə dolduracaqsan, indi görünsün deyə saxladım)bbbb -->
-            <tr class="table-row">
-              <th scope="row">1</th>
+      <!-- MAIN -->
+      <main>
+        <!-- HEADER -->
+        <header class="header">
+          <div class="leftHeaderSection">
+            <p class="admin-text">Hi Admin</p>
+            <p class="page-text">Movies</p>
+          </div>
 
-              <td class="title-movie">
-                <img src="../../assets/images/table-inner-img.svg" alt="icon" />
-                <p>Lost in space</p>
-              </td>
+          <div class="rightHeaderSection">
+            <button
+              class="create-btn"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#editModal"
+            >
+              Create
+            </button>
 
-              <td>Lorem ipsum test...</td>
-              <td>Action</td>
-              <td><span>7.6</span></td>
+            <div class="rightSection">
+              <img src="../../assets/images/adminman.svg" alt="admin" />
+              <p class="profileName">Admin</p>
+            </div>
+          </div>
+        </header>
 
-              <td class="operation">
-                <i class="fa-solid fa-pen-to-square edit-btn" style="cursor: pointer" data-bs-toggle="modal"
-                  data-bs-target="#editModal"></i>
 
-                <i class="fa-solid fa-trash" style="cursor: pointer" data-bs-toggle="modal"
-                  data-bs-target="#deleteModal"></i>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-    </main>
-  </div>
+        <!-- TABLE SECTION -->
+        <section class="section">
+          <table class="table">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Overview</th>
+                <th scope="col">Category</th>
+                <th scope="col">IMDB</th>
+                <th scope="col">Operation</th>
+              </tr>
+            </thead>
 
-  <!-- EDIT / CREATE MODAL -->
-  <div class="modal fade edit-modal" id="editModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content edit-form">
-        <!-- sol -->
-        <div class="editModal">
-          <input id="movieTitle" type="text" placeholder="title" />
-          <textarea id="movieOverview" placeholder="overview"></textarea>
-          <input id="movieCover" type="text" placeholder="cover url" />
-          <input id="movieTrailer" type="text" placeholder="fragman (youtube embed url)" />
-          <input id="movieWatch" type="text" placeholder="watch url" />
-          <input id="movieImdb" type="text" placeholder="imdb" />
-          <input id="movieRuntime" type="text" placeholder="runtime minute" />
+            <tbody id="moviesTbody">
+              <!-- Nümunə row (JS ilə doldurulacaq-->
 
-          <select id="catSelect" class="form-select dark-select">
-            <option value="Action">Action</option>
-            <option value="Drama">Drama</option>
-            <option value="Comedy">Comedy</option>
-            <option value="Sci-Fi">Sci-Fi</option>
-            <option value="Horror">Horror</option>
-          </select>
+              
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
 
-          <div class="footer-div">
-            <div class="left">
-              <p>Adult</p>
-              <input id="movieAdult" type="checkbox" />
+    <!-- EDIT / CREATE MODAL -->
+    <div
+      class="modal fade edit-modal"
+      id="editModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content edit-form">
+          <!-- sol -->
+          <div class="editModal">
+            <input id="movieTitle" type="text" placeholder="Title" />
+            <textarea id="movieOverview" placeholder="Overview"></textarea>
+            <input id="movieCover" type="text" placeholder="Cover Url" />
+            <input
+              id="movieTrailer"
+              type="text"
+              placeholder="Fragman (youtube embed url)"
+            />
+            <input id="movieWatch" type="text" placeholder="Watch Url" />
+            <input id="movieImdb" type="text" placeholder="IMDB" />
+            <input id="movieRuntime" type="text" placeholder="Runtime minute" />
+
+            
+            <select id="catSelect" class="form-select dark-select">
+              
+            </select>
+
+            <!-- Actors Custom Multi-Select -->
+            <div class="custom-multiselect" id="actorsMultiSelect">
+              <!-- Trigger (looks like a closed dropdown) -->
+              <div class="cms-trigger" id="cmsTrigger">
+                <div class="cms-tags" id="cmsTags">
+                  <span class="cms-placeholder">Select Actors</span>
+                </div>
+                <span class="cms-arrow"></span>
+              </div>
+              <!-- Dropdown list -->
+              <div class="cms-dropdown" id="cmsDropdown">
+                <input
+                  class="cms-search"
+                  id="cmsSearch"
+                  type="text"
+                  placeholder="Search actors..."
+                  autocomplete="off"
+                />
+                <ul class="cms-list" id="cmsList">
+                  <!-- Populated by JS -->
+                </ul>
+              </div>
             </div>
 
-            <button class="create-btn" type="button" id="saveMovieBtn">
-              Save
-            </button>
+            <div class="footer-div">
+              <div class="left">
+                <p>Adult</p>
+                <input id="movieAdult" type="checkbox" />
+              </div>
+
+              <button class="create-btn" type="button" id="saveMovieBtn">
+                Save
+              </button>
+            </div>
+          </div>
+
+          <!-- sağ -->
+          <div class="edit-right">
+            <img
+              id="previewImg"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='450' viewBox='0 0 300 450'%3E%3Crect fill='%23374151' width='300' height='450'/%3E%3Ctext fill='%239CA3AF' font-family='Arial' font-size='16' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3EMovie Cover Preview%3C/text%3E%3C/svg%3E"
+              alt="preview"
+            />
           </div>
         </div>
-
-        <!-- sağ -->
-        <div class="edit-right">
-          <img id="previewImg"
-            src="https://qqcdnpictest.mxplay.com/pic/cc1f9610b1cc638cf9b60f305ee1b4d6/en/2x3/312x468/test_pic1759756606210_badged_1761714017652.webp"
-            alt="preview" />
-        </div>
       </div>
     </div>
-  </div>
 
-  <!-- DELETE MODAL -->
-  <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 400px">
-      <div class="modal-content">
+    <!-- DELETE MODAL -->
+    <dialog id="deleteModal" class="actorModal">
+      <div class="modalBox delete-box">
         <div class="modal-header">
-          <h5 class="modal-title">Delete Content</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          <h2 id="deleteModalTitle">Delete Movie</h2>
+          <button type="button" class="close-modal" onclick="deleteModal.close()">×</button>
         </div>
-
-        <div class="modal-body">
-          <span id="deleteModalText">
-            Are you sure you want to delete
-            <strong id="deleteItemName" style="color: #fff"></strong>?
-            This action cannot be undone.
-          </span>
+        <div class="delete-content">
+          <p>Are you sure you want to delete <strong id="deleteItemName"></strong>?</p>
+          <p class="warning-text">This action cannot be undone.</p>
         </div>
-
-        <div class="modal-footer d-flex justify-content-end">
-          <button class="btn-cancel" data-bs-dismiss="modal">Cancel</button>
-          <button class="btn-delete-confirm" data-bs-dismiss="modal" id="confirmDeleteBtn">
-            Delete
-          </button>
+        <div class="modal-buttons">
+          <button id="confirmDeleteBtn" class="modalSubmit btn-danger">Yes, Delete</button>
+          <button type="button" onclick="deleteModal.close()" class="modalSubmit btn-cancel">Cancel</button>
         </div>
       </div>
-    </div>
-  </div>
+    </dialog>
 
-  <!-- JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../../js/admin/adminCheckAuth.js"></script>
-  <script src="../../js/admin/active.js"></script>
-  <script src="../../js/admin/movies-page.js"></script>
-  <script src="../../js/admin/logout.js"></script>
-</body>
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Load API as ES6 module -->
+    <script type="module" src="../js/movies.js"></script>
+    <!-- <script src="../js/util/pagination.js"></script> -->
+  </body>
 </html>

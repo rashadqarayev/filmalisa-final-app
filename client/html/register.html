@@ -1,76 +1,99 @@
 <!doctype html>
 <html lang="az">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register</title>
 
-    <link rel="stylesheet" href="../../assets/styles/global/root-element.css" />
-    <link rel="stylesheet" href="../../assets/styles/client/register.css" />
-  </head>
 
-  <body>
-    <div class="register-page">
-      <div class="register-box">
-        <!-- Logo -->
-        <div class="register-logo">
-          <img src="../../assets/images/admin.logo.svg" alt="Logo" />
-        </div>
+<head>
 
-        <!-- Brand -->
-        <h1 class="brand-title">filmalisa</h1>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Numans&family=Poppins:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../css/register.css" />
+  <link rel="stylesheet" href="../../global.css" />
 
-        <!-- Register title -->
-        <h2 class="register-title">register</h2>
-        <p id="warning" style="display: none; color: red; margin: 10px 0"></p>
+</head>
 
-        <!-- Form -->
-        <form class="register-form">
-          <!-- Full name -->
-          <div class="form-group">
-            <span class="input-icon">
-              <img src="../../assets/images/admin.username.svg" alt="user icon" />
-            </span>
-            <input id="fullname" type="text" placeholder="full name" required />
-          </div>
 
-          <!-- Email -->
-          <div class="form-group">
-            <span class="input-icon">
-              <img src="../../assets/images/admin.email.svg" alt="email icon" />
-            </span>
-            <input id="email" type="email" placeholder="email" required />
-          </div>
+<body>
 
-          <!-- Password -->
-          <div class="form-group">
-            <span class="input-icon">
-              <img
-                src="../../assets/images/admin.password.svg"
-                alt="password icon"
-              />
-            </span>
+  <!-- register page start -->
+  <div class="register-page">
 
-            <input
-              type="password"
-              placeholder="password"
-              id="password"
-              required
-            />
-            <span class="toggle-eye" id="togglePassword">👁</span>
-          </div>
+    <!-- register box start -->
+    <div class="register-box">
 
-          <!-- Helper -->
-
-          <a href="./login.html" class="helper-link">
-            Do you have a account?Login here</a
-          >
-
-          <button type="submit" class="register-button">register</button>
-        </form>
+      <!-- logo start -->
+      <div class="register-logo">
+        <img src="../../assets/images/admin.logo.svg" alt="Logo" />
       </div>
-    </div>
+      <!-- logo end -->
 
-    <script src="../../js/client/register.js"></script>
-  </body>
+    
+      <h1 class="brand-title">filmalisa</h1>
+   
+
+     
+      <h2 class="register-title">register</h2>
+   
+
+      <!-- register form start -->
+      <form class="register-form" id="registerForm">
+
+        <!-- input fullname start -->
+        <div class="form-group">
+          <span class="input-icon">
+            <i class="fa-regular fa-user"></i>
+          </span>
+          <input id="fullname" type="text" placeholder="full name" required />
+        </div>
+        <!-- input fullname end -->
+
+        <!-- input email start -->
+        <div class="form-group">
+          <span class="input-icon">
+            <img src="../../assets/images/admin.username.svg" alt="email icon" />
+          </span>
+          <input id="email" type="email" placeholder=" email" required />
+        </div>
+        <!-- input email end -->
+
+        <!-- input password start -->
+        <div class="form-group">
+          <span class="input-icon">
+            <img src="../../assets/images/admin.password.svg" alt="password icon" />
+          </span>
+          <input type="password" id="password" placeholder=" password" required />
+          <span class="toggle-eye" id="togglePassword">
+            <img id="pass-toggle" src="../../assets/images/password-toggle.svg" alt="toggle password visibility" />
+          </span>
+        </div>
+        <!-- input password end -->
+
+       
+        <a href="./login.html" class="helper-link">Do you have an account? Login here</a>
+    
+
+       
+        <button type="submit" class="register-button">register</button>
+     
+
+      </form>
+      <!-- register form end -->
+
+    </div>
+    <!-- register box end -->
+
+  </div>
+  <!-- register page end -->
+
+  <script src="../js/register.js"></script>
+  
+
+</body>
+
 </html>

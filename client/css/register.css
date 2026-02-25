@@ -1,23 +1,29 @@
-/* ======================
-   RESET
-====================== */
+/* reset start */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* reset end */
+
+
+/* page base start */
+
 html,
 body {
   width: 100%;
   height: 100%;
-  font-family: var(--font-primary); /* ONLY Raleway */
+  font-family: var(--font-primary);
   background: var(--bg-color);
 }
 
-/* ======================
-   PAGE
-====================== */
+/* page base end */
+
+
+/* register page start */
+
 .register-page {
   min-height: 100vh;
   width: 100%;
@@ -27,9 +33,11 @@ body {
   justify-content: center;
 }
 
-/* ======================
-   BOX
-====================== */
+/* register page end */
+
+
+/* register box start */
+
 .register-box {
   width: 720px;
   max-width: calc(100% - 40px);
@@ -41,20 +49,24 @@ body {
   align-items: center;
 }
 
-/* ======================
-   LOGO
-====================== */
+/* register box end */
+
+
+/* logo start */
+
 .register-logo img {
   width: 249px;
   height: 150px;
   display: block;
 }
 
-/* ======================
-   BRAND (filmalisa)
-====================== */
+/* logo end */
+
+
+/* brand title start */
+
 .brand-title {
-  font-family: var(--font-primary);
+  font-family: 'Numans', sans-serif;
   font-weight: 400;
   font-size: 70px;
   line-height: 80px;
@@ -64,11 +76,13 @@ body {
   margin-bottom: 20px;
 }
 
-/* ======================
-   TITLE (register / login)
-====================== */
+/* brand title end */
+
+
+/* register title start */
+
 .register-title {
-  font-family: var(--font-primary);
+  font-family: 'Poppins', sans-serif;
   font-weight: 600;
   font-size: 40px;
   line-height: 80px;
@@ -79,63 +93,77 @@ body {
   margin-bottom: 14px;
 }
 
-/* ======================
-   FORM
-====================== */
+/* register title end */
+
+
+/* register form start */
+
 .register-form {
-  width: 618px;              /* Figma: Fill 618px */
+  width: 618px;
   max-width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px;                 /* Figma: Gap 16px */
+  gap: 16px;
 }
 
-/* ======================
-   INPUT WRAPPER
-====================== */
+/* register form end */
+
+
+/* form group start */
+
 .form-group {
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   width: 100%;
+  height: 64px;
+  border-radius: 12px;
+  border: 1px solid var(--input-bg-color);
+  padding: 0 16px;
+  transition: border-color 0.2s ease;
 }
 
-/* ======================
-   INPUT (FIGMA BASE INPUT)
-   Height: 64px
-   Radius: 12px
-   Padding: 12px 16px
-====================== */
+.form-group:focus-within {
+  border-color: var(--primary-color);
+}
+
+/* form group end */
+
+
+/* input start */
+
 .form-group input {
-  width: 100%;
-  height: 64px;              /* Figma: Hug 64px */
-  border-radius: 12px;       /* Figma: Radius 12px */
-  border: 1px solid var(--input-bg-color);
+  flex: 1;
+  height: 100%;
+  border: none;
   background: transparent;
   color: var(--card-number-color);
   outline: none;
   font-size: 14px;
-
-  /* padding + icon space */
-  padding: 12px 16px 12px 44px;
+  padding: 0;
 }
 
 .form-group input::placeholder {
   color: var(--text-placeholder);
 }
 
-.form-group input:focus {
-  border-color: var(--primary-color);
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover,
+.form-group input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--bg-color) inset;
+  -webkit-text-fill-color: var(--card-number-color);
+  transition: background-color 5000s ease-in-out 0s;
 }
 
-/* ======================
-   LEFT ICON
-====================== */
+/* input end */
+
+
+/* input icon start */
+
 .input-icon {
-  position: absolute;
-  left: 16px;                /* Figma left padding */
-  top: 50%;
-  transform: translateY(-50%);
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   pointer-events: none;
 }
 
@@ -144,39 +172,50 @@ body {
   height: 18px;
 }
 
-/* ======================
-   EYE ICON
-====================== */
-.toggle-eye {
-  position: absolute;
-  right: 16px;               /* Figma right padding */
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  font-size: 16px;
-  color: var(--sidebar-text-color);
+.input-icon i {
+  font-size: 18px;
+  color: var(--input-border-color);
+  transform: translate(-2px, 0);
 }
 
-/* ======================
-   HELPER LINK
-====================== */
+/* input icon end */
+
+
+/* input password start */
+
+.toggle-eye {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.toggle-eye img {
+  width: 24px;
+  height: 24px;
+}
+
+/* input password end */
+
+
+/* helper link start */
+
 .helper-link {
   font-size: 14px;
   color: rgba(153, 163, 190, 1);
   margin-top: -4px;
-
 }
 
+/* helper link end */
 
 
-/* ======================
-   BUTTON
-====================== */
+/* register button start */
+
 .register-button {
   width: 100%;
-  height: 46px;
+  height: 64px;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   background: var(--primary-color);
   color: var(--card-number-color);
   font-size: 14px;
@@ -190,3 +229,5 @@ body {
   opacity: 0.92;
   transform: translateY(-1px);
 }
+
+/* register button end */

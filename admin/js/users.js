@@ -1,70 +1,139 @@
-const API_URL = "https://api.sarkhanrahimli.dev/api/filmalisa/admin/users";
+import { adminService } from "./services/AdminService.js";
+import { Pagination } from "./util/pagination.js";
+import { showToast } from "./util/toast.js";
+import "./util/active.js";
+import { showLoading, hideLoading } from "./util/loading.js";
+
+// ── Auth guard ───────────────────────────────────────────────────────────────
+if (!adminService.isAuthenticated()) {
+  window.location.href = "/admin/html/login.html";
+}
+
+// ── DOM refs ─────────────────────────────────────────────────────────────────
 const tableBody = document.getElementById("usersTableBody");
-const DEFAULT_IMAGE = "../../assets/images/adminman.svg";
+const DEFAULT_IMG = "../../assets/images/adminman.svg";
 
-async function getAllUsers() {
-    const token = localStorage.getItem("access_token");
-    if (!token) return;
-
-    try {
-        const response = await fetch(API_URL, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
-            }
-        });
-
-        if (response.ok) {
-            const result = await response.json();
-            renderUsers(result.data);
-        }
-    } catch (error) {
-        console.error("Məlumat çəkilərkən xəta:", error);
-    }
+// ── Pagination ────────────────────────────────────────────────────────────────
+// Container is injected right after the <table> section
+let paginationEl = document.getElementById("users-pagination");
+if (!paginationEl) {
+  paginationEl = document.createElement("div");
+  paginationEl.id = "users-pagination";
+  paginationEl.className = "pagination-container";
+  document.querySelector(".section")?.after(paginationEl);
 }
 
+const pager = new Pagination({
+  containerSelector: paginationEl,
+  itemsPerPage: 8,
+  onPageChange: (pageItems) => renderUsers(pageItems),
+});
 
-// Şəkil linkini yoxlayan funksiya
-function getCleanImage(imgUrl) {
-    // const defaultPic = "../../assets/images/adminman.svg";
-
-    // Əgər link yoxdursa, null-dursa və ya içində "null" sözü varsa
-    if (!imgUrl || imgUrl === "null" || typeof imgUrl !== "string") {
-        return DEFAULT_IMAGE;
-    }
-
-    // Əgər link səhvən "nullhttp" ilə başlayırsa, onu düzəlt və ya default qoy
-    if (imgUrl.startsWith("null")) {
-        return DEFAULT_IMAGE;
-    }
-
-    return imgUrl;
+// ── Helpers ──────────────────────────────────────────────────────────────────
+function showPlaceholder(msg) {
+  tableBody.innerHTML = `
+    <tr>
+      <td colspan="5" style="text-align:center;padding:24px;color:#aaa;">${msg}</td>
+    </tr>`;
+  paginationEl.innerHTML = "";
 }
 
+function safeImg(url) {
+  if (!url || url === "null" || url.startsWith("null")) return DEFAULT_IMG;
+  return url;
+}
+
+function escapeHtml(text) {
+  const d = document.createElement("div");
+  d.textContent = text ?? "";
+  return d.innerHTML;
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
 function renderUsers(users) {
-    tableBody.innerHTML = "";
+  if (!users.length) {
+    tableBody.innerHTML = `
+      <tr>
+        <td colspan="5" style="text-align:center;padding:24px;color:#aaa;">No users found.</td>
+      </tr>`;
+    return;
+  }
 
-    users.forEach(user => {
-        
-        // Əgər url null-dursa və ya içində səhvən "null" sözü varsa, default şəkli seç
-        let safeImg = (user.img_url && user.img_url !== "null") ? user.img_url : DEFAULT_IMAGE;
-
-        const row = `
-            <tr class="table-row">
-                <th scope="row">${user.id}</th>
-                <td>${user.full_name}</td>
-                <td>${user.email}</td>
-                <td>
-                    <img src="${getCleanImage(user.img_url)}" 
-                         alt="user"
-                         onerror="this.onerror=null; this.src='${DEFAULT_IMAGE}';"
-                         style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;">
-                </td>
-            </tr>
-        `;
-        tableBody.insertAdjacentHTML("beforeend", row);
-    });
+  tableBody.innerHTML = users
+    .map(
+      (user) => `
+      <tr class="table-row" data-id="${user.id}">
+        <th scope="row">${user.id}</th>
+        <td>${escapeHtml(user.full_name)}</td>
+        <td>${escapeHtml(user.email)}</td>
+        <td>
+          <img
+            src="${safeImg(user.img_url)}"
+            alt="user"
+            onerror="this.onerror=null;this.src='${DEFAULT_IMG}';"
+            style="width:45px;height:45px;border-radius:50%;object-fit:cover;"
+          />
+        </td>
+       
+      </tr>`
+    )
+    .join("");
 }
 
-document.addEventListener("DOMContentLoaded", getAllUsers);
+// ── Load all users ────────────────────────────────────────────────────────────
+async function loadUsers() {
+  showPlaceholder("Loading…");
+  showLoading();
+  try {
+    const res = await adminService.users.getAllUsers();
+    if (res.result && res.data) {
+      pager.setData(res.data); // hands off to pagination → triggers renderUsers
+    } else {
+      showToast("Error!", res.message || "Failed to load users.", "error");
+      showPlaceholder(res.message || "Failed to load users.");
+    }
+  } catch (err) {
+    showToast("Error!", "An error occurred while loading users.", "error");
+    showPlaceholder("Error loading users.");
+  } finally {
+    hideLoading();
+  }
+}
+
+// ── Delete (table click delegation) ──────────────────────────────────────────
+tableBody.addEventListener("click", async (e) => {
+  if (!e.target.classList.contains("delete-btn")) return;
+
+  const row = e.target.closest("tr");
+  const id = parseInt(row?.dataset.id);
+  if (!id) return;
+
+  if (!confirm("Are you sure you want to delete this user?")) return;
+
+  e.target.classList.replace("fa-trash", "fa-spinner");
+  e.target.style.animation = "spin 1s linear infinite";
+
+  try {
+    const res = await adminService.users.deleteUser(id);
+    if (res.result) {
+      showToast("Success!", "User deleted successfully!", "success");
+      await loadUsers();
+    } else {
+      showToast("Error!", res.message || "Failed to delete user.", "error");
+      e.target.classList.replace("fa-spinner", "fa-trash");
+      e.target.style.animation = "";
+    }
+  } catch (err) {
+    showToast("Error!", err.message || "Failed to delete user.", "error");
+    e.target.classList.replace("fa-spinner", "fa-trash");
+    e.target.style.animation = "";
+  }
+});
+
+// ── Logout ────────────────────────────────────────────────────────────────────
+document.querySelector(".logout-text")?.addEventListener("click", () => {
+  adminService.auth.logout();
+});
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+document.addEventListener("DOMContentLoaded", loadUsers);

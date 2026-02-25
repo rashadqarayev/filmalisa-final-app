@@ -58,71 +58,123 @@ main {
 
 
 
-/* Delete modal */
+/* Delete dialog modal */
+#deleteModal.actorModal {
+  border: none;
+  padding: 0;
+  background: transparent;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  outline: none;
+}
 
+#deleteModal.actorModal::backdrop {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+}
 
-/* Delete confirm modal */
-#deleteModal .modal-content {
-    background: #1e1e30;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
+#deleteModal .modalBox {
+  width: 420px;
+  padding: 35px;
+  border-radius: 24px;
+  background: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  text-align: center;
 }
 
 #deleteModal .modal-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-    padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 20px 0;
+  border: none;
 }
 
-#deleteModal .modal-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: #fff;
+#deleteModal #deleteModalTitle {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
-#deleteModal .btn-close {
-    filter: invert(1) opacity(0.5);
+#deleteModal .close-modal {
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: #9ca3af;
+  font-size: 20px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#deleteModal .modal-body {
-    padding: 20px;
-    color: #aaa;
-    font-size: 14px;
-    line-height: 1.6;
+#deleteModal .close-modal:hover {
+  background: rgba(243, 0, 0, 0.1);
+  color: white;
 }
 
-#deleteModal .modal-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
-    padding: 12px 20px;
-    gap: 8px;
+#deleteModal .delete-content p {
+  color: #efefef;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.6;
 }
 
-.btn-cancel {
-    background: #2a2a3e;
-    color: #ccc;
-    border: 1px solid #3a3a52;
-    padding: 7px 18px;
-    border-radius: 6px;
-    font-size: 13px;
-    cursor: pointer;
+#deleteModal .warning-text {
+  margin-top: 8px;
+  color: #9ca3af !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
 }
 
-.btn-cancel:hover {
-    background: #333350;
-    color: #fff;
+#deleteModal .modal-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
 }
 
-.btn-delete-confirm {
-    background: #ef4444;
-    color: #fff;
-    border: none;
-    padding: 7px 18px;
-    border-radius: 6px;
-    font-size: 13px;
-    cursor: pointer;
+#deleteModal .modalSubmit {
+  flex: 1;
+  height: 50px;
+  border-radius: 14px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
 }
 
-.btn-delete-confirm:hover {
-    background: #dc2626;
+#deleteModal .btn-danger {
+  background: linear-gradient(135deg, #ff4b2b 0%, #dc3545 100%);
+  flex: 2;
+}
+
+#deleteModal .btn-danger:hover {
+  box-shadow: 0 8px 20px rgba(220, 53, 69, 0.35);
+  transform: translateY(-2px);
+}
+
+#deleteModal .btn-cancel {
+  background: #243ab8;
+  color: #a0a0a0;
+  flex: 2;
+}
+
+#deleteModal .btn-cancel:hover {
+  background: #29288d;
+  color: white;
+  box-shadow: 0 8px 20px rgba(72, 48, 206, 0.3);
+  transform: translateY(-2px);
 }
 
 
@@ -152,4 +204,12 @@ main {
 /* Modalın ekrana gəlmə sürəti və effekti */
 .modal.fade .modal-dialog {
     transition: transform 0.3s ease-out;
+}
+.pagination-container {
+  width: 90%;
+  margin: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }

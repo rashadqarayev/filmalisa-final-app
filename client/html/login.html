@@ -1,49 +1,86 @@
 <!doctype html>
 <html lang="az">
-<head>
-    <!-- <script src="../../js/client/login.js"></script> -->
 
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
-    <link rel="stylesheet" href="../../assets/styles/global/root-element.css" />
-    <link rel="stylesheet" href="../../assets/styles/client/login.css" />
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+  <link rel="stylesheet" href="../css/login.css" />
+  <link rel="stylesheet" href="../../global.css" />
+
 </head>
+
+
 <body>
 
-    <div class="login-page">
-        <div class="login-box">
-            <div class="login-logo">
-                <img src="../../assets/images/admin.logo.svg" alt="Logo" />
-            </div>
-            <h1 class="brand-title">filmalisa</h1>
-            <h2 class="login-title">login</h2>
+  <!-- login page start -->
+  <div class="login-page">
 
-            <p id="warning" style="color: #ff4b2b; display: none; text-align: center; margin-bottom: 10px; font-size: 14px;"></p>
+    <!-- login box start -->
+    <div class="login-box">
 
-            <form class="login-form" id="loginForm">
-                <div class="form-group">
-                    <span class="input-icon">
-                        <img src="../../assets/images/admin.username.svg" alt="email icon" />
-                    </span>
-                    <input type="email" id="email" placeholder="email" required />
-                </div>
+      <!-- logo start -->
+      <div class="login-logo">
+        <img src="../../assets/images/admin.logo.svg" alt="Logo" />
+      </div>
+      <!-- logo end -->
 
-                <div class="form-group">
-                    <span class="input-icon">
-                        <img src="../../assets/images/admin.password.svg" alt="password icon" />
-                    </span>
-                    <input type="password" placeholder="password" id="password" required />
-                    <span class="toggle-eye" id="togglePassword"></span>
-                </div>
+     
+      <h1 class="brand-title">filmalisa</h1>
+      
 
-                <a href="./register.html" class="helper-link">Register here</a>
-                <button type="submit" class="login-button">login</button>
-            </form>
+     
+      <h2 class="login-title">login</h2>
+      
+
+  
+
+      <!-- login form start -->
+      <form class="login-form" id="loginForm">
+
+        <!-- input email start -->
+        <div class="form-group">
+          <span class="input-icon">
+            <img src="../../assets/images/admin.username.svg" alt="email icon" />
+          </span>
+          <input type="email" id="email" placeholder="email" required />
         </div>
+        <!-- input email end -->
+
+        <!-- input password start -->
+        <div class="form-group">
+          <span class="input-icon">
+            <img src="../../assets/images/admin.password.svg" alt="password icon" />
+          </span>
+          <input type="password" id="password" placeholder="password" required />
+          <span class="toggle-eye" id="togglePassword">
+            <img id="pass-toggle" src="../../assets/images/password-toggle.svg" alt="toggle password visibility" />
+          </span>
+        </div>
+        <!-- input password end -->
+
+    
+        <a href="./register.html" class="helper-link">Register here</a>
+       
+
+        <button type="submit" class="login-button">login</button>
+      
+
+      </form>
+      <!-- login form end -->
+
     </div>
-    <script src="../../js/client/login.js"></script>
+    <!-- login box end -->
+
+  </div>
+  <!-- login page end -->
+
+ 
+  <script src="../js/login.js"></script>
+
 
 </body>
+
 </html>

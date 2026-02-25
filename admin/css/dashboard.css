@@ -130,3 +130,12 @@ main {
     transform: translateY(-4px);
     background-color: var(--card-bg-purple);
 }
+
+.pagination-container {
+  width: 90%;
+  margin: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
