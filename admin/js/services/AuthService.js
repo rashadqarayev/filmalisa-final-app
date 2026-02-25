@@ -1,9 +1,4 @@
-import { httpClient } from "../config/HttpClient.js";
-import { showToast } from "../util/toast.js";
-
-// Valid admin credentials
-const VALID_ADMIN_EMAIL = "admin@admin.com";
-const VALID_ADMIN_PASSWORD = "1234";
+import { httpClient } from "../core/HttpClient.js";
 
 /**
  * AuthService - Handles authentication related API calls
@@ -14,26 +9,18 @@ class AuthService {
   }
 
   /**
-   * Admin login - Only allows admin@admin.com / 1234
+   * Admin login
    * @param {string} email - Admin email
    * @param {string} password - Admin password
    * @returns {Promise<Object>} Login response with tokens and profile
    */
   async login(email, password) {
-    // Check credentials locally first
-    if (email !== VALID_ADMIN_EMAIL || password !== VALID_ADMIN_PASSWORD) {
-      return {
-        result: false,
-        message: "Invalid credentials. Access denied."
-      };
-    }
-
     const response = await this.http.post("/auth/admin/login", {
       email,
       password,
     });
 
-    if (response.result && response.data.tokens) {
+    if (response.result && response.data?.tokens) {
       this.http.setAuthToken(response.data.tokens.access_token);
     }
 

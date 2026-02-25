@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movies</title>
-    <link rel="icon" type="image/svg+xml" href="../../assets/images/admin.logo.svg" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../../assets/images/admin.logo.svg"
+    />
 
     <!-- Reset -->
     <link
@@ -108,6 +112,12 @@
           </div>
 
           <div class="rightHeaderSection">
+            <input
+              id="movie-search"
+              type="text"
+              class="search-input"
+              placeholder="Search movies…"
+            />
             <button
               class="create-btn"
               type="button"
@@ -123,7 +133,6 @@
             </div>
           </div>
         </header>
-
 
         <!-- TABLE SECTION -->
         <section class="section">
@@ -141,8 +150,6 @@
 
             <tbody id="moviesTbody">
               <!-- Nümunə row (JS ilə doldurulacaq-->
-
-              
             </tbody>
           </table>
         </section>
@@ -158,48 +165,99 @@
     >
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content edit-form">
+          <!-- Close button -->
+          <button
+            type="button"
+            class="edit-modal-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          >
+            ×
+          </button>
           <!-- sol -->
           <div class="editModal">
-            <input id="movieTitle" type="text" placeholder="Title" />
-            <textarea id="movieOverview" placeholder="Overview"></textarea>
-            <input id="movieCover" type="text" placeholder="Cover Url" />
-            <input
-              id="movieTrailer"
-              type="text"
-              placeholder="Fragman (youtube embed url)"
-            />
-            <input id="movieWatch" type="text" placeholder="Watch Url" />
-            <input id="movieImdb" type="text" placeholder="IMDB" />
-            <input id="movieRuntime" type="text" placeholder="Runtime minute" />
+            <div class="field-group">
+              <label for="movieTitle">Title</label>
+              <input id="movieTitle" type="text" placeholder="e.g. Inception" />
+            </div>
 
-            
-            <select id="catSelect" class="form-select dark-select">
-              
-            </select>
+            <div class="field-group">
+              <label for="movieOverview">Overview</label>
+              <textarea
+                id="movieOverview"
+                placeholder="Short description of the movie…"
+              ></textarea>
+            </div>
+
+            <div class="field-group">
+              <label for="movieCover">Cover URL</label>
+              <input
+                id="movieCover"
+                type="text"
+                placeholder="https://…/poster.jpg"
+              />
+            </div>
+
+            <div class="field-group">
+              <label for="movieTrailer">Trailer (YouTube embed URL)</label>
+              <input
+                id="movieTrailer"
+                type="text"
+                placeholder="https://www.youtube.com/embed/…"
+              />
+            </div>
+
+            <div class="field-group">
+              <label for="movieWatch">Watch URL</label>
+              <input
+                id="movieWatch"
+                type="text"
+                placeholder="https://…/watch"
+              />
+            </div>
+
+            <div class="field-group">
+              <label for="movieImdb">IMDB Rating</label>
+              <input id="movieImdb" type="text" placeholder="e.g. 8.8" />
+            </div>
+
+            <div class="field-group">
+              <label for="movieRuntime">Runtime (minutes)</label>
+              <input id="movieRuntime" type="text" placeholder="e.g. 148" />
+            </div>
+
+            <div class="field-group">
+              <label for="catSelect">Category</label>
+              <select id="catSelect" class="form-select dark-select"></select>
+            </div>
 
             <!-- Actors Custom Multi-Select -->
-            <div class="custom-multiselect" id="actorsMultiSelect">
-              <!-- Trigger (looks like a closed dropdown) -->
-              <div class="cms-trigger" id="cmsTrigger">
-                <div class="cms-tags" id="cmsTags">
-                  <span class="cms-placeholder">Select Actors</span>
+            <div class="field-group">
+              <label>Actors</label>
+              <div class="custom-multiselect" id="actorsMultiSelect">
+                <!-- Trigger (looks like a closed dropdown) -->
+                <div class="cms-trigger" id="cmsTrigger">
+                  <div class="cms-tags" id="cmsTags">
+                    <span class="cms-placeholder">Select Actors</span>
+                  </div>
+                  <span class="cms-arrow"></span>
                 </div>
-                <span class="cms-arrow"></span>
+                <!-- Dropdown list -->
+                <div class="cms-dropdown" id="cmsDropdown">
+                  <input
+                    type="text"
+                    id="cmsSearch"
+                    class="cms-search"
+                    placeholder="Search actors…"
+                  />
+                  <ul class="cms-list" id="cmsList">
+                    <!-- Populated by JS -->
+                  </ul>
+                </div>
               </div>
-              <!-- Dropdown list -->
-              <div class="cms-dropdown" id="cmsDropdown">
-                <input
-                  class="cms-search"
-                  id="cmsSearch"
-                  type="text"
-                  placeholder="Search actors..."
-                  autocomplete="off"
-                />
-                <ul class="cms-list" id="cmsList">
-                  <!-- Populated by JS -->
-                </ul>
-              </div>
+              <!-- /.custom-multiselect -->
             </div>
+            <!-- /.field-group actors -->
 
             <div class="footer-div">
               <div class="left">
@@ -230,15 +288,32 @@
       <div class="modalBox delete-box">
         <div class="modal-header">
           <h2 id="deleteModalTitle">Delete Movie</h2>
-          <button type="button" class="close-modal" onclick="deleteModal.close()">×</button>
+          <button
+            type="button"
+            class="close-modal"
+            onclick="deleteModal.close()"
+          >
+            ×
+          </button>
         </div>
         <div class="delete-content">
-          <p>Are you sure you want to delete <strong id="deleteItemName"></strong>?</p>
+          <p>
+            Are you sure you want to delete
+            <strong id="deleteItemName"></strong>?
+          </p>
           <p class="warning-text">This action cannot be undone.</p>
         </div>
         <div class="modal-buttons">
-          <button id="confirmDeleteBtn" class="modalSubmit btn-danger">Yes, Delete</button>
-          <button type="button" onclick="deleteModal.close()" class="modalSubmit btn-cancel">Cancel</button>
+          <button id="confirmDeleteBtn" class="modalSubmit btn-danger">
+            Yes, Delete
+          </button>
+          <button
+            type="button"
+            onclick="deleteModal.close()"
+            class="modalSubmit btn-cancel"
+          >
+            Cancel
+          </button>
         </div>
       </div>
     </dialog>
@@ -247,7 +322,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Load API as ES6 module -->
-    <script type="module" src="../js/movies.js"></script>
-    <!-- <script src="../js/util/pagination.js"></script> -->
+    <script type="module" src="../js/pages/movies/index.js"></script>
   </body>
 </html>

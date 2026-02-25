@@ -5,7 +5,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact US</title>
-    <link rel="icon" type="image/svg+xml" href="../../assets/images/admin.logo.svg" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../../assets/images/admin.logo.svg"
+    />
 
     <link
       rel="stylesheet"
@@ -130,15 +134,32 @@
             <div class="modalBox delete-box">
               <div class="modal-header">
                 <h2 id="deleteModalTitle">Delete Contact</h2>
-                <button type="button" class="close-modal" onclick="deleteModal.close()">×</button>
+                <button
+                  type="button"
+                  class="close-modal"
+                  onclick="deleteModal.close()"
+                >
+                  ×
+                </button>
               </div>
               <div class="delete-content">
-                <p>Are you sure you want to delete <strong id="deleteItemName"></strong>?</p>
+                <p>
+                  Are you sure you want to delete
+                  <strong id="deleteItemName"></strong>?
+                </p>
                 <p class="warning-text">This action cannot be undone.</p>
               </div>
               <div class="modal-buttons">
-                <button id="confirmDeleteBtn" class="modalSubmit btn-danger">Yes, Delete</button>
-                <button type="button" onclick="deleteModal.close()" class="modalSubmit btn-cancel">Cancel</button>
+                <button id="confirmDeleteBtn" class="modalSubmit btn-danger">
+                  Yes, Delete
+                </button>
+                <button
+                  type="button"
+                  onclick="deleteModal.close()"
+                  class="modalSubmit btn-cancel"
+                >
+                  Cancel
+                </button>
               </div>
             </div>
           </dialog>
@@ -149,6 +170,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Load API as ES6 module -->
-    <script type="module" src="../js/contactUs.js"></script>
+    <script type="module" src="../js/pages/contactUs/index.js"></script>
   </body>
 </html>

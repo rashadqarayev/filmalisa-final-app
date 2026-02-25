@@ -1,4 +1,4 @@
-import { httpClient } from "../config/HttpClient.js";
+import { httpClient } from "../core/HttpClient.js";
 
 /**
  * MoviesService - Handles movies management API calls

@@ -1,5 +1,5 @@
 // Import dependencies
-import { httpClient } from "../config/HttpClient.js";
+import { httpClient } from "../core/HttpClient.js";
 import { actorsService } from "./ActorsService.js";
 import { authService } from "./AuthService.js";
 import { profileService } from "./ProfileService.js";
@@ -9,7 +9,7 @@ import { contactsService } from "./ContactsService.js";
 import { commentsService } from "./CommentsService.js";
 import { usersService } from "./UsersService.js";
 import { moviesService } from "./MoviesService.js";
-import { showToast } from "../util/toast.js";
+import { showToast } from "../utils/toast.js";
 
 /**
  * AdminService - Main API class that combines all services
