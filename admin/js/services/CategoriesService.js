@@ -1,4 +1,4 @@
-import { httpClient } from "../config/HttpClient.js";
+import { httpClient } from "../core/HttpClient.js";
 /**
  * CategoriesService - Handles categories management API calls
  */

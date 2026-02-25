@@ -2,6 +2,29 @@
   display: flex;
 }
 
+#previewImg {
+  margin-top: 31px;
+}
+
+/* Header search bar */
+.search-input {
+  padding: 9px 16px;
+  border-radius: 4px;
+  border: 1px solid #323b54;
+  background: #1e2130;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  width: 220px;
+  transition: border-color 0.2s;
+}
+.search-input:focus {
+  border-color: var(--primary-color, #6c5dd3);
+}
+.search-input::placeholder {
+  color: #6b7280;
+}
+
 main {
   background-color: var(--bg-color);
   height: 100vh;
@@ -43,7 +66,6 @@ table .title-movie {
   }
 }
 
-
 .title-movie img {
   width: 30px;
   height: 30px;
@@ -68,7 +90,7 @@ table .title-movie {
 }
 
 .operation i:hover {
-    transition: all 0.3s ease;
+  transition: all 0.3s ease;
   transform: scale(1.2);
   opacity: 0.8;
 }
@@ -126,14 +148,12 @@ table .title-movie {
   color: #fff;
 }
 
-
-.btn-close{
-    border-radius: 50%;
-    background-color: rgb(199,177,174 );
-    &:hover{
-        background-color: rgb(3,252,36);
-
-    }
+.btn-close {
+  border-radius: 50%;
+  background-color: rgb(199, 177, 174);
+  &:hover {
+    background-color: rgb(3, 252, 36);
+  }
 }
 
 .btn-delete-confirm {
@@ -154,38 +174,73 @@ table .title-movie {
 
 .modal-content {
   background-color: #171616;
-  color: #232b54;
+  color: #e5e7eb;
   border-radius: 24px;
   transition: all 1s ease-in;
   overflow: visible !important;
+  position: relative;
+}
+
+/* ── Edit/Create modal close button ── */
+.edit-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  color: #9ca3af;
+  font-size: 22px;
+  line-height: 1;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+  outline: none;
+}
+.edit-modal-close:hover {
+  background: rgba(220, 38, 38, 0.15);
+  color: #fff;
+}
+.edit-modal-close:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .edit-modal textarea {
-  border: none;
-  outline: none;
-  color: #323b54;
-  height: 121px;
+  height: 100px;
   resize: none;
-  padding: 8px 16px;
-  border-radius: 12px;
-  border: 1px solid #323b54;
-  background-color: #171616;
-  /* width: 90%; */
 }
 
-.edit-modal input::placeholder,
-.edit-modal textarea::placeholder {
-  color: #323b54;
-}
+/* placeholder rule below is now handled by the consolidated block */
 
 .editModal {
   display: flex;
   flex-direction: column;
   flex: 0 0 60%;
   padding: 40px 0px;
-  gap: 20px;
+  gap: 14px;
   margin-left: 40px;
   overflow: visible !important;
+}
+
+/* Labeled field wrapper */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-group label {
+  color: #9ca3af;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .edit-right {
@@ -208,21 +263,33 @@ table .title-movie {
 .edit-modal textarea,
 .edit-modal select,
 .edit-modal option {
-  color: #323b54 !important;
-  font-size: 18px;
-  line-height: 16px;
+  color: #e5e7eb !important;
+  font-size: 14px;
+  line-height: 20px;
   font-weight: 400;
 
   border: none;
   outline: none;
-  padding: 8px 16px;
+  padding: 9px 16px;
 
   border-radius: 8px;
   border: 1px solid #323b54;
   background-color: #171616;
+  transition: border-color 0.2s;
 }
 
+.edit-modal input:focus,
+.edit-modal textarea:focus,
+.edit-modal select:focus {
+  border-color: #6c5ce7 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
 
+.edit-modal input::placeholder,
+.edit-modal textarea::placeholder {
+  color: #4b5563;
+}
 
 .edit-form {
   display: flex;
@@ -245,50 +312,34 @@ table .title-movie {
 }
 
 .edit-modal select {
-  display: flex;
-  /* border: none; */
-  outline: none;
-  /* border-radius: 8px; */
-  padding: 8px 16px;
-  color: #323b54;
-  font-size: 18px;
-  line-height: 16px;
-  font-weight: 400;
   min-height: 38px;
-  border-radius: 8px;
-  /* border: 1px solid #323b54; */
-  /* background-color: #171616; */
   align-items: center;
   justify-content: flex-start;
 }
 
 .edit-modal option {
   background-color: #171616;
-  color: #323b54;
-  font-size: 18px;
-  line-height: 16px;
-  font-weight: 400;
-  border: none;
+  color: #e5e7eb;
+  font-size: 14px;
 }
 
-.edit-modal select:focus, 
+.edit-modal select:focus,
 .edit-modal select {
-    outline: none !important;
-    box-shadow: none !important; /* Göy kölgəni silir */
-    border: 1px solid #323b54 !important; /* Standart rəngdə saxlayır */
+  outline: none !important;
+  box-shadow: none !important;
 }
-
 
 .footer-div {
-  /* width: 60%; */
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   p {
-    font-size: 14px;
-    line-height: 16px;
-    color: #475069;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #9ca3af;
   }
 }
 
@@ -346,9 +397,8 @@ table .title-movie {
 }
 
 .cms-placeholder {
-  color: #323b54;
-  font-size: 18px;
-  line-height: 16px;
+  color: #4b5563;
+  font-size: 14px;
   font-weight: 400;
 }
 
@@ -382,28 +432,28 @@ table .title-movie {
 
 /* Arrow chevron */
 .cms-arrow {
-  color: #323b54;
-  font-size: 12px;
-  transition: transform 0.3s ease;
+  color: #666;
   flex-shrink: 0;
   display: inline-block;
   width: 16px;
   height: 16px;
-  text-align: center;
-  line-height: 16px;
+  border-right: 2px solid #666;
+  border-bottom: 2px solid #666;
+  transform: rotate(-135deg);
+  margin-top: 4px;
+  transition: transform 0.3s ease;
 }
 
-
-
 .custom-multiselect.open .cms-arrow {
-  transform: scaleY(-1);
+  transform: rotate(45deg);
+  margin-top: -4px;
 }
 
 /* Dropdown panel */
 .cms-dropdown {
   display: none;
   position: fixed;
-  z-index: 10000;
+  z-index: 99999;
   background: #1a1a2e;
   border: 1px solid #323b54;
   border-radius: 8px;
@@ -411,8 +461,10 @@ table .title-movie {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   min-width: 200px;
-  width: 100%;
-  max-width: 400px;
+}
+
+.cms-dropdown.cms-open {
+  display: block;
 }
 
 .custom-multiselect.open .cms-dropdown {

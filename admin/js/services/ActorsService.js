@@ -1,4 +1,4 @@
-import { httpClient } from "../config/HttpClient.js";
+import { httpClient } from "../core/HttpClient.js";
 
 /**
  * ActorsService - Handles actors management API calls

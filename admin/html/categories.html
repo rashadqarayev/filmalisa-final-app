@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Categories - Filmalisa</title>
-    <link rel="icon" type="image/svg+xml" href="../../assets/images/admin.logo.svg" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../../assets/images/admin.logo.svg"
+    />
 
     <link
       rel="stylesheet"
@@ -143,12 +147,16 @@
               </button>
             </div>
             <form id="categoryForm">
-              <input
-                type="text"
-                placeholder="Category name"
-                class="modalInput"
-                required
-              />
+              <div class="input-group">
+                <label for="categoryNameInput">Category Name</label>
+                <input
+                  type="text"
+                  id="categoryNameInput"
+                  placeholder="e.g. Action"
+                  class="modalInput"
+                  required
+                />
+              </div>
               <button type="submit" class="modalSubmit">Save Changes</button>
             </form>
           </div>
@@ -188,7 +196,6 @@
     </div>
 
     <!-- Load API as ES6 module -->
-    <script type="module" src="../js/categories.js"></script>
-    <script type="module" src="../js/util/toast.js"></script>
+    <script type="module" src="../js/pages/categories/index.js"></script>
   </body>
 </html>
