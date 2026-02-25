@@ -1,0 +1,221 @@
+/* ============================================================
+   FAVORITE PAGE
+============================================================ */
+body {
+  background: #121212;
+  color: #fff;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  font-family: 'Raleway', sans-serif;
+}
+
+.menu {
+  overflow: hidden;
+}
+
+.page-main {
+  padding: 40px 32px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+
+
+.section {
+  padding: 24px 18px 0 0;
+}
+
+.section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.section__title {
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-indent: 10px;
+}
+
+/* WRAPPERS: horizontal scroll */
+
+
+.comedy__wrapper {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+/* scroll barı gözə dəyməsin */
+.action__wrapper::-webkit-scrollbar,
+.comedy__wrapper::-webkit-scrollbar {
+  height: 0;
+}
+
+
+
+/* ===== COMEDY CARD (AYRI) ===== */
+.comedy-card {
+  flex: 0 0 auto;
+  width: 504px;
+  height: 690px;
+  overflow: hidden;
+  position: relative;
+  background: transparent;
+  scroll-snap-align: start;
+}
+
+.comedy-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.comedy-card:hover::after {
+  opacity: 1;
+}
+
+.comedy-card img {
+  width: 100%;
+  height: 100%; /* Comedy şəkilləri böyüsün deyirsənsə bunu artır */
+  object-fit: cover;
+  display: block;
+}
+.category-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(15, 239, 253);
+  background: rgba(29, 29, 29, 0.5);
+
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+
+  width: fit-content;
+  position: absolute;
+  left: 14px;
+  bottom: 60px;
+  z-index: 3;
+
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 500;
+
+  color: rgb(15, 239, 253);
+  background: rgba(0, 0, 0, 0.6);
+
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+
+  width: fit-content;
+  /* hug kimi */
+}
+
+.movie-name {
+  color: #fff;
+  font-size: 24px;
+  line-height: 40px;
+  font-weight: 500;
+  margin: 0;
+  position: absolute;
+  left: 14px;
+  bottom: 20px;
+  z-index: 3;
+  color: #fff;
+  font-weight: 600;
+}
+.action-card {
+  overflow: hidden;
+}
+/* category yeri */
+.action-card .category-name,
+.comedy-card .category-name {
+  left: 14px;
+  bottom: 62px;
+}
+
+/* movie name yeri */
+.action-card .movie-name,
+.comedy-card .movie-name {
+  left: 14px;
+  bottom: 14px;
+}
+
+.card-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.92);
+  width: 72px;
+  height: 72px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(8, 8, 8, 0.75);
+  color: #fff;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+  cursor: pointer;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.comedy-card:hover .card-play-btn {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.card-fav-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(15, 15, 15, 0.72);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  z-index: 6;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.card-fav-btn:hover {
+  transform: scale(1.08);
+}
+
+.card-fav-btn.is-favorite {
+  color: #ffd43b;
+  background: rgba(20, 20, 20, 0.82);
+}

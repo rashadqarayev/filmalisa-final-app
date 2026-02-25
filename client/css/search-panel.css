@@ -1,0 +1,54 @@
+/* ============================================================
+   SEARCH PANEL PAGE
+============================================================ */
+body {
+  background: #121212;
+  color: #fff;
+  margin: 0;
+  overflow-x: hidden;
+  font-family: 'Raleway', sans-serif;
+}
+
+.page-main {
+  padding: 40px 32px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 12px 20px;
+  max-width: 560px;
+}
+
+.search-bar input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 15px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.search-bar i {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 16px;
+}
+
+
+
+
