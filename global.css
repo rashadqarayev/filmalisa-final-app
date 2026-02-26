@@ -173,10 +173,10 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 30px 116px 70px 24px;
+  padding: 30px 40px 70px 24px;
   /* position: fixed; */
 
-  width: calc(100vw - 250px);
+  width: 100%;
   background-color: var(--bg-color);
 }
 
@@ -314,4 +314,13 @@ p {
   color: #555;
   padding: 0 4px;
   font-size: 14px;
+}
+/* ── Hide scrollbars (scroll still works) ── */
+main {
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE / Edge legacy */
+}
+
+main::-webkit-scrollbar {
+  display: none;               /* Chrome / Safari / Webkit */
 }
