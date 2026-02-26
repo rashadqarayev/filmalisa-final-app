@@ -3,7 +3,7 @@
 ============================================================ */
 
 /* ============================================================
-   PAGE SHELL  →  .page-shell  və  .page-main  aside.css-dədir
+   PAGE SHELL  →  .page-shell  and  .page-main  are in aside.css
 ============================================================ */
 body {
   background: #121212;
@@ -18,7 +18,7 @@ body {
 #section1 {
   width: 100%;
   box-sizing: border-box;
-  padding-right: 18px; /* section padding ilə eyni hizalama */
+  padding-right: 18px; /* same alignment as section padding */
 }
 
 .hero-carousel {
@@ -50,7 +50,7 @@ body {
   z-index: 0;
 }
 
-/* Hero şəklinin sağ tərəfi kəsilməsin */
+/* prevent right side of hero image from being clipped */
 .hero-slide img {
   width: 100%;
   height: 100%;
@@ -265,13 +265,13 @@ body {
   scroll-snap-type: x mandatory;
 }
 
-/* scroll barı gözə dəyməsin */
+/* hide scrollbar from view */
 .action__wrapper::-webkit-scrollbar,
 .comedy__wrapper::-webkit-scrollbar {
   height: 0;
 }
 
-/* ===== ACTION CARD (AYRI) ===== */
+/* ===== ACTION CARD (SEPARATE) ===== */
 .action-card {
   flex: 0 0 auto;
   width: 292px;
@@ -305,7 +305,7 @@ body {
   display: block;
 }
 
-/* ===== COMEDY CARD (AYRI) ===== */
+/* ===== COMEDY CARD (SEPARATE) ===== */
 .comedy-card {
   flex: 0 0 auto;
   width: 504px;
@@ -318,7 +318,7 @@ body {
 
 .comedy-card img {
   width: 100%;
-  height: 100%; /* Comedy şəkilləri böyüsün deyirsənsə bunu artır */
+  height: 100%; /* increase this if you want Comedy images to grow */
   object-fit: cover;
   display: block;
 }

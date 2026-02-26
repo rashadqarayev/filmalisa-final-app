@@ -26,7 +26,7 @@ body {
 
 .login-box {
   width: 520px;
-  max-width: calc(100% - 40px); /* mobil/kiçik ekranda kənara dəyməsin */
+  max-width: calc(100% - 40px); /* prevent touching edges on mobile/small screens */
   padding: 50px 40px;
   border-radius: 16px;
   background: #1d1d1d;
@@ -82,9 +82,9 @@ body {
   color: #ffffff;
   outline: none;
   font-size: 13px;
-  /* ikonlar üçün yer */
-  padding-left: 44px; /* soldakı ikon */
-  padding-right: 44px; /* sağdakı eye */
+  /* space for icons */
+  padding-left: 44px; /* left icon */
+  padding-right: 44px; /* right eye icon */
 }
 
 .form-group input::placeholder {
@@ -105,7 +105,7 @@ body {
   transform: translateY(-50%);
   display: flex;
   align-items: center;
-  pointer-events: none; /* klik inputa getsin */
+  pointer-events: none; /* pass click through to input */
 }
 
 .toggle-user img,

@@ -62,7 +62,7 @@ body {
   scroll-snap-type: x mandatory;
 }
 
-/* scroll barı gözə dəyməsin */
+/* hide scrollbar from view */
 .action__wrapper::-webkit-scrollbar,
 .comedy__wrapper::-webkit-scrollbar {
   height: 0;
@@ -70,7 +70,7 @@ body {
 
 
 
-/* ===== COMEDY CARD (AYRI) ===== */
+/* ===== COMEDY CARD (SEPARATE) ===== */
 .comedy-card {
   flex: 0 0 auto;
   width: 504px;
@@ -98,7 +98,7 @@ body {
 
 .comedy-card img {
   width: 100%;
-  height: 100%; /* Comedy şəkilləri böyüsün deyirsənsə bunu artır */
+  height: 100%; /* increase this if you want Comedy images to grow */
   object-fit: cover;
   display: block;
 }

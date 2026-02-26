@@ -1,5 +1,5 @@
 /* ============================================================
-   ASIDE — Sol naviqasiya paneli (shared across all client pages)
+   ASIDE — Left navigation panel (shared across all client pages)
 ============================================================ */
 
 .menu {
@@ -56,7 +56,7 @@
 
 }
 
-/* Qeyri-aktiv ikonlar solğun */
+/* Inactive icons appear dimmed */
 .menu__item img {
   /* width: 28px;
   height: 28px; */

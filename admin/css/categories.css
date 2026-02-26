@@ -60,7 +60,7 @@ main {
   opacity: 0.8;
 }
 
-/* MODAL ÜMUMİ STRUKTUR */
+/* MODAL GENERAL STRUCTURE */
 .categoryModal {
   border: none;
   padding: 0;
@@ -168,7 +168,7 @@ main {
   /* box-shadow: 0 0 0 4px rgba(140, 82, 255, 0.15); */
 }
 
-/* DÜYMƏLƏR */
+/* BUTTONS */
 .modalSubmit {
   width: 100%;
   height: 55px;
@@ -188,7 +188,7 @@ main {
 }
 
 /* ===========================================
-   MODERN DELETE MODAL XÜSUSİYYƏTLƏRİ
+   MODERN DELETE MODAL FEATURES
 =========================================== */
 .delete-box {
   text-align: center;
@@ -225,7 +225,7 @@ main {
 
 .btn-danger {
   background: linear-gradient(135deg, #ff4b2b 0%, #dc3545 100%) !important;
-  flex: 2; /* Sil düyməsi  geniş olsun */
+  flex: 2; /* Delete button should be wider */
 }
 
 .btn-danger:hover {
@@ -235,7 +235,7 @@ main {
 .btn-cancel {
   background: #243ab8 !important;
   color: #a0a0a0 !important;
-  flex: 2; /* Ləğv düyməsi də geniş olsun */
+  flex: 2; /* Cancel button should also be wider */
 }
 
 .btn-cancel:hover {

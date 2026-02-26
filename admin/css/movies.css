@@ -556,15 +556,15 @@ table .title-movie {
 }
 
 /* ============================================================
-   Bütün modalların arxa fonu (backdrop) üçün xüsusi effekt */
+   Special effect for all modal backdrops */
 .modal-backdrop.show {
   background-color: rgba(0, 0, 0, 0.8) !important;
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px); /* Safari dəstəyi üçün */
-  opacity: 1 !important; /* Bootstrap-ın standart 0.5 opacity-sini ləğv edirik */
+  -webkit-backdrop-filter: blur(8px); /* Safari support */
+  opacity: 1 !important; /* Override Bootstrap's default 0.5 opacity */
 }
 
-/* Modallar açılarkən yumşaq keçid olması üçün (opsional) */
+/* For smooth transition when modals open (optional) */
 .modal.fade .modal-dialog {
   transition: transform 0.3s ease-out;
 }

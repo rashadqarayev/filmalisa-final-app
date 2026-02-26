@@ -1,4 +1,4 @@
-/* Ümumi Layout */
+/* General Layout */
 .actors-container {
   display: flex;
 }
@@ -13,7 +13,7 @@ main {
   overflow-x: hidden;
 }
 
-/* Cədvəl Stilləri */
+/* Table Styles */
 .table {
   border-radius: 8px;
   overflow: hidden;
@@ -35,7 +35,7 @@ main {
   height: 60px;
 }
 
-/* Əməliyyat İkonları */
+/* Operation Icons */
 .operation i {
   cursor: pointer;
   font-size: 1.1rem;

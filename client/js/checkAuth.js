@@ -4,27 +4,27 @@
 //     const token = localStorage.getItem("user_token");
 //     const path = window.location.pathname;
     
-//     // Login və ya Register səhifəsində olub-olmadığını yoxla
+//     // Check if on Login or Register page
 //     const isAuthPage = path.includes("login.html") || path.includes("register.html");
-//     // Landing page (index.html) olub-olmadığını yoxla
+//     // Check if on Landing page (index.html)
 //     const isLandingPage = path.endsWith("index.html") || path === "/";
 
-//     // 1. Əgər token yoxdursa və qorunan səhifədədirsə -> Landing-ə at
+//     // 1. If no token and on a protected page -> redirect to Landing
 //     if (!token && !isAuthPage && !isLandingPage) {
-//         window.location.replace("../../index.html"); // .replace daha yaxşıdır, geri düyməsini xarab etmir
-//         return; // Funksiyanı dayandır ki, aşağıdakı kodlar işləməsin
+//         window.location.replace("../../index.html"); // .replace is better, doesn't break the back button
+//         return; // Stop function so code below doesn't run
 //     }
 
-//     // 2. Əgər token VARSA və istifadəçi yenidən Login/Register-ə girmək istəyirsə -> Profilə at
+//     // 2. If token EXISTS and user tries to access Login/Register again -> redirect to Profile
 //     if (token && isAuthPage) {
 //         window.location.replace("../pages/home.html"); 
 //     }
 // }
 
-// // Səhifə açılan kimi bir dəfə yoxla
+// // Check once when the page loads
 // checkAuth();
 
-// // Token başqa tabda və ya əllə silinəndə dərhal reaksiya ver (Amma setInterval-sız!)
+// // React immediately when token is deleted from another tab or manually (without setInterval!)
 // window.addEventListener('storage', (event) => {
 //     if (event.key === 'user_token' && !event.newValue) {
 //         window.location.replace("../../index.html");
