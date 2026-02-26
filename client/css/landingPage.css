@@ -1,13 +1,17 @@
 /* reset start */
 
-body {
+html {
     background-image: url(../../assets/images/landingPageBack.svg);
     background-repeat: no-repeat;
     background-position: center top;
-    font-family: var(--font-primary);
     background-color: black;
+}
+
+body {
+    font-family: var(--font-primary);
     padding: 0;
-    margin: 0;
+    margin: 0 auto;
+    max-width: 1440px;
     overflow-x: hidden;
 }
 
@@ -43,7 +47,7 @@ nav .logo-div {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding-left: 150px;
+    padding-left: 60px;
 }
 
 .logo-div img {

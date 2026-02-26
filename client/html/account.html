@@ -60,11 +60,65 @@
            MAIN CONTENT — User account page
       ============================================================ -->
       <main class="page-main">
-        <h1 class="page-title">Account</h1>
-        <p class="page-subtitle"></p>
+        <section class="account-wrap">
+          <div class="account-card">
+            <div class="profile-avatar" id="avatarWrapper">
+              <img id="profilePreview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='100' fill='%23222'/%3E%3Cpath d='M100 90c13.8 0 25-11.2 25-25S113.8 40 100 40 75 51.2 75 65s11.2 25 25 25zm0 15c-22.1 0-65 11.1-65 33v17h130v-17c0-21.9-42.9-33-65-33z' fill='%23555'/%3E%3C/svg%3E" alt="Profile" />
+            </div>
+
+            <input
+              id="profileImageFileInput"
+              type="file"
+              accept="image/*"
+              style="display: none;"
+              aria-label="Select profile image from local"
+            />
+
+            <form class="account-form" id="accountForm">
+              <div class="form-group">
+                <span class="input-icon">
+                  <i class="fa-regular fa-image"></i>
+                </span>
+                <input
+                  id="profileImageUrlInput"
+                  type="text"
+                  placeholder="Profile image url"
+                />
+              </div>
+
+              <div class="form-group">
+                <span class="input-icon">
+                  <i class="fa-regular fa-user"></i>
+                </span>
+                <input type="text" placeholder="Full name" />
+                
+              </div>
+
+              <div class="form-group">
+                <span class="input-icon">
+                  <img src="../../assets/images/admin.username.svg" alt="email icon" />
+                </span>
+                <input type="email" value="rahimlisarkhan@gmail.com" disabled />
+              </div>
+
+              <div class="form-group">
+                <span class="input-icon">
+                  <img src="../../assets/images/admin.password.svg" alt="password icon" />
+                </span>
+                <input id="passwordInput" type="password" placeholder="Password" />
+                <button class="toggle-eye" id="togglePassword" type="button" aria-label="Toggle password visibility">
+                  <img src="../../assets/images/password-toggle.svg" alt="toggle password visibility" />
+                </button>
+              </div>
+
+              <button type="submit" class="save-btn">Save</button>
+            </form>
+          </div>
+        </section>
       </main>
       <!-- /MAIN CONTENT -->
 
     </div>
+    <script src="../js/account.js"></script>
   </body>
 </html>
