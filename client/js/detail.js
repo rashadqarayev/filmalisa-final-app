@@ -44,7 +44,23 @@ const detailMovieImg = document.querySelector(".detailMovieImg");
 const detailPlayBtn = document.querySelector(".detail-play-btn");
 const addMyListBtn = document.querySelector(".addMyListBtn");
 const trailerIframe = modalEl.querySelector(".playModal__iframe");
-const trailerUrl = "https://www.youtube.com/embed/5PSNL1qE6VY?autoplay=1&rel=0";
+const defaultTrailerId = "6ZfuNTqbHE8";
+const trailerVideoIds = [
+  "5PSNL1qE6VY",
+  "6ZfuNTqbHE8",
+  "TcMBFSGVi1c",
+  "QwievZ1Tx-8",
+  "xjDjIWPwcPU",
+  "sj9J2ecsSpo",
+  "hA6hldpSTF8",
+  "mqqft2x_Aa4",
+];
+
+function buildEmbedUrl(videoId) {
+  return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=1`;
+}
+
+let activeTrailerUrl = buildEmbedUrl(defaultTrailerId);
 
 function closePlayModal() {
   if (trailerIframe) {
@@ -57,14 +73,31 @@ closeBtn.addEventListener("click",closePlayModal);
 
 function openPlayModal() {
   if (trailerIframe) {
-    trailerIframe.src = trailerUrl;
+    trailerIframe.src = activeTrailerUrl;
   }
   modal.show();
 }
 
 if (detailPlayBtn) {
-  detailPlayBtn.addEventListener("click", openPlayModal);
+  detailPlayBtn.addEventListener("click", () => {
+    activeTrailerUrl = buildEmbedUrl(defaultTrailerId);
+    openPlayModal();
+  });
 }
+
+document.querySelectorAll(".action-card").forEach((card, index) => {
+  const videoId = trailerVideoIds[index % trailerVideoIds.length];
+  card.dataset.trailerId = videoId;
+
+  const cardPlayBtn = card.querySelector(".card-play-btn");
+  if (!cardPlayBtn) return;
+
+  cardPlayBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    activeTrailerUrl = buildEmbedUrl(card.dataset.trailerId || defaultTrailerId);
+    openPlayModal();
+  });
+});
 
 if (modalEl) {
   modalEl.addEventListener("hidden.bs.modal", () => {
