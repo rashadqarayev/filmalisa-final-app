@@ -11,9 +11,7 @@ p {
 
 main {
     font-family: poppins, sans-serif;
-    width: 100%;
-    margin-left: 25px;
-      height: 100vh;
+    height: 100vh;
     box-sizing: border-box;
     overflow-y: scroll;
     overflow-x: hidden;

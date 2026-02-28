@@ -4,7 +4,7 @@
  function createToast(title, message) {
             const container = document.getElementById('toastContainer');
             
-            // Yeni toast elementi yaradırıq
+            // Create a new toast element
             const toast = document.createElement('div');
             toast.className = 'modern-toast';
             
@@ -22,7 +22,7 @@
 
             container.appendChild(toast);
 
-            // 4.5 saniyə sonra (animasiya bitəndə) DOM-dan tamamilə silirik
+            // Remove from DOM completely after 4.5 seconds (when animation ends)
             setTimeout(() => {
                 if(toast) toast.remove();
             }, 4500);

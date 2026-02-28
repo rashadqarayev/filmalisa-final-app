@@ -26,6 +26,8 @@
 }
 
 main {
+  flex: 1;
+  min-width: 0;
   background-color: var(--bg-color);
   height: 100vh;
   box-sizing: border-box;
@@ -379,12 +381,12 @@ table .title-movie {
   cursor: pointer;
   user-select: none;
   gap: 8px;
+  transition: border-color 0.2s;
 }
 
 .cms-trigger:focus-within,
 .cms-trigger.open {
-  border-color: #6c5ce7;
-  /* transition: all 0.5s ease; */
+  border-color: #6c5ce7 !important;
 }
 
 /* Tag area inside trigger */
@@ -432,21 +434,17 @@ table .title-movie {
 
 /* Arrow chevron */
 .cms-arrow {
-  color: #666;
+  color: #6b7280;
   flex-shrink: 0;
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border-right: 2px solid #666;
-  border-bottom: 2px solid #666;
-  transform: rotate(-135deg);
-  margin-top: 4px;
-  transition: transform 0.3s ease;
+  font-size: 12px;
+  margin-left: 4px;
+  transition: transform 0.25s ease, color 0.2s ease;
 }
 
 .custom-multiselect.open .cms-arrow {
-  transform: rotate(45deg);
-  margin-top: -4px;
+  transform: rotate(180deg);
+  color: #6c5ce7;
+  margin-top: 0;
 }
 
 /* Dropdown panel */
@@ -560,15 +558,15 @@ table .title-movie {
 }
 
 /* ============================================================
-   Bütün modalların arxa fonu (backdrop) üçün xüsusi effekt */
+   Special effect for all modal backdrops */
 .modal-backdrop.show {
   background-color: rgba(0, 0, 0, 0.8) !important;
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px); /* Safari dəstəyi üçün */
-  opacity: 1 !important; /* Bootstrap-ın standart 0.5 opacity-sini ləğv edirik */
+  -webkit-backdrop-filter: blur(8px); /* Safari support */
+  opacity: 1 !important; /* Override Bootstrap's default 0.5 opacity */
 }
 
-/* Modallar açılarkən yumşaq keçid olması üçün (opsional) */
+/* For smooth transition when modals open (optional) */
 .modal.fade .modal-dialog {
   transition: transform 0.3s ease-out;
 }
