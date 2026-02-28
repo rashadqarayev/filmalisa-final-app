@@ -43,15 +43,8 @@ export function cmsRenderTags(allActors) {
     cmsTags.innerHTML = '<span class="cms-placeholder">Select Actors</span>';
     return;
   }
-  selectedActorIds.forEach((id) => {
-    const actor = allActors.find((a) => a.id === id);
-    if (!actor) return;
-    const tag = document.createElement("span");
-    tag.className = "cms-tag";
-    tag.dataset.id = id;
-    tag.innerHTML = `${actor.name} ${actor.surname}<span class="cms-tag-remove" data-id="${id}">×</span>`;
-    cmsTags.appendChild(tag);
-  });
+  const selectedCount = selectedActorIds.size;
+  cmsTags.innerHTML = `<span class="cms-selected-count">✓ ${selectedCount} actors selected</span>`;
 }
 
 // ── Update selection state ────────────────────────────────────────────────────
@@ -117,14 +110,7 @@ export function cmsClearSelection(allActors) {
 
 // ── Events ────────────────────────────────────────────────────────────────────
 export function initCmsEvents(allActorsRef) {
-  cmsTrigger.addEventListener("click", (e) => {
-    const removeBtn = e.target.closest(".cms-tag-remove");
-    if (removeBtn) {
-      selectedActorIds.delete(parseInt(removeBtn.dataset.id));
-      cmsRenderTags(allActorsRef());
-      cmsUpdateListSelection();
-      return;
-    }
+  cmsTrigger.addEventListener("click", () => {
     cmsToggle();
   });
 

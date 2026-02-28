@@ -5,6 +5,11 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  background: #121212;
+}
+
 /* PAGE WRAPPER */
 .detailContainer {
   width: 100%;

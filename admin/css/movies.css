@@ -1,5 +1,13 @@
+html {
+  background: #171616;
+}
+
 .movies-container {
   display: flex;
+}
+
+.profileName{
+  margin-right: 60px;
 }
 
 #previewImg {
@@ -402,6 +410,13 @@ table .title-movie {
   color: #4b5563;
   font-size: 14px;
   font-weight: 400;
+}
+
+.cms-selected-count {
+  color: #e5e7eb;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 /* Each selected actor chip */
