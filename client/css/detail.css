@@ -692,16 +692,104 @@ body {
 .playModal__content {
   background: #000;
   border: 0;
-  border-radius: 10px;
+  border-radius: 16px;
   overflow: hidden;
   position: relative;
 }
 
-/* Hero area */
+/* ── Pre-play screen ── */
+.playModal__prescreen {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.playModal__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* gradient shade from bottom */
+.playModal__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.55) 40%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+}
+
+/* title + play button stacked in the lower-center */
+.playModal__meta {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  padding-bottom: 40px;
+  padding-left: 40px;
+  width: 100%;
+  text-align: left;
+}
+
+.playModal__title {
+  color: #fff;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.85);
+  line-height: 1.1;
+}
+
+/* Netflix-style big red play button */
+.playModal__playbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 28px;
+  border-radius: 6px;
+  border: none;
+  background: #fff;
+  color: #111;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+  white-space: nowrap;
+}
+
+.playModal__playbtn:hover {
+  background: rgba(255, 255, 255, 0.82);
+  transform: scale(1.04);
+}
+
+.playModal__playbtn i {
+  font-size: 16px;
+  padding-left: 0;
+}
+
+/* Hero area (video) */
 .playModal__hero {
   position: relative;
   width: 100%;
   height: 520px;
+}
+
+.playModal__hero--hidden {
+  display: none;
 }
 
 /* Embedded trailer */
@@ -727,6 +815,12 @@ body {
   background: rgba(0, 0, 0, .6);
   color: #fff;
   cursor: pointer;
+  font-size: 15px;
+  transition: background 0.2s;
+}
+
+.playModal__close:hover {
+  background: rgba(229, 9, 20, 0.75);
 }
 .detail-img-wrapper {
   position: relative;

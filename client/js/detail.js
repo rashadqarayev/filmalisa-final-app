@@ -44,6 +44,11 @@ const detailMovieImg = document.querySelector(".detailMovieImg");
 const detailPlayBtn = document.querySelector(".detail-play-btn");
 const addMyListBtn = document.querySelector(".addMyListBtn");
 const trailerIframe = modalEl.querySelector(".playModal__iframe");
+const prescreen   = modalEl.querySelector(".playModal__prescreen");
+const heroScreen  = modalEl.querySelector(".playModal__hero");
+const modalTitle  = modalEl.querySelector(".playModal__title");
+const modalPoster = modalEl.querySelector(".playModal__poster");
+const inModalPlayBtn = modalEl.querySelector(".playModal__playbtn");
 const defaultTrailerId = "6ZfuNTqbHE8";
 const trailerVideoIds = [
   "5PSNL1qE6VY",
@@ -62,26 +67,40 @@ function buildEmbedUrl(videoId) {
 
 let activeTrailerUrl = buildEmbedUrl(defaultTrailerId);
 
+function resetModal() {
+  if (trailerIframe) trailerIframe.src = "";
+  // restore pre-play screen
+  prescreen.style.display = "";
+  heroScreen.classList.add("playModal__hero--hidden");
+}
+
 function closePlayModal() {
-  if (trailerIframe) {
-    trailerIframe.src = "";
-  }
+  resetModal();
   modal.hide();
 }
 
-closeBtn.addEventListener("click",closePlayModal);
+// in-modal play button → hide title+btn, start video
+inModalPlayBtn.addEventListener("click", () => {
+  prescreen.style.display = "none";
+  heroScreen.classList.remove("playModal__hero--hidden");
+  trailerIframe.src = activeTrailerUrl;
+});
 
-function openPlayModal() {
-  if (trailerIframe) {
-    trailerIframe.src = activeTrailerUrl;
-  }
+closeBtn.addEventListener("click", closePlayModal);
+
+function openPlayModal(title, posterSrc) {
+  resetModal();
+  if (modalTitle)  modalTitle.textContent  = title || "";
+  if (modalPoster) modalPoster.src         = posterSrc || "";
   modal.show();
 }
 
 if (detailPlayBtn) {
   detailPlayBtn.addEventListener("click", () => {
     activeTrailerUrl = buildEmbedUrl(defaultTrailerId);
-    openPlayModal();
+    const title  = document.querySelector(".movieName")?.textContent || "";
+    const poster = document.querySelector(".detailMovieImg")?.src || "";
+    openPlayModal(title, poster);
   });
 }
 
@@ -95,15 +114,15 @@ document.querySelectorAll(".action-card").forEach((card, index) => {
   cardPlayBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     activeTrailerUrl = buildEmbedUrl(card.dataset.trailerId || defaultTrailerId);
-    openPlayModal();
+    const title  = card.querySelector(".movie-name")?.textContent || "";
+    const poster = card.querySelector("img")?.src || "";
+    openPlayModal(title, poster);
   });
 });
 
 if (modalEl) {
   modalEl.addEventListener("hidden.bs.modal", () => {
-    if (trailerIframe) {
-      trailerIframe.src = "";
-    }
+    resetModal();
   });
 }
 

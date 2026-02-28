@@ -249,11 +249,23 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content playModal__content">
 
-                <button type="button" class="playModal__close">
-                    ✕
-                </button>
+                <button type="button" class="playModal__close">✕</button>
 
-                <div class="playModal__hero">
+                <!-- pre-play screen: poster backdrop + title + play button -->
+                <div class="playModal__prescreen">
+                    <img class="playModal__poster" src="" alt="" />
+                    <div class="playModal__shade"></div>
+                    <div class="playModal__meta">
+                        <h2 class="playModal__title"></h2>
+                        <button class="playModal__playbtn" aria-label="Play">
+                            <i class="fa-solid fa-play"></i>
+                            <span>Play</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- video screen — hidden until play is pressed -->
+                <div class="playModal__hero playModal__hero--hidden">
                     <iframe class="playModal__iframe" title="Trailer" src=""
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen>
