@@ -1,6 +1,6 @@
 // // login.js
 
-// // 1. SƏHİFƏ YÜKLƏNƏNDƏ: Əgər token varsa, birbaşa home-a keç
+// // 1. ON PAGE LOAD: If token exists, redirect directly to home
 // if (localStorage.getItem("user_token")) {
 //     window.location.href = "home.html"; 
 // }
@@ -9,7 +9,7 @@
 // const loginForm = document.getElementById("loginForm");
 // const warningEl = document.getElementById("warning");
 
-// // Xəta göstərmə funksiyası
+// // Error display function
 // function showWarning(text) {
 //     if (warningEl) {
 //         warningEl.textContent = text;
@@ -26,7 +26,7 @@
 //     const password = document.getElementById("password").value;
 
 //     if (!email || !password) {
-//         showWarning("Email və şifrəni daxil edin.");
+//         showWarning("Please enter your email and password.");
 //         return;
 //     }
 
@@ -40,27 +40,27 @@
 //         const response = await fetch(loginUrl, options);
 //         const responseData = await response.json();
         
-//         console.log("API-dən gələn cavab:", responseData); // Bunu konsolda yoxla
+//         console.log("Response from API:", responseData); // Check this in the console
 
 //         if (!response.ok) {
-//             showWarning(responseData.message || "Email və ya şifrə yanlışdır.");
+//             showWarning(responseData.message || "Email or password is incorrect.");
 //             return;
 //         }
 
-//         // Tokeni yadda saxla (API strukturuna diqqət: data.tokens.access_token)
+//         // Save the token (note API structure: data.tokens.access_token)
 //         if (responseData.data && responseData.data.tokens && responseData.data.tokens.access_token) {
 //             const accessToken = responseData.data.tokens.access_token;
 //             localStorage.setItem("user_token", accessToken);
             
-//             console.log("Token uğurla saxlanıldı. Home-a yönləndirilir...");
+//             console.log("Token saved successfully. Redirecting to home...");
 //             window.location.href = "home.html"; 
 //         } else {
-//             showWarning("Token alınmadı. API cavabını yoxlayın.");
+//             showWarning("Token not received. Check the API response.");
 //         }
 
 //     } catch (error) {
-//         console.error("Xəta baş verdi:", error);
-//         showWarning("Serverlə əlaqə kəsildi.");
+//         console.error("An error occurred:", error);
+//         showWarning("Connection to server lost.");
 //     }
 // }
 

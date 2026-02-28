@@ -52,7 +52,7 @@
   filter: brightness(0) invert(1);
 }
 
-/* CONTENT - menu eni qədər sağa sürüşdür */
+/* CONTENT - shift right by menu width */
 .detail-body-section {
   margin-left: 56px;
   width: calc(100% - 56px);
@@ -84,7 +84,7 @@
 .movieInfo {
   position: relative;
   padding-left: 90px;
-  /* səndə var */
+  /* inherited from your styles */
   padding-right: 48px;
   padding-bottom: 80px;
   background-color: var(--detail-page-bg);
@@ -140,7 +140,7 @@
   align-items: flex-start;
   gap: 64px;
   padding-top: 110px;
-  /* blur kartın altından başlasın */
+  /* start below the blur card */
 }
 
 /* POSTER (Figma: 573x786, radius 24) */
@@ -261,12 +261,12 @@
   line-height: 24px;
 }
 
-/* star rəngi */
+/* star color */
 .detail-rating i {
   color: rgba(255, 189, 109, 1);
 }
 
-/* ABOUT GRID (2 row x 3 col kimi) */
+/* ABOUT GRID (like 2 row x 3 col) */
 .aboutMovie {
   margin-top: 18px;
   display: grid;
@@ -325,7 +325,7 @@
   color: rgba(235, 238, 245, 1);
   margin-bottom: 16px;
   text-transform: lowercase;
-  /* figmada “top cast” kiçikdir */
+  /* "top cast" is lowercase in Figma */
 }
 
 .actors-list {
@@ -430,7 +430,7 @@
   padding: 16px;
 
   background: rgba(0, 0, 0, 0.1);
-  /* yaxın görünüş */
+  /* close-up view */
   border: 1px solid rgba(50, 59, 84, 1);
   /* Grey/700 */
 }
@@ -495,7 +495,7 @@
   display: block;
 }
 
-/* textlerin hamisi burda yerlesir */
+/* all the texts are placed here */
 .card-overlay {
   position: absolute;
   left: 24px;
@@ -539,12 +539,12 @@
 }
 
 
-/* Modal fonu (backdrop) daha tünd olsun istəyirsənsə */
+/* Make modal backdrop darker if desired */
 .modal-backdrop.show {
   opacity: 0.75;
 }
 
-/* Modal content-i şəffaf et, border-shadow-u özümüz verək */
+/* Make modal content transparent, apply our own border-shadow */
 .playModal__content {
   background: transparent;
   border: 0;
@@ -553,15 +553,15 @@
   position: relative;
 }
 
-/* Hero sahəsi */
+/* Hero area */
 .playModal__hero {
   position: relative;
   width: 100%;
   height: 520px;
-  /* istəyə görə */
+  /* adjustable as needed */
 }
 
-/* Şəkil tam otursun */
+/* Image fits perfectly */
 .playModal__img {
   width: 100%;
   height: 100%;
@@ -629,12 +629,12 @@
 }
 .detail-img-wrapper {
   position: relative;
-  width: fit-content; /* şəkilin ölçüsünə uyğun */
+  width: fit-content; /* fits the image dimensions */
 }
 
 .detailMovieImg {
   display: block;
-  border-radius: 20px; /* səndə radius varsa */
+  border-radius: 20px; /* apply radius if needed */
 }
 
 /* Play button */
@@ -658,7 +658,7 @@
   z-index: 2;
 }
 
-/* Qaranlıq overlay */
+/* Dark overlay */
 .detail-img-wrapper::after {
   content: "";
   position: absolute;

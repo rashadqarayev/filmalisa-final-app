@@ -1,14 +1,10 @@
 
 
-body{
-    margin: 0;
-    padding: 0;
-    font-family: var(--font-primary);
-}
-
 main {
+    flex: 1;
+    min-width: 0;
     background-color: var(--bg-color);
-      height: 100vh;
+    height: 100vh;
     box-sizing: border-box;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -189,7 +185,7 @@ main {
    MODAL BACKDROP (BLUR & DARK)
 =========================================== */
 
-/* Modal açılarkən arxa fonun dizaynı */
+/* Background design when modal opens */
 .modal-backdrop.show {
     background-color: rgba(0, 0, 0, 0.8) !important; 
     backdrop-filter: blur(8px) !important;        
@@ -201,7 +197,7 @@ main {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
-/* Modalın ekrana gəlmə sürəti və effekti */
+/* Modal entrance speed and effect */
 .modal.fade .modal-dialog {
     transition: transform 0.3s ease-out;
 }

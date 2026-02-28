@@ -3,7 +3,7 @@
 // const form = document.querySelector('.register-form');
 // const warningEl = document.getElementById('warning');
 
-// // Postman-dakı URL-ni bura yaz:
+// // Write the URL from Postman here:
 // const registerUrl = 'https://api.sarkhanrahimli.dev/api/filmalisa/auth/signup';
 
 // function showWarning(text) {
@@ -25,7 +25,7 @@
 //   const password = document.getElementById('password').value;
 
 //   if (!fullName || !email || !password) {
-//     showWarning('Bütün xanaları doldurun');
+//     showWarning('Please fill in all fields');
 //     return;
 //   }
 
@@ -44,15 +44,15 @@
 //     const data = await response.json();
 
 //     if (!response.ok || data.result === false) {
-//       // məsələn: "User is already exists"
-//       showWarning(data.message || 'Qeydiyyat alınmadı');
+//       // for example: "User is already exists"
+//       showWarning(data.message || 'Registration failed');
 //       return;
 //     }
 
-//     // uğurlu qeydiyyat → loginə yönləndir
+//     // successful registration → redirect to login
 //     window.location.href = './login.html';
 //   } catch (err) {
-//     showWarning('Server xətası');
+//     showWarning('Server error');
 //   }
 // }
 

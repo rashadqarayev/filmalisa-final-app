@@ -1,6 +1,11 @@
 import { adminService } from "../../services/AdminService.js";
 import { showToast } from "../../utils/toast.js";
 
+// If admin is already logged in, go straight to dashboard
+if (localStorage.getItem("admin_access_token")) {
+  window.location.replace("/admin/html/dashboard.html");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.querySelector(".login-form");
   if (loginForm) {
