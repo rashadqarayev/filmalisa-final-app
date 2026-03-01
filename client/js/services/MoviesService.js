@@ -1,41 +1,54 @@
-import { httpClient } from "../core/HttpClient.js";
-
 /**
- * MoviesService - Handles movie listing and detail
- * GET /movies
- * GET /movies?search=query
- * GET /movies/:id
+ * MoviesService
+ *
+ * GET  /movies             — list all movies (optional: search query)
+ * GET  /movies/:id         — single movie with actors + category
+ * GET  /movies/favorites   — current user's favourite movies (auth required)
+ * POST /movie/:id/favorite — toggle favourite on/off   (auth required)
  */
+import { http } from "../core/HttpClient.js";
+
 class MoviesService {
-  constructor(httpClient) {
-    this.http = httpClient;
+  /**
+   * Get all movies, optionally filtered by a search string.
+   *
+   * @param {string} [search] — searches title and description
+   * @returns {Promise<{ message, data: Movie[], result }>}
+   */
+  getAllMovies(search) {
+    return http.get("/movies", { params: { search } });
   }
 
   /**
-   * Get all movies
-   * @returns {Promise<Object>} { data: Movie[], result }
+   * Get a single movie with full details (actors, category).
+   *
+   * @param {number|string} id
+   * @returns {Promise<{ message, data: Movie, result }>}
    */
-  async getAllMovies() {
-    return await this.http.get("/movies");
+  getMovieById(id) {
+    return http.get(`/movies/${id}`);
   }
 
   /**
-   * Search movies by title / description
-   * @param {string} query
-   * @returns {Promise<Object>} { data: Movie[], result }
+   * Get the logged-in user's favourite movies.
+   * Requires authentication.
+   *
+   * @returns {Promise<{ message, data: Movie[], result }>}
    */
-  async searchMovies(query) {
-    return await this.http.get(`/movies?search=${encodeURIComponent(query)}`);
+  getFavorites() {
+    return http.get("/movies/favorites");
   }
 
   /**
-   * Get single movie with actors + category
-   * @param {number} movieId
-   * @returns {Promise<Object>} { data: Movie, result }
+   * Toggle a movie in/out of the current user's favourites.
+   * Requires authentication.
+   *
+   * @param {number|string} id
+   * @returns {Promise<{ message, data: null, result }>}
    */
-  async getMovieById(movieId) {
-    return await this.http.get(`/movies/${movieId}`);
+  toggleFavorite(id) {
+    return http.post(`/movie/${id}/favorite`);
   }
 }
 
-export const moviesService = new MoviesService(httpClient);
+export const moviesService = new MoviesService();

@@ -1,21 +1,22 @@
-import { httpClient } from "../core/HttpClient.js";
-
 /**
- * CategoriesService - Handles categories with their movies
- * GET /categories
+ * CategoriesService
+ *
+ * GET /categories — list all categories, each with their movies array
  */
-class CategoriesService {
-  constructor(httpClient) {
-    this.http = httpClient;
-  }
+import { http } from "../core/HttpClient.js";
 
+class CategoriesService {
   /**
-   * Get all categories, each containing its movie list
-   * @returns {Promise<Object>} { data: Category[], result }
+   * Get all categories including their movies.
+   *
+   * @returns {Promise<{ message, data: Category[], result }>}
+   *
+   * Category shape:
+   *   { id, name, created_at, movies: Movie[] }
    */
-  async getAllCategories() {
-    return await this.http.get("/categories");
+  getAllCategories() {
+    return http.get("/categories");
   }
 }
 
-export const categoriesService = new CategoriesService(httpClient);
+export const categoriesService = new CategoriesService();

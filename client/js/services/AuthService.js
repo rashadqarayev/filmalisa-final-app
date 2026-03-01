@@ -1,58 +1,51 @@
-import { httpClient } from "../core/HttpClient.js";
-
 /**
- * AuthService - Handles user authentication
- * POST /auth/login
- * POST /auth/signup
+ * AuthService
+ *
+ * POST /auth/login   — login, stores token automatically
+ * POST /auth/signup  — register new user
  */
-class AuthService {
-  constructor(httpClient) {
-    this.http = httpClient;
-  }
+import { http } from "../core/HttpClient.js";
 
+class AuthService {
   /**
-   * Login user
+   * Login user.
+   * On success the token is persisted to localStorage automatically.
+   *
    * @param {string} email
    * @param {string} password
-   * @returns {Promise<Object>} { data: { tokens, profile }, result }
+   * @returns {Promise<{ message, data: { tokens, profile }, result }>}
    */
   async login(email, password) {
-    const response = await this.http.post("/auth/login", { email, password });
-    if (response?.result && response.data?.tokens) {
-      this.http.setAuthToken(response.data.tokens.access_token);
-      localStorage.setItem("user_profile", JSON.stringify(response.data.profile));
+    const res = await http.post("/auth/login", { email, password });
+    if (res.result && res.data?.tokens?.access_token) {
+      http.setToken(res.data.tokens.access_token);
     }
-    return response;
+    return res;
   }
 
   /**
-   * Register new user
+   * Register a new user (does NOT auto-login).
+   *
    * @param {string} full_name
    * @param {string} email
    * @param {string} password
-   * @returns {Promise<Object>} { message, result }
+   * @returns {Promise<{ message, data: null, result }>}
    */
   async signup(full_name, email, password) {
-    return await this.http.post("/auth/signup", { full_name, email, password });
+    return http.post("/auth/signup", { full_name, email, password });
   }
 
   /**
-   * Logout — clear token & profile from localStorage
+   * Remove stored token and redirect to login page.
    */
   logout() {
-    this.http.removeAuthToken();
-    localStorage.removeItem("user_profile");
-    const depth = window.location.pathname.includes("/client/html/") ? "../../" : "./";
-    window.location.replace(depth + "index.html");
+    http.removeToken();
+    window.location.replace("/client/html/login.html");
   }
 
-  /**
-   * Check if user is logged in
-   * @returns {boolean}
-   */
   isAuthenticated() {
-    return this.http.isAuthenticated();
+    return http.isAuthenticated();
   }
 }
 
-export const authService = new AuthService(httpClient);
+export const authService = new AuthService();
