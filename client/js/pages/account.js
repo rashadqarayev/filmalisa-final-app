@@ -1,6 +1,6 @@
-import { profileService } from "./services/ProfileService.js";
-import { showToast } from "./utils/toast.js";
-import { initUserBadge } from "./utils/userBadge.js";
+import { profileService } from "../services/ProfileService.js";
+import { showToast } from "../utils/toast.js";
+import { initUserBadge } from "../utils/userBadge.js";
 
 // ─── Auth guard ───────────────────────────────────────────────────────────────
 if (!localStorage.getItem("user_token")) {

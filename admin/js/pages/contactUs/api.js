@@ -22,7 +22,7 @@ export async function loadContacts() {
 export async function deleteContact(deletingId) {
   const res = await adminService.contacts.deleteContact(deletingId);
   if (res.result) {
-    showToast("Success!", "Contact deleted successfully!", "success");
+    showToast("Deleted!", "Contact deleted successfully!", "info");
     await loadContacts();
     return true;
   } else {

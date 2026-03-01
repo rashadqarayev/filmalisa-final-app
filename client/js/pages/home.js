@@ -1,7 +1,7 @@
-import { categoriesService } from "./services/CategoriesService.js";
-import { favoritesService }  from "./services/FavoritesService.js";
-import { showToast }         from "./utils/toast.js";
-import { initUserBadge }     from "./utils/userBadge.js";
+import { categoriesService } from "../services/CategoriesService.js";
+import { favoritesService }  from "../services/FavoritesService.js";
+import { showToast }         from "../utils/toast.js";
+import { initUserBadge }     from "../utils/userBadge.js";
 
 function showLoading() {
   const loader = document.getElementById("page-loader");

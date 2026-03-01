@@ -90,6 +90,14 @@ class AdminService {
   }
 
   /**
+   * Show info message
+   * @param {string} message - Info message
+   */
+  showInfo(message) {
+    showToast("Deleted!", message, "info");
+  }
+
+  /**
    * Show error message
    * @param {string} message - Error message
    */

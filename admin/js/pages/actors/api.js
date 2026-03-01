@@ -45,7 +45,7 @@ export async function saveActor(editingId, { name, surname, img_url }) {
 export async function deleteActor(deletingId) {
   const res = await adminService.actors.deleteActor(deletingId);
   if (res.result) {
-    showToast("Success!", "Actor deleted successfully!", "success");
+    showToast("Deleted!", "Actor deleted successfully!", "info");
     await loadActors();
     return true;
   } else {

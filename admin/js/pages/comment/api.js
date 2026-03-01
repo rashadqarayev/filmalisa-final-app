@@ -22,7 +22,7 @@ export async function loadComments() {
 export async function deleteComment(movieId, commentId) {
   const res = await adminService.comments.deleteComment(movieId, commentId);
   if (res.result) {
-    showToast("Success!", "Comment deleted successfully!", "success");
+    showToast("Deleted!", "Comment deleted successfully!", "info");
     await loadComments();
     return true;
   } else {

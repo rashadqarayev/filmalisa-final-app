@@ -112,7 +112,7 @@
 .user-badge {
   position: fixed;
   top: 18px;
-  right: 24px;
+  right: max(24px, calc(50vw - 660px));
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -135,7 +135,7 @@
   display: none;
   position: fixed;
   top: 64px;
-  right: 24px;
+  right: max(24px, calc(50vw - 660px));
   z-index: 1001;
   background: #1a1a1a;
   border: 1px solid #333;

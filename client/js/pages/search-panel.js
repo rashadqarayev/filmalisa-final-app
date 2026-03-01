@@ -1,7 +1,7 @@
-import { moviesService }    from "./services/MoviesService.js";
-import { favoritesService } from "./services/FavoritesService.js";
-import { showToast }        from "./utils/toast.js";
-import { initUserBadge }    from "./utils/userBadge.js";
+import { moviesService }    from "../services/MoviesService.js";
+import { favoritesService } from "../services/FavoritesService.js";
+import { showToast }        from "../utils/toast.js";
+import { initUserBadge }    from "../utils/userBadge.js";
 
 // ── Auth guard ─────────────────────────────────────────────────────────────────
 if (!localStorage.getItem("user_token")) {

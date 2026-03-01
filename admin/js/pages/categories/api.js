@@ -43,7 +43,7 @@ export async function saveCategory(editingId, name) {
 export async function deleteCategory(deletingId) {
   const res = await adminService.categories.deleteCategory(deletingId);
   if (res.result) {
-    showToast("Success!", "Category deleted successfully!", "success");
+    showToast("Deleted!", "Category deleted successfully!", "info");
     await loadCategories();
     return true;
   } else {

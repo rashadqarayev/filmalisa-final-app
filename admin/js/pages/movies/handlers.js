@@ -45,6 +45,7 @@ export function registerHandlers() {
   const saveMovieBtn = document.getElementById("saveMovieBtn");
   if (saveMovieBtn) {
     saveMovieBtn.addEventListener("click", async () => {
+      if (saveMovieBtn.disabled) return;
       const data = getFormData();
       if (!data.title) {
         showToast("Error!", "Please enter movie title", "error");
@@ -54,7 +55,9 @@ export function registerHandlers() {
         showToast("Error!", "Please select a category", "error");
         return;
       }
+      saveMovieBtn.disabled = true;
       const saved = await saveMovie(state.currentEditId, data);
+      saveMovieBtn.disabled = false;
       if (saved) {
         editModal.hide();
         resetForm();

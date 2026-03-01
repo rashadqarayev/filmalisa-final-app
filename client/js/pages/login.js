@@ -1,5 +1,5 @@
-import { authService } from "./services/AuthService.js";
-import { showToast } from "./utils/toast.js";
+import { authService } from "../services/AuthService.js";
+import { showToast } from "../utils/toast.js";
 
 // ── Auth guard: token varsa birbaşa home-a get ──────────────────────────
 if (localStorage.getItem("user_token")) {
