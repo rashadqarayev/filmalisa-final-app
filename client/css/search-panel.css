@@ -10,7 +10,7 @@ body {
 }
 
 .page-main {
-  padding: 34px 22px 28px;
+  padding: 74px 22px 28px;
 }
 
 .search-header {
@@ -198,4 +198,65 @@ body {
 
 .card-fav-btn.is-favorite i {
   transform: scale(1.12);
+}
+
+/* ── Results grid ── */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 220px));
+  gap: 5px;
+}
+
+.results-grid .action-card {
+  flex: none;
+  width: 100%;
+  height: 320px;
+  position: relative;
+  overflow: hidden;
+  background: #1a1a1a;
+  border-radius: 6px;
+}
+
+.results-grid .action-card img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.results-grid .action-card .category-name {
+  position: absolute;
+  left: 10px;
+  bottom: 46px;
+  font-size: 11px;
+  padding: 3px 8px;
+  z-index: 3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 20px);
+}
+
+.results-grid .action-card .movie-name {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  font-size: 16px;
+  line-height: 1.3;
+  z-index: 3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 20px);
+}
+
+.search__empty {
+  margin-top: 60px;
+  text-align: center;
+  color: rgba(255,255,255,0.45);
+  font-size: 16px;
+  letter-spacing: 0.04em;
 }

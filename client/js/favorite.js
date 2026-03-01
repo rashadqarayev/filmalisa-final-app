@@ -1,84 +1,100 @@
-function setupCardSlider(wrapperId, cardSelector, interval = 3000) {
-  const wrapper = document.getElementById(wrapperId);
-  if (!wrapper) return;
+import { favoritesService } from "./services/FavoritesService.js";
+import { showToast }        from "./utils/toast.js";
+import { initUserBadge }    from "./utils/userBadge.js";
 
-  const cards = Array.from(wrapper.querySelectorAll(cardSelector));
-  if (cards.length <= 1) return;
-
-  let currentIndex = 0;
-  let timer = null;
-
-  function moveTo(index, smooth = true) {
-    currentIndex = (index + cards.length) % cards.length;
-
-    wrapper.scrollTo({
-      left: cards[currentIndex].offsetLeft,
-      behavior: smooth ? 'smooth' : 'auto'
-    });
-  }
-
-  function startAuto() {
-    stopAuto();
-    timer = setInterval(() => {
-      moveTo(currentIndex + 1);
-    }, interval);
-  }
-
-  function stopAuto() {
-    if (!timer) return;
-    clearInterval(timer);
-    timer = null;
-  }
-
-  wrapper.addEventListener('mouseenter', stopAuto);
-  wrapper.addEventListener('mouseleave', startAuto);
-  window.addEventListener('resize', () => moveTo(currentIndex, false));
-
-  moveTo(0, false);
-  startAuto();
+// ── Auth guard ─────────────────────────────────────────────────────────────────
+if (!localStorage.getItem("user_token")) {
+  window.location.replace("./login.html");
 }
 
-function setupCardControls(cardSelector) {
-  const cards = Array.from(document.querySelectorAll(cardSelector));
+// ── Helpers ────────────────────────────────────────────────────────────────────
+function showLoading() {
+  const el = document.getElementById("page-loader");
+  if (el) el.classList.remove("hidden");
+}
+function hideLoading() {
+  const el = document.getElementById("page-loader");
+  if (el) el.classList.add("hidden");
+}
 
-  cards.forEach((card) => {
-    const legacyStar = card.querySelector('img[alt="star"]');
-    if (legacyStar) legacyStar.remove();
+function goToDetail(movieId) {
+  sessionStorage.setItem("detail_access", "1");
+  window.location.href = "./detail.html?id=" + movieId;
+}
 
-    if (!card.querySelector('.card-play-btn')) {
-      const playButton = document.createElement('button');
-      playButton.type = 'button';
-      playButton.className = 'card-play-btn';
-      playButton.setAttribute('aria-label', 'Play movie');
-      playButton.innerHTML = '<i class="fa-solid fa-play"></i>';
-      card.appendChild(playButton);
-    }
+// ── Render ─────────────────────────────────────────────────────────────────────
+function renderFavorites(movies) {
+  const grid  = document.getElementById("favoritesGrid");
+  const empty = document.getElementById("favoritesEmpty");
 
-    if (!card.querySelector('.card-fav-btn')) {
-      const favoriteButton = document.createElement('button');
-      favoriteButton.type = 'button';
-      favoriteButton.className = 'card-fav-btn';
-      favoriteButton.setAttribute('aria-label', 'Add to favorites');
-      favoriteButton.setAttribute('aria-pressed', 'false');
-      favoriteButton.innerHTML = '<i class="fa-regular fa-star"></i>';
+  if (!movies.length) {
+    grid.innerHTML = "";
+    empty.style.display = "block";
+    return;
+  }
 
-      favoriteButton.addEventListener('click', (event) => {
-        event.stopPropagation();
+  empty.style.display = "none";
+  grid.innerHTML = movies.map(function(m) {
+    return "<article class=\"action-card\" data-id=\"" + m.id + "\">" +
+      "<img src=\"" + (m.cover_url || "../../assets/images/home.film1.jpg") + "\" alt=\"" + m.title + "\" loading=\"lazy\" />" +
+      "<p class=\"category-name\">" + (m.category ? m.category.name : "") + "</p>" +
+      "<p class=\"movie-name\">" + m.title + "</p>" +
+      "<button type=\"button\" class=\"card-fav-btn is-favorite\" data-id=\"" + m.id + "\" aria-pressed=\"true\" aria-label=\"Remove from favorites\">" +
+      "<i class=\"fa-solid fa-star\"></i></button>" +
+      "<button type=\"button\" class=\"card-play-btn\" data-id=\"" + m.id + "\" aria-label=\"Play movie\">" +
+      "<i class=\"fa-solid fa-play\"></i></button>" +
+      "</article>";
+  }).join("");
 
-        const isFavorite = favoriteButton.classList.toggle('is-favorite');
-        favoriteButton.setAttribute('aria-pressed', String(isFavorite));
-        favoriteButton.setAttribute('aria-label', isFavorite ? 'Remove from favorites' : 'Add to favorites');
-        favoriteButton.innerHTML = isFavorite
-          ? '<i class="fa-solid fa-star"></i>'
-          : '<i class="fa-regular fa-star"></i>';
-      });
+  // kart klik → detail
+  grid.querySelectorAll(".action-card").forEach(function(card) {
+    card.addEventListener("click", function(e) {
+      if (e.target.closest(".card-fav-btn") || e.target.closest(".card-play-btn")) return;
+      goToDetail(card.dataset.id);
+    });
+  });
 
-      card.appendChild(favoriteButton);
-    }
+  // play → detail
+  grid.querySelectorAll(".card-play-btn").forEach(function(btn) {
+    btn.addEventListener("click", function() { goToDetail(btn.dataset.id); });
+  });
+
+  // fav → toggle (remove from list)
+  grid.querySelectorAll(".card-fav-btn").forEach(function(btn) {
+    btn.addEventListener("click", async function(e) {
+      e.stopPropagation();
+      try {
+        const res = await favoritesService.toggleFavorite(btn.dataset.id);
+        if (res) {
+          const card      = btn.closest(".action-card");
+          const movieName = card.querySelector(".movie-name").textContent;
+          card.remove();
+          showToast("Removed from Favorites", "\"" + movieName + "\" has been removed from your favorites.", "info");
+          if (!grid.querySelector(".action-card")) {
+            empty.style.display = "block";
+          }
+        }
+      } catch (err) {
+        showToast("Error", "Could not update favorites.", "error");
+      }
+    });
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  setupCardControls('.comedy-card');
-  setupCardSlider('comedyWrapper', '.comedy-card', 2800);
-});
+// ── Init ───────────────────────────────────────────────────────────────────────
+async function init() {
+  showLoading();
+  try {
+    const res    = await favoritesService.getFavorites();
+    const movies = (res && res.data) ? res.data : [];
+    renderFavorites(movies);
+  } catch (err) {
+    showToast("Error", "Could not load favorites.", "error");
+    console.error(err);
+  } finally {
+    hideLoading();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", init);
+initUserBadge();

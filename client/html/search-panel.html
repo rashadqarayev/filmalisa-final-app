@@ -22,11 +22,27 @@
     />
 
     <!-- Shared aside styles -->
-    <link rel="stylesheet" href="../../client/css/aside.css" />
-    <link rel="stylesheet" href="../../client/css/search-panel.css" />
+    <link rel="stylesheet" href="../css/aside.css" />
+    <link rel="stylesheet" href="../css/home.css" />
+    <link rel="stylesheet" href="../css/search-panel.css" />
     <link rel="stylesheet" href="../../global.css" />
+    <link rel="stylesheet" href="../css/toast.css" />
+    <link rel="stylesheet" href="../../admin/css/loading.css" />
   </head>
   <body>
+
+    <!-- Page Loader -->
+    <div id="page-loader">
+      <div class="loader-wrapper">
+        <div class="loader-ring-1"></div>
+        <div class="loader-ring-2"></div>
+        <div class="loader-ring-3"></div>
+        <div class="loader-dot"></div>
+      </div>
+      <p class="loader-label">Loading</p>
+      <div class="loader-dots"><span></span><span></span><span></span></div>
+    </div>
+
     <div class="page-shell">
 
       <!-- ============================================================
@@ -69,81 +85,14 @@
           </div>
         </div>
 
-        <section class="results-grid" id="searchResults">
-          <article class="action-card">
-            <img src="../../assets/images/home.film1.jpg" alt="Wonder Woman 1984" />
-            <span class="category-name">Fantasy</span>
-            <h3 class="movie-name">Wonder Woman 1984</h3>
-            <button class="card-play-btn" aria-label="Play movie"><i class="fa-solid fa-play"></i></button>
-            <button class="card-fav-btn" aria-label="Add to favorites"><i class="fa-regular fa-star"></i></button>
-          </article>
-
-          <article class="action-card">
-            <img src="../../assets/images/home.film2.jpg" alt="Zack Snyder's Justice League" />
-            <span class="category-name">Fantasy</span>
-            <h3 class="movie-name">Zack Snyder's Justice League</h3>
-            <button class="card-play-btn" aria-label="Play movie"><i class="fa-solid fa-play"></i></button>
-            <button class="card-fav-btn" aria-label="Add to favorites"><i class="fa-regular fa-star"></i></button>
-          </article>
-
-          <article class="action-card">
-            <img src="../../assets/images/home.film3.jpg" alt="Mortal Kombat" />
-            <span class="category-name">Fantasy</span>
-            <h3 class="movie-name">Mortal Kombat</h3>
-            <button class="card-play-btn" aria-label="Play movie"><i class="fa-solid fa-play"></i></button>
-            <button class="card-fav-btn" aria-label="Add to favorites"><i class="fa-regular fa-star"></i></button>
-          </article>
-
-            <article class="action-card">
-            <img src="../../assets/images/home.film3.jpg" alt="Mortal Kombat" />
-            <span class="category-name">Fantasy</span>
-            <h3 class="movie-name">Mortal Kombat</h3>
-            <button class="card-play-btn" aria-label="Play movie"><i class="fa-solid fa-play"></i></button>
-            <button class="card-fav-btn" aria-label="Add to favorites"><i class="fa-regular fa-star"></i></button>
-          </article>  <article class="action-card">
-            <img src="../../assets/images/home.film3.jpg" alt="Mortal Kombat" />
-            <span class="category-name">Fantasy</span>
-            <h3 class="movie-name">Mortal Kombat</h3>
-            <button class="card-play-btn" aria-label="Play movie"><i class="fa-solid fa-play"></i></button>
-            <button class="card-fav-btn" aria-label="Add to favorites"><i class="fa-regular fa-star"></i></button>
-          </article>  <article class="action-card">
-            <img src="../../assets/images/home.film3.jpg" alt="Mortal Kombat" />
-            <span class="category-name">Fantasy</span>
-            <h3 class="movie-name">Mortal Kombat</h3>
-            <button class="card-play-btn" aria-label="Play movie"><i class="fa-solid fa-play"></i></button>
-            <button class="card-fav-btn" aria-label="Add to favorites"><i class="fa-regular fa-star"></i></button>
-          </article>
-
-          <article class="action-card">
-            <img src="../../assets/images/home.film4.jpg" alt="The Courier" />
-            <span class="category-name">Drama</span>
-            <h3 class="movie-name">The Courier</h3>
-            <button class="card-play-btn" aria-label="Play movie"><i class="fa-solid fa-play"></i></button>
-            <button class="card-fav-btn" aria-label="Add to favorites"><i class="fa-regular fa-star"></i></button>
-          </article>
-
-          <article class="action-card">
-            <img src="../../assets/images/home.film1.jpg" alt="Wonder Woman 1984" />
-            <span class="category-name">Fantasy</span>
-            <h3 class="movie-name">Wonder Woman 1984</h3>
-            <button class="card-play-btn" aria-label="Play movie"><i class="fa-solid fa-play"></i></button>
-            <button class="card-fav-btn" aria-label="Add to favorites"><i class="fa-regular fa-star"></i></button>
-          </article>
-
-          <article class="action-card">
-            <img src="../../assets/images/home.film2.jpg" alt="Zack Snyder's Justice League" />
-            <span class="category-name">Fantasy</span>
-            <h3 class="movie-name">Zack Snyder's Justice League</h3>
-            <button class="card-play-btn" aria-label="Play movie"><i class="fa-solid fa-play"></i></button>
-            <button class="card-fav-btn" aria-label="Add to favorites"><i class="fa-regular fa-star"></i></button>
-          </article>
-        </section>
+        <section class="results-grid" id="searchResults"></section>
+        <p class="search__empty" id="searchEmpty" style="display:none;">No movies found.</p>
 
 
       </main>
       <!-- /MAIN CONTENT -->
 
     </div>
-    <script src="../../client/js/search-panel.js"></script>
+    <script type="module" src="../js/search-panel.js"></script>
   </body>
 </html>

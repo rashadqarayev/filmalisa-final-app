@@ -19,6 +19,67 @@ body {
   padding: 40px 32px;
 }
 
+/* ── Favorites grid ── */
+.favorites__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 220px));
+  gap: 5px;
+  margin-top: 20px;
+}
+
+/* action-card override: flex → grid child */
+.favorites__grid .action-card {
+  flex: none;
+  width: 100%;
+  height: 320px;
+  position: relative;
+  overflow: hidden;
+  background: #1a1a1a;
+  border-radius: 6px;
+}
+
+.favorites__grid .action-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* category & title - no overlap */
+.favorites__grid .action-card .category-name {
+  position: absolute;
+  left: 10px;
+  bottom: 46px;
+  font-size: 11px;
+  padding: 3px 8px;
+  z-index: 3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 20px);
+}
+
+.favorites__grid .action-card .movie-name {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  font-size: 16px;
+  line-height: 1.3;
+  z-index: 3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 20px);
+}
+
+.favorites__empty {
+  margin-top: 60px;
+  text-align: center;
+  color: rgba(255,255,255,0.45);
+  font-size: 16px;
+  letter-spacing: 0.04em;
+}
+
 .page-title {
   font-size: 28px;
   font-weight: 700;

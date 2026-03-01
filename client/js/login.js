@@ -1,81 +1,48 @@
-// // login.js
+import { authService } from "./services/AuthService.js";
+import { showToast } from "./utils/toast.js";
 
-// // 1. ON PAGE LOAD: If token exists, redirect directly to home
-// if (localStorage.getItem("user_token")) {
-//     window.location.href = "home.html"; 
-// }
+// ── Auth guard: token varsa birbaşa home-a get ──────────────────────────
+if (localStorage.getItem("user_token")) {
+  window.location.replace("./home.html");
+}
 
-// const loginUrl = "https://api.sarkhanrahimli.dev/api/filmalisa/auth/login";
-// const loginForm = document.getElementById("loginForm");
-// const warningEl = document.getElementById("warning");
-
-// // Error display function
-// function showWarning(text) {
-//     if (warningEl) {
-//         warningEl.textContent = text;
-//         warningEl.style.display = "block";
-//     } else {
-//         alert(text);
-//     }
-// }
-
-// async function login(event) {
-//     event.preventDefault();
-    
-//     const email = document.getElementById("email").value.trim();
-//     const password = document.getElementById("password").value;
-
-//     if (!email || !password) {
-//         showWarning("Please enter your email and password.");
-//         return;
-//     }
-
-//     const options = {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ email, password }),
-//     };
-
-//     try {
-//         const response = await fetch(loginUrl, options);
-//         const responseData = await response.json();
-        
-//         console.log("Response from API:", responseData); // Check this in the console
-
-//         if (!response.ok) {
-//             showWarning(responseData.message || "Email or password is incorrect.");
-//             return;
-//         }
-
-//         // Save the token (note API structure: data.tokens.access_token)
-//         if (responseData.data && responseData.data.tokens && responseData.data.tokens.access_token) {
-//             const accessToken = responseData.data.tokens.access_token;
-//             localStorage.setItem("user_token", accessToken);
-            
-//             console.log("Token saved successfully. Redirecting to home...");
-//             window.location.href = "home.html"; 
-//         } else {
-//             showWarning("Token not received. Check the API response.");
-//         }
-
-//     } catch (error) {
-//         console.error("An error occurred:", error);
-//         showWarning("Connection to server lost.");
-//     }
-// }
-
-// if (loginForm) {
-//     loginForm.addEventListener("submit", login);
-// }
-
-
-
-
-
-const passToggle = document.getElementById("pass-toggle");
+// ── DOM refs ──────────────────────────────────────────────────────────
+const loginForm     = document.getElementById("loginForm");
+const emailInput    = document.getElementById("email");
 const passwordInput = document.getElementById("password");
+const passToggle    = document.getElementById("pass-toggle");
 
-passToggle.addEventListener("click", () => {
-  const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-  passwordInput.setAttribute("type", type);
-});
+// ── Password toggle ─────────────────────────────────────────────────────
+if (passToggle && passwordInput) {
+  passToggle.addEventListener("click", () => {
+    passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+  });
+}
+
+// ── Login submit ───────────────────────────────────────────────────────────
+if (loginForm) {
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email    = emailInput.value.trim();
+    const password = passwordInput.value;
+
+    if (!email || !password) {
+      showToast("Validation Error", "Please enter your email and password.", "error");
+      return;
+    }
+
+    try {
+      const res = await authService.login(email, password);
+      if (res?.result) {
+        localStorage.setItem("user_password", password);
+        showToast("Welcome back!", "Login successful. Redirecting...", "success");
+        setTimeout(() => window.location.replace("./home.html"), 1000);
+      } else {
+        showToast("Login Failed", res?.message || "Email or password is incorrect.", "error");
+      }
+    } catch (err) {
+      showToast("Connection Error", err.message || "Could not reach the server.", "error");
+    }
+  });
+}

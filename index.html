@@ -10,6 +10,7 @@
 <link rel="shortcut icon" href="./assets/images/admin.logo.svg" type="image/x-icon">
     <link rel="stylesheet" href="./global.css">
     <link rel="stylesheet" href="./client/css/landingPage.css?v=1">
+    <link rel="stylesheet" href="./client/css/toast.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
@@ -28,7 +29,12 @@
                     <img src="./assets/images/admin.logo.svg" alt="logo" class="logo">
                     <p class="logo-text">filmalisa</p>
                 </div>
-                <a href="./client/html/login.html"> <button class="sign-in-btn create-btn">Sign In</button></a>
+                <div class="user-menu" id="userMenu">
+                  <button class="sign-in-btn create-btn" id="authBtn">Sign In</button>
+                  <div class="user-dropdown" id="userDropdown">
+                    <button id="dropdownLogout">Logout</button>
+                  </div>
+                </div>
             </nav>
         </header>
 
@@ -94,10 +100,10 @@
             <!-- CONTACT -->
             <section class="contact-info">
                 <h3 class="contact-title">Contact us</h3>
-                <input type="text" placeholder="Fullname">
-                <input type="text" placeholder="Email address">
-                <textarea placeholder="Reason"></textarea>
-                <button class="create-btn send-btn">Send</button>
+                <input id="contactFullName" type="text" placeholder="Fullname">
+                <input id="contactEmail" type="text" placeholder="Email address">
+                <textarea id="contactReason" placeholder="Reason"></textarea>
+                <button id="contactSendBtn" class="create-btn send-btn">Send</button>
             </section>
 
             <!-- FAQ -->

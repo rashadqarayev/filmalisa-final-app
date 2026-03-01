@@ -107,10 +107,11 @@ export function registerHandlers() {
 
   window.showDeleteModal = showDeleteModal;
 
-  // Search
+  // Search — fires only on Enter
   const searchInput = document.getElementById("movie-search");
   if (searchInput) {
-    searchInput.addEventListener("input", (e) => {
+    searchInput.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter") return;
       const q = e.target.value.toLowerCase().trim();
       state.filteredMovies = q
         ? state.allMovies.filter(

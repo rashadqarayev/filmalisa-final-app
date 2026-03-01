@@ -170,4 +170,21 @@ body {
   transform: translateY(-1px);
 }
 
+.logout-btn {
+  width: 100%;
+  height: 64px;
+  border: 1px solid #ff4d4d44;
+  border-radius: 12px;
+  background: transparent;
+  color: #ff4d4d;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
 
+.logout-btn:hover {
+  background: #ff4d4d18;
+  opacity: 0.9;
+}

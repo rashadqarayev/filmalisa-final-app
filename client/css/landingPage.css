@@ -64,6 +64,48 @@ nav .logo-div {
 
 /* nav end */
 
+/* user menu dropdown */
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    min-width: 130px;
+    z-index: 999;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+
+.user-dropdown button {
+    width: 100%;
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    color: #ff4d4d;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+}
+
+.user-dropdown button:hover {
+    background: rgba(255, 77, 77, 0.1);
+}
+/* end user menu dropdown */
+
+/* Hide auth button until JS determines its state (prevents Sign-In flicker) */
+#authBtn {
+  visibility: hidden;
+}
+
 
 /* hero start */
 

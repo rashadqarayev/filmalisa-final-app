@@ -77,7 +77,7 @@ body {
 /* ---- hero text content ---- */
 .hero-content {
   position: absolute;
-  left: clamp(180px, 19vw, 240px);
+  left: clamp(80px, 9vw, 140px);
   bottom: 90px;
   z-index: 3;
   max-width: 520px;
@@ -277,7 +277,9 @@ body {
   width: 292px;
   height: 440px;
   position: relative;
-  background: transparent;
+  overflow: hidden;
+  background: #111;
+  border-radius: 6px;
   scroll-snap-align: start;
 }
 
@@ -299,6 +301,9 @@ body {
 }
 
 .action-card img {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -368,21 +373,31 @@ body {
   color: #fff;
   font-weight: 600;
 }
-.action-card {
-  overflow: hidden;
-}
+/* overflow + border-radius already set on .action-card above */
 /* category yeri */
 .action-card .category-name,
 .comedy-card .category-name {
-  left: 14px;
-  bottom: 62px;
+  left: 10px;
+  bottom: 46px;
+  font-size: 11px;
+  padding: 3px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 20px);
 }
 
 /* movie name yeri */
 .action-card .movie-name,
 .comedy-card .movie-name {
-  left: 14px;
-  bottom: 14px;
+  left: 10px;
+  bottom: 10px;
+  font-size: 16px;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 20px);
 }
 
 .card-play-btn {

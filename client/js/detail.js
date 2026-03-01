@@ -1,151 +1,338 @@
-const similarSwiperEl = document.querySelector('.similarSwiper');
-const similarSlideCount = document.querySelectorAll('.similarSwiper .swiper-slide').length;
-const autoplayDelay = Math.max(1200, similarSlideCount * 350);
+import { moviesService }   from "./services/MoviesService.js";
+import { favoritesService } from "./services/FavoritesService.js";
+import { commentsService }  from "./services/CommentsService.js";
+import { profileService }   from "./services/ProfileService.js";
+import { showToast }        from "./utils/toast.js";
+import { initUserBadge }    from "./utils/userBadge.js";
 
-if (similarSwiperEl) {
-  similarSwiperEl.setAttribute('dir', 'ltr');
+// ─── Auth guard ───────────────────────────────────────────────────────────────
+if (!localStorage.getItem("user_token")) {
+  window.location.replace("./login.html");
 }
 
-new Swiper('.similarSwiper', {
-  direction: 'horizontal',
-  initialSlide: 0,
-  slidesPerView: 'auto',
-  spaceBetween: 5,
-  slidesOffsetBefore: 8,
-  loop: similarSlideCount > 1,
-  speed: 900,
-  autoplay: {
-    delay: autoplayDelay,
-    disableOnInteraction: false,
-    pauseOnMouseEnter: true,
-    reverseDirection: false,
-  },
-  grabCursor: true,
-  mousewheel: {
-    forceToAxis: true,
-    invert: false,
-  },
-  on: {
-    init(swiper) {
-      if (swiper.params.loop) {
-        swiper.slideToLoop(0, 0, false);
-      } else {
-        swiper.slideTo(0, 0, false);
-      }
-    },
-  },
-});
+// ─── Loading ──────────────────────────────────────────────────────────────────
+const pageLoader = document.getElementById("page-loader");
+function showLoading() { if (pageLoader) pageLoader.style.display = "flex"; }
+function hideLoading() { if (pageLoader) pageLoader.style.display = "none"; }
 
-const watchBtn = document.querySelector(".watchBtn");
-const modalEl = document.getElementById("playModal");
-const modal = new bootstrap.Modal(modalEl);
-const closeBtn = modalEl.querySelector(".playModal__close");
-const detailMovieImg = document.querySelector(".detailMovieImg");
-const detailPlayBtn = document.querySelector(".detail-play-btn");
-const addMyListBtn = document.querySelector(".addMyListBtn");
-const trailerIframe = modalEl.querySelector(".playModal__iframe");
-const prescreen   = modalEl.querySelector(".playModal__prescreen");
-const heroScreen  = modalEl.querySelector(".playModal__hero");
-const modalTitle  = modalEl.querySelector(".playModal__title");
-const modalPoster = modalEl.querySelector(".playModal__poster");
-const inModalPlayBtn = modalEl.querySelector(".playModal__playbtn");
-const defaultTrailerId = "6ZfuNTqbHE8";
-const trailerVideoIds = [
-  "5PSNL1qE6VY",
-  "6ZfuNTqbHE8",
-  "TcMBFSGVi1c",
-  "QwievZ1Tx-8",
-  "xjDjIWPwcPU",
-  "sj9J2ecsSpo",
-  "hA6hldpSTF8",
-  "mqqft2x_Aa4",
-];
+// ─── DOM refs ─────────────────────────────────────────────────────────────────
+const detailBannerImg  = document.getElementById("detailBannerImg");
+const movieCategoryName= document.getElementById("movieCategoryName");
+const movieName        = document.getElementById("movieName");
+const detailMoviePoster= document.getElementById("detailMoviePoster");
+const detailPlayBtn    = document.getElementById("detailPlayBtn");
+const detailMovieTitle = document.getElementById("detailMovieTitle");
+const watchBtn         = document.getElementById("watchBtn");
+const addMyListBtn     = document.getElementById("addMyListBtn");
+const detailOverview   = document.getElementById("detailOverview");
+const detailRating     = document.getElementById("detailRating");
+const aboutCategory    = document.getElementById("aboutCategory");
+const aboutRuntime     = document.getElementById("aboutRuntime");
+const aboutAdult       = document.getElementById("aboutAdult");
+const aboutImdb        = document.getElementById("aboutImdb");
+const genresName       = document.getElementById("genresName");
+const actorsList       = document.getElementById("actorsList");
+const commentInput     = document.getElementById("commentInput");
+const commentBtn       = document.getElementById("commentBtn");
+const commentsList     = document.getElementById("commentsList");
+const similarWrapper   = document.getElementById("similarSwiperWrapper");
 
-function buildEmbedUrl(videoId) {
-  return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=1`;
-}
+// ─── Modal (bootstrap) ────────────────────────────────────────────────────────
+const modalEl        = document.getElementById("playModal");
+const modal          = modalEl ? new bootstrap.Modal(modalEl) : null;
+const closeBtn       = modalEl?.querySelector(".playModal__close");
+const trailerIframe  = modalEl?.querySelector(".playModal__iframe");
+const prescreen      = modalEl?.querySelector(".playModal__prescreen");
+const heroScreen     = modalEl?.querySelector(".playModal__hero");
+const modalTitle     = modalEl?.querySelector(".playModal__title");
+const modalPoster    = modalEl?.querySelector(".playModal__poster");
+const inModalPlayBtn = modalEl?.querySelector(".playModal__playbtn");
 
-let activeTrailerUrl = buildEmbedUrl(defaultTrailerId);
+let activeTrailerUrl = "";
 
 function resetModal() {
   if (trailerIframe) trailerIframe.src = "";
-  // restore pre-play screen
-  prescreen.style.display = "";
-  heroScreen.classList.add("playModal__hero--hidden");
+  if (prescreen)     prescreen.style.display = "";
+  heroScreen?.classList.add("playModal__hero--hidden");
 }
 
-function closePlayModal() {
-  resetModal();
-  modal.hide();
-}
-
-// in-modal play button → hide title+btn, start video
-inModalPlayBtn.addEventListener("click", () => {
-  prescreen.style.display = "none";
-  heroScreen.classList.remove("playModal__hero--hidden");
-  trailerIframe.src = activeTrailerUrl;
-});
-
-closeBtn.addEventListener("click", closePlayModal);
-
-function openPlayModal(title, posterSrc) {
-  resetModal();
-  if (modalTitle)  modalTitle.textContent  = title || "";
-  if (modalPoster) modalPoster.src         = posterSrc || "";
-  modal.show();
-}
-
-if (detailPlayBtn) {
-  detailPlayBtn.addEventListener("click", () => {
-    activeTrailerUrl = buildEmbedUrl(defaultTrailerId);
-    const title  = document.querySelector(".movieName")?.textContent || "";
-    const poster = document.querySelector(".detailMovieImg")?.src || "";
-    openPlayModal(title, poster);
-  });
-}
-
-document.querySelectorAll(".action-card").forEach((card, index) => {
-  const videoId = trailerVideoIds[index % trailerVideoIds.length];
-  card.dataset.trailerId = videoId;
-
-  const cardPlayBtn = card.querySelector(".card-play-btn");
-  if (!cardPlayBtn) return;
-
-  cardPlayBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    activeTrailerUrl = buildEmbedUrl(card.dataset.trailerId || defaultTrailerId);
-    const title  = card.querySelector(".movie-name")?.textContent || "";
-    const poster = card.querySelector("img")?.src || "";
-    openPlayModal(title, poster);
-  });
-});
-
-if (modalEl) {
-  modalEl.addEventListener("hidden.bs.modal", () => {
-    resetModal();
-  });
-}
-
-if (addMyListBtn) {
-  addMyListBtn.addEventListener("click", () => {
-    const isAdded = addMyListBtn.classList.toggle("is-added");
-    addMyListBtn.textContent = isAdded ? "✓" : "+";
-    addMyListBtn.setAttribute("aria-pressed", String(isAdded));
-  });
-}
-
-// ===== Similar movie card — star toggle =====
-document.querySelectorAll(".card-fav-btn").forEach(btn => {
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const icon = btn.querySelector("i");
-    const isFav = btn.classList.toggle("is-favorite");
-    if (isFav) {
-      icon.classList.remove("fa-regular");
-      icon.classList.add("fa-solid");
-    } else {
-      icon.classList.remove("fa-solid");
-      icon.classList.add("fa-regular");
+// ─── Convert any YouTube URL to embed format ──────────────────────────────────
+function toEmbedUrl(url) {
+  if (!url) return "";
+  try {
+    const u = new URL(url);
+    // Already an embed URL
+    if (u.pathname.startsWith("/embed/")) return url;
+    // youtu.be/ID
+    if (u.hostname === "youtu.be") {
+      return `https://www.youtube.com/embed${u.pathname}`;
     }
-  });
+    // youtube.com/watch?v=ID
+    const v = u.searchParams.get("v");
+    if (v) return `https://www.youtube.com/embed/${v}`;
+  } catch { /* not a valid URL, return as-is */ }
+  return url;
+}
+
+function openPlayModal(title, posterSrc, trailerUrl) {
+  activeTrailerUrl = toEmbedUrl(trailerUrl);
+  resetModal();
+  if (modalTitle)  modalTitle.textContent = title || "";
+  if (modalPoster) modalPoster.src = posterSrc || "";
+  modal?.show();
+}
+
+inModalPlayBtn?.addEventListener("click", () => {
+  if (prescreen) prescreen.style.display = "none";
+  heroScreen?.classList.remove("playModal__hero--hidden");
+  if (trailerIframe) trailerIframe.src = activeTrailerUrl;
 });
+
+closeBtn?.addEventListener("click", () => { resetModal(); modal?.hide(); });
+modalEl?.addEventListener("hidden.bs.modal", resetModal);
+
+// ─── Populate movie ───────────────────────────────────────────────────────────
+function populateMovie(movie) {
+  document.title = movie.title || "Detail";
+  if (detailBannerImg)   detailBannerImg.src  = movie.cover_url || "";
+  if (movieName)         movieName.textContent = movie.title || "";
+  if (movieCategoryName) movieCategoryName.textContent = movie.category?.name || "";
+  if (detailMoviePoster) detailMoviePoster.src = movie.cover_url || "";
+  if (detailMovieTitle)  detailMovieTitle.textContent  = movie.title || "";
+  if (detailOverview)    detailOverview.textContent = movie.overview || "";
+  if (detailRating)      detailRating.innerHTML = `<i class="fa-solid fa-star"></i> ${movie.imdb || "—"}`;
+  if (aboutCategory)     aboutCategory.textContent = movie.category?.name || "—";
+  if (aboutRuntime)      aboutRuntime.textContent  = movie.run_time_min ? `${movie.run_time_min} min` : "—";
+  if (aboutAdult)        aboutAdult.textContent    = movie.adult ? "18+" : "All ages";
+  if (aboutImdb)         aboutImdb.textContent     = movie.imdb || "—";
+  if (genresName)        genresName.textContent    = movie.category?.name || "";
+
+  // Play button opens modal with fragman
+  const trailerUrl = movie.fragman || "";
+  detailPlayBtn?.addEventListener("click", () => {
+    openPlayModal(movie.title, movie.cover_url, trailerUrl);
+  });
+
+  // Watch Link
+  watchBtn?.addEventListener("click", () => {
+    if (movie.watch_url) window.open(movie.watch_url, "_blank");
+    else showToast("Info", "No watch link available.", "info");
+  });
+}
+
+// ─── Render actors ─────────────────────────────────────────────────────────────
+function renderActors(actors) {
+  if (!actorsList) return;
+  if (!actors?.length) { actorsList.innerHTML = "<p style='color:#888;'>No cast info.</p>"; return; }
+  actorsList.innerHTML = actors.map(a => `
+    <div class="actor-card">
+      <img src="${a.img_url || "../../assets/images/user.png"}" alt="${a.name}" onerror="this.src='../../assets/images/user.png'" />
+      <p class="actor-name">${a.name} ${a.surname}</p>
+    </div>
+  `).join("");
+}
+
+// ─── Render comments ──────────────────────────────────────────────────────────
+function renderComments(comments, profile) {
+  if (!commentsList) return;
+  if (!comments?.length) { commentsList.innerHTML = "<p style='color:#666;padding:12px 0;'>No comments yet.</p>"; return; }
+  const avatar = profile?.img_url || "../../assets/images/user.png";
+  const name   = profile?.full_name || "User";
+  commentsList.innerHTML = comments.map(c => `
+    <div class="comment-title" data-comment-id="${c.id}">
+      <div class="comment-header">
+        <img src="${avatar}" alt="user" class="comment-user-img" onerror="this.src='../../assets/images/user.png'" />
+        <p class="comment-user-name">${name}</p>
+        <span class="comment-date">${new Date(c.created_at).toLocaleDateString()}</span>
+      </div>
+      <p class="comment-text">${c.comment}</p>
+    </div>
+  `).join("");
+}
+
+// ─── Setup comment form ────────────────────────────────────────────────────────
+function setupCommentForm(movieId, profile) {
+  const avatar = profile?.img_url || "../../assets/images/user.png";
+  const name   = profile?.full_name || "User";
+
+  commentBtn?.addEventListener("click", async () => {
+    const text = commentInput?.value.trim();
+    if (!text) return;
+    try {
+      const res = await commentsService.createComment(movieId, text);
+      if (res?.result) {
+        commentInput.value = "";
+        showToast("Success", "Comment added.", "success");
+        const c = res.data;
+        const div = document.createElement("div");
+        div.className = "comment-title";
+        div.dataset.commentId = c.id;
+        div.innerHTML = `
+          <div class="comment-header">
+            <img src="${avatar}" alt="user" class="comment-user-img" onerror="this.src='../../assets/images/user.png'" />
+            <p class="comment-user-name">${name}</p>
+            <span class="comment-date">${new Date(c.created_at).toLocaleDateString()}</span>
+          </div>
+          <p class="comment-text">${c.comment}</p>
+        `;
+        if (commentsList) {
+          const empty = commentsList.querySelector(":scope > p");
+          if (empty) empty.remove();
+          commentsList.insertBefore(div, commentsList.firstChild);
+        }
+      } else {
+        showToast("Error", res?.message || "Could not post comment.", "error");
+      }
+    } catch { showToast("Error", "Something went wrong.", "error"); }
+  });
+
+  commentInput?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") commentBtn?.click();
+  });
+}
+
+// ─── Setup favorite button ────────────────────────────────────────────────────
+function setupFavButton(movieId, favIds) {
+  if (!addMyListBtn) return;
+  let isFav = favIds.has(movieId);
+
+  function updateFavBtn() {
+    addMyListBtn.textContent = isFav ? "✓" : "+";
+    addMyListBtn.classList.toggle("is-added", isFav);
+    addMyListBtn.setAttribute("aria-pressed", String(isFav));
+  }
+  updateFavBtn();
+
+  addMyListBtn.addEventListener("click", async () => {
+    try {
+      await favoritesService.toggleFavorite(movieId);
+      isFav = !isFav;
+      updateFavBtn();
+      showToast(isFav ? "Added to Favorites" : "Removed from Favorites", isFav ? "Added to your favorites." : "The movie has been removed from your favorites.", isFav ? "success" : "info");
+    } catch { showToast("Error", "Could not update favorites.", "error"); }
+  });
+}
+
+// ─── Render similar movies ────────────────────────────────────────────────────
+function renderSimilarMovies(movies, currentId, favIds) {
+  if (!similarWrapper) return;
+  const slides = movies
+    .filter(m => m.id !== currentId)
+    .slice(0, 12)
+    .map(m => {
+      const isFav = favIds.has(m.id);
+      return `
+        <article class="swiper-slide action-card" data-movie-id="${m.id}" data-trailer="${m.fragman || ""}">
+          <img src="${m.cover_url || ""}" alt="${m.title}" />
+          <span class="category-name">${m.category?.name || ""}</span>
+          <h3 class="movie-name">${m.title}</h3>
+          <button class="card-play-btn" aria-label="Play movie"><i class="fa-solid fa-play"></i></button>
+          <button class="card-fav-btn ${isFav ? "is-favorite" : ""}" aria-label="Favorites">
+            <i class="${isFav ? "fa-solid" : "fa-regular"} fa-star"></i>
+          </button>
+        </article>
+      `;
+    }).join("");
+  similarWrapper.innerHTML = slides;
+
+  // Events on similar cards
+  similarWrapper.querySelectorAll(".action-card").forEach(card => {
+    const id = Number(card.dataset.movieId);
+
+    card.querySelector(".card-play-btn")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openPlayModal(
+        card.querySelector(".movie-name")?.textContent,
+        card.querySelector("img")?.src,
+        card.dataset.trailer
+      );
+    });
+
+    card.querySelector(".card-fav-btn")?.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      const btn  = e.currentTarget;
+      const icon = btn.querySelector("i");
+      try {
+        const res = await favoritesService.toggleFavorite(id);
+        if (res) {
+          const adding = !btn.classList.contains("is-favorite");
+          btn.classList.toggle("is-favorite", adding);
+          icon.className = adding ? "fa-solid fa-star" : "fa-regular fa-star";
+          const movieTitle = card.querySelector(".movie-name")?.textContent || "Movie";
+          showToast(adding ? "Added to Favorites" : "Removed from Favorites", adding ? `"${movieTitle}" has been added to your favorites.` : `"${movieTitle}" has been removed from your favorites.`, adding ? "success" : "info");
+        }
+      } catch { showToast("Error", "Could not update favorites.", "error"); }
+    });
+
+    card.addEventListener("click", () => {
+      sessionStorage.setItem("detail_access", "1");
+      window.location.href = `./detail.html?id=${id}`;
+    });
+  });
+
+  // Init Swiper after DOM is ready
+  new Swiper(".similarSwiper", {
+    direction: "horizontal",
+    slidesPerView: 4,
+    spaceBetween: 12,
+    loop: similarWrapper.querySelectorAll(".swiper-slide").length >= 4,
+    speed: 900,
+    autoplay: { delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true },
+    grabCursor: true,
+    mousewheel: { forceToAxis: true },
+    breakpoints: {
+      320:  { slidesPerView: 1, spaceBetween: 8 },
+      640:  { slidesPerView: 2, spaceBetween: 10 },
+      900:  { slidesPerView: 3, spaceBetween: 12 },
+      1200: { slidesPerView: 4, spaceBetween: 12 },
+    },
+  });
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+async function init() {
+  const params  = new URLSearchParams(window.location.search);
+  const movieId = Number(params.get("id"));
+  if (!movieId || isNaN(movieId)) {
+    window.location.replace("./404.html");
+    return;
+  }
+
+  showLoading();
+  try {
+    const [movieRes, commentsRes, favRes, allMoviesRes, profileRes] = await Promise.all([
+      moviesService.getMovieById(movieId),
+      commentsService.getComments(movieId).catch(() => ({ data: [] })),
+      favoritesService.getFavorites().catch(() => ({ data: [] })),
+      moviesService.getAllMovies().catch(() => ({ data: [] })),
+      profileService.getProfile().catch(() => ({ data: null })),
+    ]);
+
+    const movie      = movieRes?.data;
+    const comments   = commentsRes?.data || [];
+    const favIds     = new Set((favRes?.data || []).map(m => m.id));
+    const allMovies  = allMoviesRes?.data || [];
+    const profile    = profileRes?.data;
+
+    if (!movie) {
+      window.location.replace("./404.html");
+      return;
+    }
+
+    populateMovie(movie);
+    renderActors(movie.actors);
+    renderComments(comments, profile);
+    setupCommentForm(movieId, profile);
+    setupFavButton(movieId, favIds);
+    renderSimilarMovies(allMovies, movieId, favIds);
+
+  } catch (err) {
+    console.error(err);
+    showToast("Error", "Failed to load movie.", "error");
+  } finally {
+    hideLoading();
+  }
+}
+
+init();
+initUserBadge();
