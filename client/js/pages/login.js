@@ -35,6 +35,18 @@ if (loginForm) {
     try {
       const res = await authService.login(email, password);
       if (res?.result) {
+        const profile = res?.data?.profile;
+        const isRegisteredClientUser = Boolean(profile && profile.id && profile.email);
+        const isAdminAccount = Number(profile?.id) === 261;
+
+        if (!isRegisteredClientUser || isAdminAccount) {
+          authService.http.removeAuthToken();
+          localStorage.removeItem("user_profile");
+          localStorage.removeItem("user_password");
+          showToast("Access Denied", "Only registered client users can log in.", "error");
+          return;
+        }
+
         localStorage.setItem("user_password", password);
         showToast("Welcome back!", "Login successful. Redirecting...", "success");
         setTimeout(() => window.location.replace("./home.html"), 1000);

@@ -7,6 +7,14 @@ export async function initUserBadge() {
   const token = localStorage.getItem("user_token");
   if (!token) return;
 
+  // Cross-tab: if user_token is removed in another tab → redirect to landing
+  window.addEventListener("storage", function (e) {
+    if (e.key === "user_token" && !e.newValue) {
+      const depth = window.location.pathname.includes("/client/html/") ? "../../" : "./";
+      window.location.replace(depth + "index.html");
+    }
+  });
+
   try {
     const res = await fetch(
       "https://api.sarkhanrahimli.dev/api/filmalisa/profile",

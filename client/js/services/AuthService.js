@@ -42,7 +42,8 @@ class AuthService {
   logout() {
     this.http.removeAuthToken();
     localStorage.removeItem("user_profile");
-    window.location.replace("./login.html");
+    const depth = window.location.pathname.includes("/client/html/") ? "../../" : "./";
+    window.location.replace(depth + "index.html");
   }
 
   /**
