@@ -226,6 +226,14 @@ body {
 }
 
 /* ============================================================
+   CATEGORIES CONTAINER — unified left alignment for all sections
+============================================================ */
+.categories-container {
+  padding-left: 55px;
+  overflow-x: hidden;
+}
+
+/* ============================================================
    SECTION HEADERS (Action / Comedy)
 ============================================================ */
 .section {
@@ -243,7 +251,6 @@ body {
   font-size: 34px;
   font-weight: 600;
   letter-spacing: 0.2px;
-  text-indent: 55px;
 }
 
 /* WRAPPERS: horizontal scroll */

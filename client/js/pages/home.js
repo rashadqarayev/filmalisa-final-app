@@ -29,7 +29,7 @@ function buildHeroSlides(movies) {
   const carousel = document.getElementById("heroCarousel");
   if (!carousel || !movies.length) return;
 
-  carousel.innerHTML = movies.slice(0, 5).map(function(m, i) {
+  carousel.innerHTML = movies.map(function(m, i) {
     return "<div class=\"hero-slide " + (i === 0 ? "is-active" : "") + "\" data-id=\"" + m.id + "\">" +
       "<img src=\"" + (m.cover_url || "../../assets/images/home.carusel.jpg") + "\" alt=\"" + m.title + "\" />" +
       "<div class=\"hero-content\">" +
@@ -214,19 +214,26 @@ async function init() {
     const categories = (catRes && catRes.data) ? catRes.data : [];
     const favIds     = new Set((favRes && favRes.data ? favRes.data : []).map(function(m) { return Number(m.id); }));
 
-    // Hero: ilk 5 film
-    const heroMovies = categories.flatMap(function(c) { return c.movies || []; }).slice(0, 5);
+    // Hero: Thriller xaric butun filmler
+    const heroMovies = categories
+      .filter(function(c) { return !c.name || c.name.toLowerCase() !== 'thriller'; })
+      .flatMap(function(c) { return c.movies || []; });
     buildHeroSlides(heroMovies);
     setupHeroSlider();
 
     // Statik seksiyaları sil, dinamik çək
     const main = document.querySelector(".page-main");
     main.querySelectorAll("section:not(#section1)").forEach(function(s) { s.remove(); });
+    main.querySelectorAll(".categories-container").forEach(function(c) { c.remove(); });
+
+    const container = document.createElement("div");
+    container.className = "categories-container";
+    main.appendChild(container);
 
     categories.forEach(function(category) {
       const result = buildCategorySection(category, favIds);
       if (!result) return;
-      main.appendChild(result.section);
+      container.appendChild(result.section);
       setupCardSlider(result.wrapperId, ".action-card", 2600);
     });
     hideLoading();
