@@ -133,27 +133,38 @@ function renderActors(actors) {
 }
 
 // ─── Render comments ──────────────────────────────────────────────────────────
-function renderComments(comments, profile) {
+function renderComments(comments, profile, myIds = new Set()) {
   if (!commentsList) return;
   if (!comments?.length) { commentsList.innerHTML = "<p style='color:#666;padding:12px 0;'>No comments yet.</p>"; return; }
-  const avatar = profile?.img_url || "../../assets/images/user.png";
-  const name   = profile?.full_name || "User";
-  commentsList.innerHTML = comments.map(c => `
+  const defaultAvatar = "../../assets/images/user.png";
+  commentsList.innerHTML = comments.map(c => {
+    const isMine = myIds.has(c.id);
+    const avatar = isMine && profile?.img_url ? profile.img_url : defaultAvatar;
+    const name   = isMine && profile?.full_name ? profile.full_name : "User";
+    return `
     <div class="comment-title" data-comment-id="${c.id}">
       <div class="comment-header">
-        <img src="${avatar}" alt="user" class="comment-user-img" onerror="this.src='../../assets/images/user.png'" />
+        <img src="${avatar}" alt="user" class="comment-user-img" onerror="this.src='${defaultAvatar}'" />
         <p class="comment-user-name">${name}</p>
         <span class="comment-date">${new Date(c.created_at).toLocaleDateString()}</span>
       </div>
       <p class="comment-text">${c.comment}</p>
-    </div>
-  `).join("");
+    </div>`;
+  }).join("");
 }
 
 // ─── Setup comment form ────────────────────────────────────────────────────────
 function setupCommentForm(movieId, profile) {
   const avatar = profile?.img_url || "../../assets/images/user.png";
   const name   = profile?.full_name || "User";
+
+  const lsKey = `my_comments_${movieId}`;
+
+  function saveMyCommentId(id) {
+    const stored = JSON.parse(localStorage.getItem(lsKey) || "[]");
+    stored.push(id);
+    localStorage.setItem(lsKey, JSON.stringify(stored));
+  }
 
   commentBtn?.addEventListener("click", async () => {
     const text = commentInput?.value.trim();
@@ -164,6 +175,7 @@ function setupCommentForm(movieId, profile) {
         commentInput.value = "";
         showToast("Success", "Comment added.", "success");
         const c = res.data;
+        saveMyCommentId(c.id);
         const div = document.createElement("div");
         div.className = "comment-title";
         div.dataset.commentId = c.id;
@@ -178,7 +190,7 @@ function setupCommentForm(movieId, profile) {
         if (commentsList) {
           const empty = commentsList.querySelector(":scope > p");
           if (empty) empty.remove();
-          commentsList.insertBefore(div, commentsList.firstChild);
+          commentsList.appendChild(div);
         }
       } else {
         showToast("Error", res?.message || "Could not post comment.", "error");
@@ -214,10 +226,10 @@ function setupFavButton(movieId, favIds) {
 }
 
 // ─── Render similar movies ────────────────────────────────────────────────────
-function renderSimilarMovies(movies, currentId, favIds) {
+function renderSimilarMovies(movies, currentId, categoryId, favIds) {
   if (!similarWrapper) return;
   const slides = movies
-    .filter(m => m.id !== currentId)
+    .filter(m => m.id !== currentId && m.category?.id === categoryId)
     .slice(0, 12)
     .map(m => {
       const isFav = favIds.has(m.id);
@@ -319,12 +331,14 @@ async function init() {
       return;
     }
 
+    const myIds = new Set(JSON.parse(localStorage.getItem(`my_comments_${movieId}`) || "[]"));
+
     populateMovie(movie);
     renderActors(movie.actors);
-    renderComments(comments, profile);
+    renderComments(comments, profile, myIds);
     setupCommentForm(movieId, profile);
     setupFavButton(movieId, favIds);
-    renderSimilarMovies(allMovies, movieId, favIds);
+    renderSimilarMovies(allMovies, movieId, movie.category?.id, favIds);
 
   } catch (err) {
     console.error(err);
