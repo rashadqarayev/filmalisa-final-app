@@ -1,7 +1,7 @@
-import { moviesService }    from "../services/MoviesService.js";
+import { moviesService } from "../services/MoviesService.js";
 import { favoritesService } from "../services/FavoritesService.js";
-import { showToast }        from "../utils/toast.js";
-import { initUserBadge }    from "../utils/userBadge.js";
+import { showToast } from "../utils/toast.js";
+import { initUserBadge } from "../utils/userBadge.js";
 
 // ── Auth guard ─────────────────────────────────────────────────────────────────
 if (!localStorage.getItem("user_token")) {
@@ -9,9 +9,9 @@ if (!localStorage.getItem("user_token")) {
 }
 
 // ── DOM refs ───────────────────────────────────────────────────────────────────
-const searchInput  = document.querySelector(".search-bar input");
-const resultsGrid  = document.getElementById("searchResults");
-const searchEmpty  = document.getElementById("searchEmpty");
+const searchInput = document.querySelector(".search-bar input");
+const resultsGrid = document.getElementById("searchResults");
+const searchEmpty = document.getElementById("searchEmpty");
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
 function showLoading() {
@@ -36,47 +36,88 @@ function renderMovies(movies, favIds) {
   }
   searchEmpty.style.display = "none";
 
-  resultsGrid.innerHTML = movies.map(function(m) {
-    const isFav = favIds.has(Number(m.id));
-    return "<article class=\"action-card\" data-id=\"" + m.id + "\">" +
-      "<img src=\"" + (m.cover_url || "../../assets/images/home.film1.jpg") + "\" alt=\"" + m.title + "\" loading=\"lazy\" />" +
-      "<p class=\"category-name\">" + (m.category ? m.category.name : "") + "</p>" +
-      "<p class=\"movie-name\">" + m.title + "</p>" +
-      "<button type=\"button\" class=\"card-fav-btn " + (isFav ? "is-favorite" : "") + "\" data-id=\"" + m.id + "\" aria-pressed=\"" + isFav + "\">" +
-      "<i class=\"fa-" + (isFav ? "solid" : "regular") + " fa-star\"></i></button>" +
-      "<button type=\"button\" class=\"card-play-btn\" data-id=\"" + m.id + "\" aria-label=\"Play movie\">" +
-      "<i class=\"fa-solid fa-play\"></i></button>" +
-      "</article>";
-  }).join("");
+  resultsGrid.innerHTML = movies
+    .map(function (m) {
+      const isFav = favIds.has(Number(m.id));
+      return (
+        '<article class="action-card" data-id="' +
+        m.id +
+        '">' +
+        '<img src="' +
+        (m.cover_url || "../../assets/images/home.film1.jpg") +
+        '" alt="' +
+        m.title +
+        '" loading="lazy" />' +
+        '<p class="category-name">' +
+        (m.category ? m.category.name : "") +
+        "</p>" +
+        '<p class="movie-name">' +
+        m.title +
+        "</p>" +
+        '<button type="button" class="card-fav-btn ' +
+        (isFav ? "is-favorite" : "") +
+        '" data-id="' +
+        m.id +
+        '" aria-pressed="' +
+        isFav +
+        '">' +
+        '<i class="fa-' +
+        (isFav ? "solid" : "regular") +
+        ' fa-star"></i></button>' +
+        '<button type="button" class="card-play-btn" data-id="' +
+        m.id +
+        '" aria-label="Play movie">' +
+        '<i class="fa-solid fa-play"></i></button>' +
+        "</article>"
+      );
+    })
+    .join("");
 
   // kart klik → detail
-  resultsGrid.querySelectorAll(".action-card").forEach(function(card) {
-    card.addEventListener("click", function(e) {
-      if (e.target.closest(".card-fav-btn") || e.target.closest(".card-play-btn")) return;
+  resultsGrid.querySelectorAll(".action-card").forEach(function (card) {
+    card.addEventListener("click", function (e) {
+      if (
+        e.target.closest(".card-fav-btn") ||
+        e.target.closest(".card-play-btn")
+      )
+        return;
       goToDetail(card.dataset.id);
     });
   });
 
   // play → detail
-  resultsGrid.querySelectorAll(".card-play-btn").forEach(function(btn) {
-    btn.addEventListener("click", function() { goToDetail(btn.dataset.id); });
+  resultsGrid.querySelectorAll(".card-play-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      goToDetail(btn.dataset.id);
+    });
   });
 
   // fav → API toggle
-  resultsGrid.querySelectorAll(".card-fav-btn").forEach(function(btn) {
-    btn.addEventListener("click", async function(e) {
+  resultsGrid.querySelectorAll(".card-fav-btn").forEach(function (btn) {
+    btn.addEventListener("click", async function (e) {
       e.stopPropagation();
       try {
         const res = await favoritesService.toggleFavorite(btn.dataset.id);
         if (res) {
           const isFav = btn.classList.toggle("is-favorite");
           btn.setAttribute("aria-pressed", String(isFav));
-          btn.querySelector("i").className = "fa-" + (isFav ? "solid" : "regular") + " fa-star";
-          const movieName = btn.closest(".action-card").querySelector(".movie-name").textContent;
+          btn.querySelector("i").className =
+            "fa-" + (isFav ? "solid" : "regular") + " fa-star";
+          const movieName = btn
+            .closest(".action-card")
+            .querySelector(".movie-name").textContent;
           if (isFav) {
-            showToast("Added to Favorites", "\"" + movieName + "\" added to your favorites.", "success");
+            showToast(
+              "Added to Favorites",
+              '"' + movieName + '" added to your favorites.',
+              "success"
+            );
           } else {
-            showToast("Removed from Favorites", "\"" + movieName + "\" has been removed from your favorites.", "info");
+            showToast(
+              "Removed from Favorites",
+              '"' + movieName + '" has been removed from your favorites.',
+              "info"
+            );
           }
         }
       } catch (err) {
@@ -92,10 +133,8 @@ let favIds = new Set();
 async function doSearch(query) {
   showLoading();
   try {
-    const res    = query
-      ? await moviesService.searchMovies(query)
-      : await moviesService.getAllMovies();
-    const movies = (res && res.data) ? res.data : [];
+    const res = await moviesService.getAllMovies(query || undefined);
+    const movies = res && res.data ? res.data : [];
     renderMovies(movies, favIds);
   } catch (err) {
     showToast("Error", "Could not load movies.", "error");
@@ -110,10 +149,16 @@ async function init() {
   try {
     const [moviesRes, favRes] = await Promise.all([
       moviesService.getAllMovies(),
-      favoritesService.getFavorites().catch(function() { return { data: [] }; })
+      favoritesService.getFavorites().catch(function () {
+        return { data: [] };
+      }),
     ]);
-    favIds = new Set((favRes && favRes.data ? favRes.data : []).map(function(m) { return Number(m.id); }));
-    const movies = (moviesRes && moviesRes.data) ? moviesRes.data : [];
+    favIds = new Set(
+      (favRes && favRes.data ? favRes.data : []).map(function (m) {
+        return Number(m.id);
+      })
+    );
+    const movies = moviesRes && moviesRes.data ? moviesRes.data : [];
     renderMovies(movies, favIds);
   } catch (err) {
     showToast("Error", "Could not load movies.", "error");
@@ -124,7 +169,7 @@ async function init() {
 
 // ── Input: Enter key only ──────────────────────────────────────────────────────
 if (searchInput) {
-  searchInput.addEventListener("keydown", function(e) {
+  searchInput.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
       doSearch(searchInput.value.trim());
     }
