@@ -6,7 +6,7 @@
  *   import { authService, moviesService, ... } from "../services/index.js";
  */
 
-export { http } from "../core/HttpClient.js";
+export { httpClient } from "../core/HttpClient.js";
 export { authService } from "./AuthService.js";
 export { moviesService } from "./MoviesService.js";
 export { categoriesService } from "./CategoriesService.js";

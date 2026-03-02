@@ -93,5 +93,5 @@ class HttpClient {
   }
 }
 
-export const http = new HttpClient();
+export const httpClient = new HttpClient();
 export default HttpClient;

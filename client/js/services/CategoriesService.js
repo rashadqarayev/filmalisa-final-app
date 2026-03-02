@@ -3,7 +3,7 @@
  *
  * GET /categories — list all categories, each with their movies array
  */
-import { http } from "../core/HttpClient.js";
+import { httpClient } from "../core/HttpClient.js";
 
 class CategoriesService {
   /**
@@ -15,7 +15,7 @@ class CategoriesService {
    *   { id, name, created_at, movies: Movie[] }
    */
   getAllCategories() {
-    return http.get("/categories");
+    return httpClient.get("/categories");
   }
 }
 

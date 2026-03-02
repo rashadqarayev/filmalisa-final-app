@@ -20,7 +20,7 @@ import { contactService } from "./ContactService.js";
  */
 class ClientService {
   constructor() {
-    this.http        = httpClient;
+    this.httpClient        = httpClient;
     this.auth        = authService;
     this.movies      = moviesService;
     this.favorites   = favoritesService;
@@ -32,12 +32,12 @@ class ClientService {
 
   /** @returns {boolean} */
   isAuthenticated() {
-    return this.http.isAuthenticated();
+    return this.httpClient.isAuthenticated();
   }
 
   /** @returns {string|null} */
   getToken() {
-    return this.http.getAuthToken();
+    return this.httpClient.getAuthToken();
   }
 
   /**
@@ -45,7 +45,7 @@ class ClientService {
    * @param {string} lang - e.g. 'en', 'az'
    */
   setLanguage(lang) {
-    this.http.setLanguage(lang);
+    this.httpClient.setLanguage(lang);
   }
 }
 
