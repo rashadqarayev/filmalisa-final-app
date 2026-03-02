@@ -568,9 +568,10 @@ export function updatePreviewImage() {
 
     // Handle image load error
     previewImg.onerror = function () {
-      this.src =
-        "https://qqcdnpictest.mxplay.com/pic/cc1f9610b1cc638cf9b60f305ee1b4d6/en/2x3/312x468/test_pic1759756606210_badged_1761714017652.webp";
+      this.src = "../../assets/images/film-image-default.png";
     };
+  } else if (previewImg) {
+    previewImg.src = "../../assets/images/film-image-default.png";
   }
 }
 

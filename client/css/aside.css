@@ -88,8 +88,7 @@
    PAGE SHELL (shared layout wrapper)
 ============================================================ */
 .page-shell {
-  max-width: 1440px;
-  margin: 0 auto;
+  width: 100%;
   display: flex;
   align-items: flex-start;
   height: 100vh;
@@ -98,6 +97,9 @@
 
 .page-main {
   flex: 1;
+  width: 100%;
+  max-width: 1368px;
+  margin: 0 auto;
   min-width: 0;
   height: 100vh;
   overflow-y: auto;

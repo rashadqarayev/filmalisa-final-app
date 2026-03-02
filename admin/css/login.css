@@ -11,19 +11,25 @@ body {
 }
 
 body {
-  margin: 0 auto;
-  max-width: 1440px;
   font-family: var(--font-primary);
   background: #1d1d1d;
 }
 .login-page {
   min-height: 100vh;
   width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
   background: #1d1d1d;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
+html{
+  background-color: #1d1d1d;
+}
+
+
 
 .login-box {
   width: 520px;

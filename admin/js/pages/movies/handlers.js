@@ -1,5 +1,4 @@
 import { showToast } from "../../utils/toast.js";
-import { updatePreviewImage } from "../../utils/helpers.js";
 import { state } from "./state.js";
 import { pager } from "./pagination.js";
 import {
@@ -12,12 +11,31 @@ import {
   editModalElement,
   deleteModal,
   movieCoverInput,
+  previewImg,
 } from "./modal.js";
 import { saveMovie, deleteMovie, fetchMovieById } from "./api.js";
 import { adminService } from "../../services/AdminService.js";
 import { initCmsEvents } from "./actorSelect.js";
 
 export function registerHandlers() {
+  const DEFAULT_PREVIEW_IMG = "../../assets/images/film-image-default.png";
+
+  const handleCoverPreview = () => {
+    if (!previewImg) return;
+    const url = movieCoverInput?.value?.trim();
+
+    if (!url) {
+      previewImg.src = DEFAULT_PREVIEW_IMG;
+      return;
+    }
+
+    previewImg.onerror = () => {
+      previewImg.src = DEFAULT_PREVIEW_IMG;
+    };
+
+    previewImg.src = url;
+  };
+
   initCmsEvents(() => state.allActors);
 
   document
@@ -58,7 +76,11 @@ export function registerHandlers() {
   }
 
   if (movieCoverInput) {
-    movieCoverInput.addEventListener("blur", updatePreviewImage);
+    movieCoverInput.addEventListener("input", handleCoverPreview);
+    movieCoverInput.addEventListener("change", handleCoverPreview);
+    movieCoverInput.addEventListener("paste", () => {
+      requestAnimationFrame(handleCoverPreview);
+    });
   }
 
   if (editModalElement) {

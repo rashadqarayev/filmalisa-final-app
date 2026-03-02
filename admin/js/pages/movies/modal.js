@@ -24,7 +24,7 @@ const catSelect = document.getElementById("catSelect");
 const previewImg = document.getElementById("previewImg");
 
 const PLACEHOLDER_IMG =
-  "https://qqcdnpictest.mxplay.com/pic/cc1f9610b1cc638cf9b60f305ee1b4d6/en/2x3/312x468/test_pic1759756606210_badged_1761714017652.webp";
+  "../../assets/images/film-image-default.png";
 
 export function resetForm() {
   movieTitleInput.value = "";
