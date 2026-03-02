@@ -35,7 +35,7 @@ export function registerHandlers() {
     }
   });
 
-  document.querySelector(".logout-text")?.addEventListener("click", () => {
+  document.getElementById("logoutBtn")?.addEventListener("click", () => {
     adminService.auth.logout();
   });
 }

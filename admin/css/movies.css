@@ -258,15 +258,52 @@ table .title-movie {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  margin: 40px;
+  margin: 40px 20px;
+}
+
+.preview-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 220px;
+  position: sticky;
+  top: 40px;
+}
+
+.preview-label {
+  color: #a0aec0;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .edit-right img {
   width: 100%;
   max-width: 220px;
-  height: auto;
+  height: 300px;
   border-radius: 12px;
   object-fit: cover;
+  border: 2px solid #323b54;
+  background: #1e2130;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.edit-right img.has-image {
+  border-color: #6c5dd3;
+  box-shadow: 0 0 16px rgba(108, 93, 211, 0.35);
+}
+
+.preview-hint {
+  color: #555e7a;
+  font-size: 11px;
+  text-align: center;
+  line-height: 1.4;
 }
 
 .edit-modal input,
