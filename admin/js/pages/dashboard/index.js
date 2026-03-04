@@ -50,6 +50,12 @@ async function loadDashboardStats() {
 document.addEventListener("DOMContentLoaded", () => {
   initStorageListener();
   loadDashboardStats();
+
+  document.getElementById("favoriteCardBtn")?.addEventListener("click", () => {
+    const count = document.getElementById("dashboard-favorite-count")?.textContent?.trim() || "—";
+    document.getElementById("favModalCount").textContent = count;
+    document.getElementById("favoritesModal").showModal();
+  });
 });
 
 // Logout handler
