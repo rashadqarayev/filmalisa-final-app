@@ -63,7 +63,7 @@ function renderMovies(movies, favIds) {
         '">' +
         '<i class="fa-' +
         (isFav ? "solid" : "regular") +
-        ' fa-star"></i></button>' +
+        ' fa-heart"></i></button>' +
         '<button type="button" class="card-play-btn" data-id="' +
         m.id +
         '" aria-label="Play movie">' +
@@ -102,7 +102,7 @@ function renderMovies(movies, favIds) {
           const isFav = btn.classList.toggle("is-favorite");
           btn.setAttribute("aria-pressed", String(isFav));
           btn.querySelector("i").className =
-            "fa-" + (isFav ? "solid" : "regular") + " fa-star";
+            "fa-" + (isFav ? "solid" : "regular") + " fa-heart";
           const movieName = btn
             .closest(".action-card")
             .querySelector(".movie-name").textContent;

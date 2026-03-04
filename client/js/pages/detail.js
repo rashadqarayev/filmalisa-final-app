@@ -240,7 +240,7 @@ function renderSimilarMovies(movies, currentId, categoryId, favIds) {
           <h3 class="movie-name">${m.title}</h3>
           <button class="card-play-btn" aria-label="Play movie"><i class="fa-solid fa-play"></i></button>
           <button class="card-fav-btn ${isFav ? "is-favorite" : ""}" aria-label="Favorites">
-            <i class="${isFav ? "fa-solid" : "fa-regular"} fa-star"></i>
+            <i class="${isFav ? "fa-solid" : "fa-regular"} fa-heart"></i>
           </button>
         </article>
       `;
@@ -269,7 +269,7 @@ function renderSimilarMovies(movies, currentId, categoryId, favIds) {
         if (res) {
           const adding = !btn.classList.contains("is-favorite");
           btn.classList.toggle("is-favorite", adding);
-          icon.className = adding ? "fa-solid fa-star" : "fa-regular fa-star";
+          icon.className = adding ? "fa-solid fa-heart" : "fa-regular fa-heart";
           const movieTitle = card.querySelector(".movie-name")?.textContent || "Movie";
           showToast(adding ? "Added to Favorites" : "Removed from Favorites", adding ? `"${movieTitle}" has been added to your favorites.` : `"${movieTitle}" has been removed from your favorites.`, adding ? "success" : "info");
         }

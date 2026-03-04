@@ -57,6 +57,8 @@ function buildCategorySection(category, favIds) {
   section.innerHTML =
     "<div class=\"section__header\"><h2 class=\"section__title\">" + category.name +
     " <span class=\"section__chevron\">&gt;</span></h2></div>" +
+    "<div class=\"scroll-row\">" +
+    "<button type=\"button\" class=\"scroll-btn scroll-btn--prev\"><i class=\"fa-solid fa-chevron-left\"></i></button>" +
     "<div class=\"action__wrapper\" id=\"" + wrapperId + "\">" +
     category.movies.map(function(m) {
       const isFav = favIds.has(Number(m.id));
@@ -65,11 +67,46 @@ function buildCategorySection(category, favIds) {
         "<p class=\"category-name\">" + category.name + "</p>" +
         "<p class=\"movie-name\">" + m.title + "</p>" +
         "<button type=\"button\" class=\"card-fav-btn " + (isFav ? "is-favorite" : "") + "\" data-id=\"" + m.id + "\" aria-pressed=\"" + isFav + "\">" +
-        "<i class=\"fa-" + (isFav ? "solid" : "regular") + " fa-star\"></i></button>" +
+        "<i class=\"fa-" + (isFav ? "solid" : "regular") + " fa-heart\"></i></button>" +
         "<button type=\"button\" class=\"card-play-btn\" data-id=\"" + m.id + "\">" +
         "<i class=\"fa-solid fa-play\"></i></button>" +
         "</article>";
-    }).join("") + "</div>";
+    }).join("") + "</div>" +
+    "<button type=\"button\" class=\"scroll-btn scroll-btn--next\"><i class=\"fa-solid fa-chevron-right\"></i></button>" +
+    "</div>";
+
+  // scroll buttons
+  const wrapper = section.querySelector(".action__wrapper");
+  const prevBtn = section.querySelector(".scroll-btn--prev");
+  const nextBtn = section.querySelector(".scroll-btn--next");
+  function getCards() { return Array.from(wrapper.querySelectorAll(".action-card")); }
+
+  function scrollToCard(dir) {
+    const cards = getCards();
+    if (!cards.length) return;
+    const scrollLeft = wrapper.scrollLeft;
+    if (dir === 1) {
+      const next = cards.find(c => c.offsetLeft > scrollLeft + 4);
+      if (next) wrapper.scrollTo({ left: next.offsetLeft, behavior: "smooth" });
+    } else {
+      const prev = [...cards].reverse().find(c => c.offsetLeft < scrollLeft - 4);
+      if (prev) wrapper.scrollTo({ left: prev.offsetLeft, behavior: "smooth" });
+    }
+  }
+
+  prevBtn.addEventListener("click", function() { scrollToCard(-1); });
+  nextBtn.addEventListener("click", function() { scrollToCard(1); });
+
+  function updateBtnVisibility() {
+    prevBtn.style.opacity = wrapper.scrollLeft <= 0 ? "0" : "1";
+    prevBtn.style.pointerEvents = wrapper.scrollLeft <= 0 ? "none" : "auto";
+    const atEnd = wrapper.scrollLeft + wrapper.clientWidth >= wrapper.scrollWidth - 4;
+    nextBtn.style.opacity = atEnd ? "0" : "1";
+    nextBtn.style.pointerEvents = atEnd ? "none" : "auto";
+  }
+
+  wrapper.addEventListener("scroll", updateBtnVisibility);
+  updateBtnVisibility();
 
   // card click → detail
   section.querySelectorAll(".action-card").forEach(function(card) {
@@ -93,7 +130,7 @@ function buildCategorySection(category, favIds) {
         if (res) {
           const isFav = btn.classList.toggle("is-favorite");
           btn.setAttribute("aria-pressed", String(isFav));
-          btn.querySelector("i").className = "fa-" + (isFav ? "solid" : "regular") + " fa-star";
+          btn.querySelector("i").className = "fa-" + (isFav ? "solid" : "regular") + " fa-heart";
           const movieName = btn.closest(".action-card").querySelector(".movie-name").textContent;
           if (isFav) {
             showToast("Added to Favorites", "\"" + movieName + "\" added to your favorites.", "success");
@@ -193,8 +230,9 @@ function setupCardSlider(wrapperId, cardSelector, interval = 3000) {
 		timer = null;
 	}
 
-	wrapper.addEventListener('mouseenter', stopAuto);
-	wrapper.addEventListener('mouseleave', startAuto);
+	const row = wrapper.closest(".scroll-row") || wrapper;
+	row.addEventListener('mouseenter', stopAuto);
+	row.addEventListener('mouseleave', startAuto);
 
 	window.addEventListener('resize', () => moveTo(currentIndex, false));
 

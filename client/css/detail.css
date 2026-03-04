@@ -688,9 +688,9 @@ body {
   transform: scale(1.08);
 }
 
-/* Active/favorited state — yellow solid star */
+/* Active/favorited state — red solid heart */
 .card-fav-btn.is-favorite {
-  color: #ffd43b;
+  color: #ef4444;
   background: rgba(20, 20, 20, 0.82);
 }
 

@@ -40,7 +40,7 @@ function renderFavorites(movies) {
       "<p class=\"category-name\">" + (m.category ? m.category.name : "") + "</p>" +
       "<p class=\"movie-name\">" + m.title + "</p>" +
       "<button type=\"button\" class=\"card-fav-btn is-favorite\" data-id=\"" + m.id + "\" aria-pressed=\"true\" aria-label=\"Remove from favorites\">" +
-      "<i class=\"fa-solid fa-star\"></i></button>" +
+      "<i class=\"fa-solid fa-heart\"></i></button>" +
       "<button type=\"button\" class=\"card-play-btn\" data-id=\"" + m.id + "\" aria-label=\"Play movie\">" +
       "<i class=\"fa-solid fa-play\"></i></button>" +
       "</article>";
