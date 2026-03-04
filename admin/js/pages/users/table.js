@@ -32,6 +32,10 @@ export function renderUsers(users) {
             style="width:45px;height:45px;border-radius:50%;object-fit:cover;"
           />
         </td>
+        <td class="operation">
+          <i class="fa-solid fa-trash op-delete" title="Delete"></i>
+          <i class="fa-regular fa-eye op-view" onclick="showUserDetailModal(${user.id})" title="View"></i>
+        </td>
       </tr>`
     )
     .join("");

@@ -13,6 +13,15 @@ export function registerHandlers() {
     deleteModal.showModal();
   };
 
+  window.showCommentModal = (commentId) => {
+    const item = state.allComments?.find((c) => c.id === commentId);
+    if (!item) return;
+    document.getElementById("commentModalUser").textContent = item.user?.full_name ?? "Unknown";
+    document.getElementById("commentModalMovie").textContent = item.movie?.title ?? "—";
+    document.getElementById("commentModalText").textContent = item.comment || "—";
+    document.getElementById("commentModal").showModal();
+  };
+
   confirmDeleteBtn.addEventListener("click", async () => {
     if (!state.currentMovieId || !state.currentId) return;
 

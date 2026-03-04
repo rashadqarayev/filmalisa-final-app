@@ -146,6 +146,23 @@
             </tbody>
           </table>
 
+          <!-- actor detail modal -->
+          <dialog id="actorDetailModal" class="actorModal">
+            <div class="modalBox">
+              <div class="modal-header">
+                <h2>Actor Details</h2>
+                <button type="button" class="close-modal" onclick="actorDetailModal.close()">×</button>
+              </div>
+              <div class="actor-detail-body">
+                <img id="actorDetailImg" src="" alt="actor" class="actor-detail-photo" />
+                <div class="actor-detail-meta">
+                  <p><i class="fa-solid fa-user"></i> <span id="actorDetailName"></span></p>
+                  <p><i class="fa-solid fa-user-tag"></i> <span id="actorDetailSurname"></span></p>
+                </div>
+              </div>
+            </div>
+          </dialog>
+
           <!-- create and edit modal -->
           <dialog id="actorModal" class="actorModal">
             <div class="modalBox">

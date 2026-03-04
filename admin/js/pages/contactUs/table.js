@@ -18,14 +18,18 @@ export function renderTable(contacts) {
         <th scope="row">${c.id}</th>
         <td>${escapeHtml(c.full_name ?? c.name ?? "—")}</td>
         <td>${escapeHtml(c.email ?? "—")}</td>
-        <td>${escapeHtml(c.reason ?? "—")}</td>
+        <td class="contact-reason">
+          <span style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(c.reason ?? "—")}</span>
+        </td>
         <td class="operation">
-          <i class="fa-solid fa-trash"
-             style="cursor:pointer;color:red;"
+          <i class="fa-solid fa-trash op-delete"
              title="Delete"
              data-id="${c.id}"
              data-name="${escapeHtml(c.full_name ?? c.name ?? String(c.id))}">
           </i>
+          <i class="fa-regular fa-eye op-view"
+             onclick="showContactModal(${c.id})"
+             title="View Message"></i>
         </td>
       </tr>`
     )

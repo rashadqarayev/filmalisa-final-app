@@ -110,6 +110,19 @@ export function registerHandlers() {
 
   window.showDeleteModal = showDeleteModal;
 
+  window.showOverviewModal = (movieId) => {
+    const movie = state.allMovies.find((m) => m.id === movieId);
+    if (!movie) return;
+    document.getElementById("overviewModalTitle").textContent = movie.title || "—";
+    document.getElementById("overviewModalText").textContent = movie.overview || "—";
+    document.getElementById("overviewModalCategory").textContent = movie.category?.name || "N/A";
+    document.getElementById("overviewModalImdb").textContent = movie.imdb || "N/A";
+    const cover = document.getElementById("overviewModalCover");
+    cover.src = movie.cover_url?.startsWith("http") ? movie.cover_url : "../../assets/images/table-inner-img.svg";
+    cover.onerror = () => { cover.src = "../../assets/images/table-inner-img.svg"; };
+    document.getElementById("overviewModal").showModal();
+  };
+
   // Search — fires only on Enter
   const searchInput = document.getElementById("movie-search");
   if (searchInput) {

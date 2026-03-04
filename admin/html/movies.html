@@ -283,6 +283,36 @@
       </div>
     </div>
 
+    <!-- OVERVIEW MODAL -->
+    <dialog id="overviewModal" class="actorModal">
+      <div class="modalBox overview-modal-box">
+        <div class="modal-header">
+          <h2 id="overviewModalTitle">Movie Title</h2>
+          <button type="button" class="close-modal" onclick="overviewModal.close()">×</button>
+        </div>
+        <div class="overview-modal-body">
+          <div class="overview-modal-left">
+            <p class="overview-modal-label">Overview</p>
+            <p id="overviewModalText"></p>
+          </div>
+          <div class="overview-modal-right">
+            <p class="overview-modal-label" aria-hidden="true" style="visibility:hidden">Overview</p>
+            <img id="overviewModalCover" src="" alt="cover" class="overview-modal-cover" />
+          </div>
+        </div>
+        <div class="overview-modal-meta">
+          <div class="overview-modal-meta-item">
+            <p class="overview-modal-label">Category</p>
+            <p><i class="fa-solid fa-layer-group"></i> <span id="overviewModalCategory"></span></p>
+          </div>
+          <div class="overview-modal-meta-item">
+            <p class="overview-modal-label">IMDB</p>
+            <p><i class="fa-solid fa-star"></i> <span id="overviewModalImdb"></span></p>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
     <!-- DELETE MODAL -->
     <dialog id="deleteModal" class="actorModal">
       <div class="modalBox delete-box">

@@ -79,3 +79,18 @@ export function registerHandlers() {
     adminService.auth.logout();
   });
 }
+
+window.showActorDetailModal = (actorId) => {
+  const actor = state.allActors?.find((a) => a.id === actorId);
+  if (!actor) return;
+  document.getElementById("actorDetailName").textContent = actor.name ?? "—";
+  document.getElementById("actorDetailSurname").textContent = actor.surname ?? "—";
+  const img = document.getElementById("actorDetailImg");
+  if (img) {
+    img.src = actor.img_url && actor.img_url.startsWith("http")
+      ? actor.img_url
+      : "../../assets/images/table-inner-img.svg";
+    img.alt = actor.name ?? "actor";
+  }
+  document.getElementById("actorDetailModal").showModal();
+};

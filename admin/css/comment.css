@@ -36,10 +36,10 @@ main {
     background-color: white;
 
     img {
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 54px;
         object-fit: cover;
-
+        border-radius: 6px;
     }
 
 }
@@ -47,14 +47,19 @@ main {
 
 
 
-.comment-text{
+.comment-text {
   text-align: left;
-
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
 .table td,
 .table th {
+    font-family: var(--font-numeric);
+    font-weight: 400;
     vertical-align: middle;
     height: 60px;
 }
@@ -76,20 +81,12 @@ table .title-movie {
     }
 }
 
-.operation i:first-child {
-    margin-right: 15px;
-}
-
 .operation i {
     cursor: pointer;
 }
 
-.operation i:nth-child(1) {
-    color: green;
-}
-
-.operation i:nth-child(2) {
-    color: red;
+.operation i:not(:last-child) {
+    margin-right: 14px;
 }
 
 /* =========================
@@ -355,6 +352,124 @@ table .title-movie {
   color: white;
   box-shadow: 0 8px 20px rgba(72, 48, 206, 0.3);
   transform: translateY(-2px);
+}
+
+.comment-eye-btn {
+  flex-shrink: 0;
+  cursor: pointer;
+  color: #3b82f6;
+  font-size: 15px;
+  opacity: 1;
+  transition: transform 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+/* .comment-text:hover .comment-eye-btn {
+  opacity: 1;
+} */
+
+.comment-eye-btn:hover {
+  transform: scale(1.35);
+  color: #60a5fa;
+}
+
+#commentModal.actorModal {
+  border: none;
+  padding: 0;
+  background: transparent;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  outline: none;
+  width: min(520px, 90vw);
+  border-radius: 24px;
+}
+
+#commentModal.actorModal::backdrop {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+}
+
+#commentModal .modalBox {
+  padding: 35px;
+  border-radius: 24px;
+  background: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+#commentModal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 20px 0;
+  border: none;
+}
+
+#commentModal .modal-header h2 {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+#commentModal .close-modal {
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: #9ca3af;
+  font-size: 20px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#commentModal .close-modal:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.comment-modal-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.comment-modal-meta p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: #efefef;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin: 0;
+}
+
+.comment-modal-meta i {
+  color: #3b82f6;
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+#commentModal #commentModalText {
+  color: #efefef;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.7;
+  margin: 0;
+  max-height: 360px;
+  overflow-y: auto;
 }
 
 .pagination-container {

@@ -115,19 +115,41 @@
 
         <section class="section">
           <table class="table">
+            <colgroup>
+              <col style="width:60px">
+              <col style="width:150px">
+              <col style="width:190px">
+              <col style="width:220px">
+              <col style="width:80px">
+            </colgroup>
             <thead class="table-dark">
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Username</th>
                 <th scope="col">Email</th>
-                <th scope="col">Commet</th>
-                <th scope="col">Remove</th>
+                <th scope="col">Message</th>
+                <th scope="col">Operation</th>
               </tr>
             </thead>
             <tbody id="contactsTableBody">
               <!-- populated by JS -->
             </tbody>
           </table>
+
+          <!-- Contact message modal -->
+          <dialog id="contactModal" class="actorModal">
+            <div class="modalBox">
+              <div class="modal-header">
+                <h2>Message</h2>
+                <button type="button" class="close-modal" onclick="contactModal.close()">×</button>
+              </div>
+              <div class="contact-modal-meta">
+                <p><i class="fa-solid fa-user"></i> <span id="contactModalName"></span></p>
+                <p><i class="fa-solid fa-envelope"></i> <span id="contactModalEmail"></span></p>
+              </div>
+              <p id="contactModalText"></p>
+            </div>
+          </dialog>
 
           <!-- Delete modal -->
           <dialog id="deleteModal" class="actorModal">

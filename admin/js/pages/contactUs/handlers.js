@@ -37,4 +37,13 @@ export function registerHandlers() {
   document.querySelector(".logout-text")?.addEventListener("click", () => {
     adminService.auth.logout();
   });
+
+  window.showContactModal = (id) => {
+    const item = state.allContacts?.find((c) => c.id === id);
+    if (!item) return;
+    document.getElementById("contactModalName").textContent = item.full_name ?? item.name ?? "—";
+    document.getElementById("contactModalEmail").textContent = item.email ?? "—";
+    document.getElementById("contactModalText").textContent = item.reason || "—";
+    document.getElementById("contactModal").showModal();
+  };
 }

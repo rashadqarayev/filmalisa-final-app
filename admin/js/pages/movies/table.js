@@ -28,20 +28,21 @@ export function renderMoviesTable(pageItems) {
                style="width:40px;height:60px;object-fit:cover;border-radius:4px;">
           <p>${movie.title}</p>
         </td>
-        <td>${truncateText(movie.overview, 50)}</td>
+        <td style="max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${truncateText(movie.overview, 50)}</td>
         <td>${movie.category?.name || "N/A"}</td>
         <td><span>${movie.imdb || "N/A"}</span></td>
         <td class="operation">
-          <i class="fa-solid fa-pen-to-square edit-btn"
-             style="cursor:pointer;margin-right:10px;"
+          <i class="fa-solid fa-pen-to-square op-edit"
              onclick="editMovie(${movie.id})"
              title="Edit"></i>
-          <i class="fa-solid fa-trash delete-btn"
-             style="cursor:pointer;"
+          <i class="fa-solid fa-trash op-delete"
              onclick="showDeleteModal(${movie.id}, '${escapeHtml(
         movie.title
       )}')"
              title="Delete"></i>
+          <i class="fa-regular fa-eye op-view"
+             onclick="showOverviewModal(${movie.id})"
+             title="View Overview"></i>
         </td>
       </tr>`
     )

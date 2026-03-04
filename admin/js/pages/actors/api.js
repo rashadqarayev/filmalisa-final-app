@@ -2,12 +2,14 @@ import { adminService } from "../../services/AdminService.js";
 import { showToast } from "../../utils/toast.js";
 import { showLoading, hideLoading } from "../../utils/loading.js";
 import { pager } from "./pagination.js";
+import { state } from "./state.js";
 
 export async function loadActors() {
   showLoading();
   try {
     const res = await adminService.actors.getAllActors();
     if (res.result && res.data) {
+      state.allActors = res.data;
       pager.setData(res.data);
     } else {
       showToast("Error!", res.message || "Failed to load actors.", "error");

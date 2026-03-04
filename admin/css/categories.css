@@ -43,6 +43,8 @@ main {
 
 .table td,
 .table th {
+  font-family: var(--font-numeric);
+  font-weight: 400;
   vertical-align: middle;
   height: 65px;
 }
@@ -268,3 +270,5 @@ main {
   gap: 10px;
   flex-wrap: wrap;
 }
+
+

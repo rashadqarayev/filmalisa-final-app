@@ -1,7 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Numans&family=Poppins:wght@600&family=Raleway:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Numans&family=Poppins:wght@400;600&family=Raleway:wght@300;400;500;600;700&display=swap");
 
 :root {
   --font-primary: "Raleway", sans-serif;
+  --font-numeric: "Poppins", sans-serif;
 
 
   --primary-color: #9b51e0;
@@ -267,6 +268,8 @@ p {
 .pg-info {
   color: #aaa;
   font-size: 13px;
+  font-family: var(--font-numeric);
+  font-weight: 400;
 }
 
 .pg-info strong {
@@ -287,6 +290,8 @@ p {
   border: 1px solid #3a3a52;
   border-radius: 6px;
   font-size: 13px;
+  font-family: var(--font-numeric);
+  font-weight: 400;
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
   min-width: 36px;
@@ -316,6 +321,46 @@ p {
   padding: 0 4px;
   font-size: 14px;
 }
+
+/* ── Operation column eye icon ── */
+.op-eye-btn {
+  cursor: pointer;
+  color: #a78bfa;
+  font-size: 15px;
+  margin-right: 10px;
+  transition: color 0.2s, transform 0.2s;
+}
+.op-eye-btn:hover {
+  color: #c4b5fd;
+  transform: scale(1.25);
+}
+
+/* ── Operation column icon colors ── */
+.op-view {
+  cursor: pointer;
+  color: #3b82f6;
+  font-size: 15px;
+  margin-right: 10px;
+  transition: color 0.2s, transform 0.2s;
+}
+.op-view:hover  { color: #60a5fa; transform: scale(1.25); }
+
+.op-edit {
+  cursor: pointer;
+  color: #22c55e;
+  font-size: 15px;
+  margin-right: 10px;
+  transition: color 0.2s, transform 0.2s;
+}
+.op-edit:hover  { color: #4ade80; transform: scale(1.25); }
+
+.op-delete {
+  cursor: pointer;
+  color: #ef4444;
+  font-size: 15px;
+  transition: color 0.2s, transform 0.2s;
+}
+.op-delete:hover { color: #f87171; transform: scale(1.25); }
 /* ── Hide scrollbars (scroll still works) ── */
 main {
   scrollbar-width: none;       /* Firefox */
@@ -325,3 +370,6 @@ main {
 main::-webkit-scrollbar {
   display: none;               /* Chrome / Safari / Webkit */
 }
+
+
+
