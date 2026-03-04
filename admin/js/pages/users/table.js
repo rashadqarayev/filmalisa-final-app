@@ -33,7 +33,6 @@ export function renderUsers(users) {
           />
         </td>
         <td class="operation">
-          <i class="fa-solid fa-trash op-delete" title="Delete"></i>
           <i class="fa-regular fa-eye op-view" onclick="showUserDetailModal(${user.id})" title="View"></i>
         </td>
       </tr>`

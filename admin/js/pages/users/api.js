@@ -21,14 +21,4 @@ export async function loadUsers() {
   }
 }
 
-export async function deleteUser(id) {
-  const res = await adminService.users.deleteUser(id);
-  if (res.result) {
-    showToast("Deleted!", "User deleted successfully!", "info");
-    await loadUsers();
-    return true;
-  } else {
-    showToast("Error!", res.message || "Failed to delete user.", "error");
-    return false;
-  }
-}
+
