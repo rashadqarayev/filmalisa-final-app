@@ -368,5 +368,28 @@ main::-webkit-scrollbar {
   display: none;               /* Chrome / Safari / Webkit */
 }
 
+/* ── Card IMDB rating stars ─────────────────────────────────────────── */
+.card-imdb {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 10px;
+  margin-bottom: 2px;
+}
+
+.card-imdb i {
+  font-size: 13px;
+  color: #fbbf24;
+}
+
+.card-imdb__score {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fbbf24;
+  font-family: 'Poppins', sans-serif;
+  margin-left: 5px;
+  letter-spacing: 0.3px;
+}
+
 
 

@@ -22,6 +22,17 @@ function goToDetail(movieId) {
   window.location.href = "./detail.html?id=" + movieId;
 }
 
+// ── IMDB stars helper ─────────────────────────────────────────────────────────
+function imdbStars(imdb) {
+  const score = parseFloat(imdb) || 0;
+  const filled = Math.round(score / 2);
+  let stars = "";
+  for (let i = 1; i <= 5; i++) {
+    stars += "<i class=\"fa-" + (i <= filled ? "solid" : "regular") + " fa-star\"></i>";
+  }
+  return "<div class=\"card-imdb\">" + stars + "<span class=\"card-imdb__score\">" + (score ? score.toFixed(1) : "—") + "</span></div>";
+}
+
 // ── Render ─────────────────────────────────────────────────────────────────────
 function renderFavorites(movies) {
   const grid  = document.getElementById("favoritesGrid");
@@ -38,6 +49,7 @@ function renderFavorites(movies) {
     return "<article class=\"action-card\" data-id=\"" + m.id + "\">" +
       "<img src=\"" + (m.cover_url || "../../assets/images/home.film1.jpg") + "\" alt=\"" + m.title + "\" loading=\"lazy\" />" +
       "<p class=\"category-name\">" + (m.category ? m.category.name : "") + "</p>" +
+      imdbStars(m.imdb) +
       "<p class=\"movie-name\">" + m.title + "</p>" +
       "<button type=\"button\" class=\"card-fav-btn is-favorite\" data-id=\"" + m.id + "\" aria-pressed=\"true\" aria-label=\"Remove from favorites\">" +
       "<i class=\"fa-solid fa-heart\"></i></button>" +

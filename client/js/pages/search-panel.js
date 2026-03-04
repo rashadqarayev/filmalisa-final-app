@@ -8,6 +8,17 @@ if (!localStorage.getItem("user_token")) {
   window.location.replace("./login.html");
 }
 
+// ── IMDB stars helper ─────────────────────────────────────────────────────────
+function imdbStars(imdb) {
+  const score = parseFloat(imdb) || 0;
+  const filled = Math.round(score / 2);
+  let stars = "";
+  for (let i = 1; i <= 5; i++) {
+    stars += '<i class="fa-' + (i <= filled ? "solid" : "regular") + ' fa-star"></i>';
+  }
+  return '<div class="card-imdb">' + stars + '<span class="card-imdb__score">' + (score ? score.toFixed(1) : "—") + '</span></div>';
+}
+
 // ── DOM refs ───────────────────────────────────────────────────────────────────
 const searchInput = document.querySelector(".search-bar input");
 const resultsGrid = document.getElementById("searchResults");
@@ -51,6 +62,7 @@ function renderMovies(movies, favIds) {
         '<p class="category-name">' +
         (m.category ? m.category.name : "") +
         "</p>" +
+        imdbStars(m.imdb) +
         '<p class="movie-name">' +
         m.title +
         "</p>" +

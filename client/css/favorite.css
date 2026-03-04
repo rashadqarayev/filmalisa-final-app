@@ -49,7 +49,7 @@ body {
 .favorites__grid .action-card .category-name {
   position: absolute;
   left: 10px;
-  bottom: 46px;
+  bottom: 72px;
   font-size: 11px;
   padding: 3px 8px;
   z-index: 3;
@@ -57,6 +57,15 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: calc(100% - 20px);
+}
+
+.favorites__grid .action-card .card-imdb {
+  position: absolute;
+  left: 6px;
+  bottom: 40px;
+  padding: 0 4px;
+  z-index: 3;
+  margin-bottom: 0;
 }
 
 .favorites__grid .action-card .movie-name {
@@ -216,7 +225,18 @@ body {
 .action-card .category-name,
 .comedy-card .category-name {
   left: 14px;
-  bottom: 62px;
+  bottom: 72px;
+}
+
+/* imdb yeri */
+.action-card .card-imdb,
+.comedy-card .card-imdb {
+  position: absolute;
+  left: 10px;
+  bottom: 40px;
+  padding: 0 4px;
+  z-index: 3;
+  margin-bottom: 0;
 }
 
 /* movie name yeri */

@@ -30,6 +30,7 @@ const aboutCategory    = document.getElementById("aboutCategory");
 const aboutRuntime     = document.getElementById("aboutRuntime");
 const aboutAdult       = document.getElementById("aboutAdult");
 const aboutImdb        = document.getElementById("aboutImdb");
+const aboutYear        = document.getElementById("aboutYear");
 const genresName       = document.getElementById("genresName");
 const actorsList       = document.getElementById("actorsList");
 const commentInput     = document.getElementById("commentInput");
@@ -100,11 +101,20 @@ function populateMovie(movie) {
   if (detailMoviePoster) detailMoviePoster.src = movie.cover_url || "";
   if (detailMovieTitle)  detailMovieTitle.textContent  = movie.title || "";
   if (detailOverview)    detailOverview.textContent = movie.overview || "";
-  if (detailRating)      detailRating.innerHTML = `<i class="fa-solid fa-star"></i> ${movie.imdb || "—"}`;
+  if (detailRating) {
+    const _score  = parseFloat(movie.imdb) || 0;
+    const _filled = Math.round(_score / 2);
+    let _stars = "";
+    for (let i = 1; i <= 5; i++) {
+      _stars += `<i class="fa-${i <= _filled ? "solid" : "regular"} fa-star"></i>`;
+    }
+    detailRating.innerHTML = _stars + `<span class="detail-rating__score">${_score ? _score.toFixed(1) : "—"}</span>`;
+  }
   if (aboutCategory)     aboutCategory.textContent = movie.category?.name || "—";
   if (aboutRuntime)      aboutRuntime.textContent  = movie.run_time_min ? `${movie.run_time_min} min` : "—";
   if (aboutAdult)        aboutAdult.textContent    = movie.adult ? "18+" : "All ages";
   if (aboutImdb)         aboutImdb.textContent     = movie.imdb || "—";
+  if (aboutYear)         aboutYear.textContent     = movie.created_at ? new Date(movie.created_at).getFullYear() : "—";
   if (genresName)        genresName.textContent    = movie.category?.name || "";
 
   // Play button opens modal with fragman
@@ -237,6 +247,7 @@ function renderSimilarMovies(movies, currentId, categoryId, favIds) {
         <article class="swiper-slide action-card" data-movie-id="${m.id}" data-trailer="${m.fragman || ""}">
           <img src="${m.cover_url || ""}" alt="${m.title}" />
           <span class="category-name">${m.category?.name || ""}</span>
+          <div class="card-imdb">${(() => { const s = parseFloat(m.imdb)||0; const f = Math.round(s/2); return Array.from({length:5},(_,i)=>`<i class="fa-${i<f?'solid':'regular'} fa-star"></i>`).join('')+'<span class="card-imdb__score">'+(s?s.toFixed(1):'—')+'</span>'; })()}</div>
           <h3 class="movie-name">${m.title}</h3>
           <button class="card-play-btn" aria-label="Play movie"><i class="fa-solid fa-play"></i></button>
           <button class="card-fav-btn ${isFav ? "is-favorite" : ""}" aria-label="Favorites">

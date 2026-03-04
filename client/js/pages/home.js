@@ -24,6 +24,17 @@ function goToDetail(movieId) {
   window.location.href = "./detail.html?id=" + movieId;
 }
 
+// ── IMDB stars helper ──────────────────────────────────────────────────────────
+function imdbStars(imdb) {
+  const score = parseFloat(imdb) || 0;
+  const filled = Math.round(score / 2);
+  let stars = "";
+  for (let i = 1; i <= 5; i++) {
+    stars += "<i class=\"fa-" + (i <= filled ? "solid" : "regular") + " fa-star\"></i>";
+  }
+  return "<div class=\"card-imdb\">" + stars + "<span class=\"card-imdb__score\">" + (score ? score.toFixed(1) : "—") + "</span></div>";
+}
+
 // ── Hero carousel builder ──────────────────────────────────────────────────────
 function buildHeroSlides(movies) {
   const carousel = document.getElementById("heroCarousel");
@@ -34,7 +45,7 @@ function buildHeroSlides(movies) {
       "<img src=\"" + (m.cover_url || "../../assets/images/home.carusel.jpg") + "\" alt=\"" + m.title + "\" />" +
       "<div class=\"hero-content\">" +
       "<span class=\"hero-genre\">" + (m.category && m.category.name ? m.category.name : "") + "</span>" +
-      "<div class=\"hero-stars\">&#9733;&#9733;&#9733;&#9733;&#9733;</div>" +
+      "<div class=\"hero-stars\">" + imdbStars(m.imdb) + "</div>" +
       "<h1 class=\"hero-title\">" + m.title + "</h1>" +
       "<p class=\"hero-desc\">" + (m.description || "").slice(0, 180) + "</p>" +
       "<button class=\"watch-btn\" data-id=\"" + m.id + "\">Watch now</button>" +
@@ -65,6 +76,7 @@ function buildCategorySection(category, favIds) {
       return "<article class=\"action-card\" data-id=\"" + m.id + "\">" +
         "<img src=\"" + (m.cover_url || "../../assets/images/home.film1.jpg") + "\" alt=\"" + m.title + "\" loading=\"lazy\" />" +
         "<p class=\"category-name\">" + category.name + "</p>" +
+        imdbStars(m.imdb) +
         "<p class=\"movie-name\">" + m.title + "</p>" +
         "<button type=\"button\" class=\"card-fav-btn " + (isFav ? "is-favorite" : "") + "\" data-id=\"" + m.id + "\" aria-pressed=\"" + isFav + "\">" +
         "<i class=\"fa-" + (isFav ? "solid" : "regular") + " fa-heart\"></i></button>" +

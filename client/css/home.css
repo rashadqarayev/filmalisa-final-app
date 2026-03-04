@@ -106,10 +106,23 @@ body {
 }
 
 .hero-stars {
-  font-size: 18px;
-  color: #fff;
-  letter-spacing: 3px;
   line-height: 1;
+}
+
+.hero-stars .card-imdb {
+  position: static;
+  padding: 0;
+  gap: 5px;
+}
+
+.hero-stars .card-imdb i {
+  font-size: 18px;
+}
+
+.hero-stars .card-imdb__score {
+  font-size: 17px;
+  font-weight: 700;
+  margin-left: 6px;
 }
 
 .hero-title {
@@ -417,13 +430,24 @@ body {
 .action-card .category-name,
 .comedy-card .category-name {
   left: 10px;
-  bottom: 46px;
+  bottom: 72px;
   font-size: 11px;
   padding: 3px 8px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: calc(100% - 20px);
+}
+
+/* imdb stars yeri */
+.action-card .card-imdb,
+.comedy-card .card-imdb {
+  position: absolute;
+  left: 6px;
+  bottom: 40px;
+  padding: 0 4px;
+  z-index: 3;
+  margin-bottom: 0;
 }
 
 /* movie name yeri */

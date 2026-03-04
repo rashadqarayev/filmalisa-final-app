@@ -230,7 +230,7 @@ body {
 .results-grid .action-card .category-name {
   position: absolute;
   left: 10px;
-  bottom: 46px;
+  bottom: 72px;
   font-size: 11px;
   padding: 3px 8px;
   z-index: 3;
@@ -238,6 +238,15 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: calc(100% - 20px);
+}
+
+.results-grid .action-card .card-imdb {
+  position: absolute;
+  left: 6px;
+  bottom: 40px;
+  padding: 0 4px;
+  z-index: 3;
+  margin-bottom: 0;
 }
 
 .results-grid .action-card .movie-name {
