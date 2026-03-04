@@ -1,3 +1,5 @@
+import { httpClient } from "../core/HttpClient.js";
+
 // ─── Auth redirect: if already logged in, skip landing page ──────────────────
 if (localStorage.getItem("user_token")) {
   window.location.replace("./client/html/home.html");
@@ -42,8 +44,10 @@ function showToast(title, message, type) {
 }
 
 function toggleFaq(element) {
+  if (!(element instanceof Element)) return;
   const answer = element.nextElementSibling;
   const icon = element.querySelector(".faq-icon");
+  if (!answer || !icon) return;
 
   if (answer.classList.contains("active")) {
     answer.classList.remove("active");
@@ -53,6 +57,12 @@ function toggleFaq(element) {
     icon.classList.add("spin");
   }
 }
+
+document.querySelectorAll(".faq-head").forEach(function (head) {
+  head.addEventListener("click", function () {
+    toggleFaq(this);
+  });
+});
 
 // ─── Auth button logic ────────────────────────────────────────────────────────
 (function () {
@@ -72,12 +82,7 @@ function toggleFaq(element) {
   }
 
   // Signed in — fetch full name from profile API
-  fetch("https://api.sarkhanrahimli.dev/api/filmalisa/profile", {
-    headers: { Authorization: "Bearer " + token },
-  })
-    .then(function (r) {
-      return r.json();
-    })
+  httpClient.get("/profile")
     .then(function (res) {
       authBtn.textContent =
         res && res.data && res.data.full_name
@@ -158,19 +163,11 @@ function toggleFaq(element) {
     sendBtn.textContent = "Sending...";
 
     try {
-      var res = await fetch(
-        "https://api.sarkhanrahimli.dev/api/filmalisa/contact",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            full_name: full_name,
-            email: email,
-            reason: reason,
-          }),
-        }
-      );
-      var data = await res.json();
+      var data = await httpClient.post("/contact", {
+        full_name: full_name,
+        email: email,
+        reason: reason,
+      });
       if (data && data.result) {
         nameInput.value = "";
         emailInput.value = "";

@@ -1,3 +1,5 @@
+import { httpClient } from "../core/HttpClient.js";
+
 /**
  * Renders a fixed top-right badge showing the signed-in user's
  * profile image and full name on every client page.
@@ -16,11 +18,7 @@ export async function initUserBadge() {
   });
 
   try {
-    const res = await fetch(
-      "https://api.sarkhanrahimli.dev/api/filmalisa/profile",
-      { headers: { Authorization: "Bearer " + token } }
-    );
-    const json = await res.json();
+    const json = await httpClient.get("/profile");
     const profile = json?.data;
     if (!profile) return;
 
