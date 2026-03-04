@@ -1,44 +1,46 @@
+/**
+ * CommentsService
+ *
+ * GET    /movies/:movieId/comments        — list comments for a movie
+ * POST   /movies/:movieId/comment         — post a comment  (auth required)
+ * DELETE /movies/:movieId/comment/:id     — delete a comment (auth required)
+ */
 import { httpClient } from "../core/HttpClient.js";
 
-/**
- * CommentsService - Handles movie comments
- * GET    /movies/:movieId/comments              (auth optional)
- * POST   /movies/:movieId/comment               (auth required)
- * DELETE /movies/:movieId/comment/:commentId    (auth required)
- */
 class CommentsService {
-  constructor(httpClient) {
-    this.http = httpClient;
-  }
-
   /**
-   * Get all comments for a movie
-   * @param {number} movieId
-   * @returns {Promise<Object>} { data: Comment[], result }
+   * Get all comments for a movie.
+   *
+   * @param {number|string} movieId
+   * @returns {Promise<{ message, data: Comment[], result }>}
    */
-  async getComments(movieId) {
-    return await this.http.get(`/movies/${movieId}/comments`);
+  getComments(movieId) {
+    return httpClient.get(`/movies/${movieId}/comments`);
   }
 
   /**
-   * Post a comment on a movie
-   * @param {number} movieId
+   * Post a new comment on a movie.
+   * Requires authentication.
+   *
+   * @param {number|string} movieId
    * @param {string} comment
-   * @returns {Promise<Object>} { data: Comment, result }
+   * @returns {Promise<{ message, data: Comment, result }>}
    */
-  async createComment(movieId, comment) {
-    return await this.http.post(`/movies/${movieId}/comment`, { comment });
+  createComment(movieId, comment) {
+    return httpClient.post(`/movies/${movieId}/comment`, { comment });
   }
 
   /**
-   * Delete a comment
-   * @param {number} movieId
-   * @param {number} commentId
-   * @returns {Promise<Object>} { message, result }
+   * Delete a comment.
+   * Requires authentication.
+   *
+   * @param {number|string} movieId
+   * @param {number|string} commentId
+   * @returns {Promise<{ message, data: null, result }>}
    */
-  async deleteComment(movieId, commentId) {
-    return await this.http.delete(`/movies/${movieId}/comment/${commentId}`);
+  deleteComment(movieId, commentId) {
+    return httpClient.delete(`/movies/${movieId}/comment/${commentId}`);
   }
 }
 
-export const commentsService = new CommentsService(httpClient);
+export const commentsService = new CommentsService();

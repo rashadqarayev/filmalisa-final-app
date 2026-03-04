@@ -1,24 +1,23 @@
+/**
+ * ContactService
+ *
+ * POST /contact — submit a contact/support request
+ */
 import { httpClient } from "../core/HttpClient.js";
 
-/**
- * ContactService - Handles contact/support form submission
- * POST /contact
- */
 class ContactService {
-  constructor(httpClient) {
-    this.http = httpClient;
-  }
-
   /**
-   * Submit a contact form
-   * @param {string} full_name
-   * @param {string} email
-   * @param {string} reason
-   * @returns {Promise<Object>} { data: Contact, result }
+   * Submit a contact form.
+   *
+   * @param {{ full_name: string, email: string, reason: string }} data
+   * @returns {Promise<{ message, data: Contact, result }>}
+   *
+   * Contact shape:
+   *   { id, full_name, email, reason, created_at }
    */
-  async submitContact(full_name, email, reason) {
-    return await this.http.post("/contact", { full_name, email, reason });
+  submit({ full_name, email, reason }) {
+    return httpClient.post("/contact", { full_name, email, reason });
   }
 }
 
-export const contactService = new ContactService(httpClient);
+export const contactService = new ContactService();

@@ -22,6 +22,7 @@ const movieRuntimeInput = document.getElementById("movieRuntime");
 const movieAdultInput = document.getElementById("movieAdult");
 const catSelect = document.getElementById("catSelect");
 const previewImg = document.getElementById("previewImg");
+const previewHint = document.getElementById("previewHint");
 
 const PLACEHOLDER_IMG =
   "../../assets/images/film-image-default.png";
@@ -37,7 +38,11 @@ export function resetForm() {
   movieAdultInput.checked = false;
   catSelect.value = "";
   cmsClearSelection(state.allActors);
-  if (previewImg) previewImg.src = PLACEHOLDER_IMG;
+  if (previewImg) {
+    previewImg.src = PLACEHOLDER_IMG;
+    previewImg.classList.remove("has-image");
+  }
+  if (previewHint) previewHint.textContent = "Enter a URL above to see the cover";
 }
 
 export function openCreateModal() {
@@ -65,7 +70,11 @@ export function fillEditForm(movie) {
   }
 
   const isValid = movie.cover_url?.startsWith("http");
-  if (previewImg) previewImg.src = isValid ? movie.cover_url : PLACEHOLDER_IMG;
+  if (previewImg) {
+    previewImg.src = isValid ? movie.cover_url : PLACEHOLDER_IMG;
+    previewImg.classList.toggle("has-image", !!isValid);
+  }
+  if (previewHint) previewHint.textContent = isValid ? "✓ Cover loaded" : "Enter a URL above to see the cover";
 }
 
 export function showDeleteModal(movieId, movieTitle) {

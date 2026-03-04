@@ -19,6 +19,7 @@ import { initCmsEvents } from "./actorSelect.js";
 
 export function registerHandlers() {
   const DEFAULT_PREVIEW_IMG = "../../assets/images/film-image-default.png";
+  const previewHint = document.getElementById("previewHint");
 
   const handleCoverPreview = () => {
     if (!previewImg) return;
@@ -26,11 +27,22 @@ export function registerHandlers() {
 
     if (!url) {
       previewImg.src = DEFAULT_PREVIEW_IMG;
+      previewImg.classList.remove("has-image");
+      if (previewHint) previewHint.textContent = "Enter a URL above to see the cover";
       return;
     }
 
     previewImg.onerror = () => {
       previewImg.src = DEFAULT_PREVIEW_IMG;
+      previewImg.classList.remove("has-image");
+      if (previewHint) previewHint.textContent = "⚠️ Could not load image";
+    };
+
+    previewImg.onload = () => {
+      if (previewImg.src !== DEFAULT_PREVIEW_IMG) {
+        previewImg.classList.add("has-image");
+        if (previewHint) previewHint.textContent = "✓ Cover loaded";
+      }
     };
 
     previewImg.src = url;
@@ -92,7 +104,7 @@ export function registerHandlers() {
     });
   }
 
-  document.querySelector(".logout-text")?.addEventListener("click", () => {
+  document.getElementById("logoutBtn")?.addEventListener("click", () => {
     adminService.auth.logout();
   });
 

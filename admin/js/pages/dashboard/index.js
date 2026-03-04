@@ -53,6 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Logout handler
-document.querySelector(".logout-text")?.addEventListener("click", () => {
+document.getElementById("logoutBtn")?.addEventListener("click", () => {
   adminService.auth.logout();
 });

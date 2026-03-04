@@ -1,5 +1,8 @@
 import { httpClient } from "../core/HttpClient.js";
 
+
+
+
 /**
  * FavoritesService - Handles user favourite movies
  * GET  /movies/favorites          (auth required)

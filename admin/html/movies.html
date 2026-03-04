@@ -96,7 +96,7 @@
           </a>
         </div>
 
-        <div class="lowerAside">
+        <div class="lowerAside" id="logoutBtn" style="cursor:pointer;">
           <img src="../../assets/images/logout.svg" alt="logout" />
           <p class="logout-text">Logout</p>
         </div>
@@ -273,11 +273,15 @@
 
           <!-- right -->
           <div class="edit-right">
-            <img
-              id="previewImg"
-              src="../../assets/images/film-image-default.png"
-              alt="preview"
-            />
+            <div class="preview-wrapper">
+              <p class="preview-label"><i class="fa-regular fa-image"></i> Cover Preview</p>
+              <img
+                id="previewImg"
+                src="../../assets/images/film-image-default.png"
+                alt="preview"
+              />
+              <p class="preview-hint" id="previewHint">Enter a URL above to see the cover</p>
+            </div>
           </div>
         </div>
       </div>
