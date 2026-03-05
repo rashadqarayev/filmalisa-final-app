@@ -117,7 +117,13 @@
                 </div>
                 <section class="comment-section">
                     <div class="commentBar">
-                        <input type="text" id="commentInput" class="commentInput" placeholder="Add a comment..." />
+                        <div class="commentInput-wrap">
+                            <input type="text" id="commentInput" class="commentInput" placeholder="Add a comment..." />
+                            <button type="button" id="emojiPickerBtn" class="emoji-picker-btn" title="Emoji">&#128512;</button>
+                            <div id="emojiPickerPanel" class="emoji-picker-panel" hidden>
+                                <div class="emoji-grid" id="emojiGrid"></div>
+                            </div>
+                        </div>
                         <button class="commentBtn" id="commentBtn"><img src="../../assets/images/send.svg" alt="send"></button>
                     </div>
                     <div id="commentsList"></div>

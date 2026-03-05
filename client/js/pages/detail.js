@@ -163,8 +163,71 @@ function renderComments(comments, profile, myIds = new Set()) {
   }).join("");
 }
 
+// ─── Emoji picker ─────────────────────────────────────────────────────────────
+function setupEmojiPicker() {
+  const btn   = document.getElementById("emojiPickerBtn");
+  const panel = document.getElementById("emojiPickerPanel");
+  const grid  = document.getElementById("emojiGrid");
+  if (!btn || !panel || !grid || !commentInput) return;
+
+  const EMOJIS = [
+    "😀","😁","😂","🤣","😃","😄","😅","😆",
+    "😇","😉","😊","🙂","🙃","😋","😌","😍",
+    "🥰","😘","😗","😙","😚","😜","🤪","😝",
+    "😛","🤑","😎","🤓","🧐","🥸","🤩","😏",
+    "😒","😞","😔","😟","😕","🙁","☹️","😣",
+    "😖","😫","😩","🥺","😢","😭","😤","😠",
+    "😡","🤬","😳","🥵","🥶","😱","😨","😰",
+    "😥","😓","🤗","🤭","🫢","🫣","🤫","🤔",
+    "🫡","🤐","🤨","😐","😑","😶","😶‍🌫️","😬",
+    "🙄","😯","😦","😧","😮","😲","🥱","😴",
+    "🤤","😪","😵","🫥","🤯","🤠","🥳","🥸",
+    "😷","🤒","🤕","🤢","🤮","🤧","🥴","😈",
+    "👿","💀","☠️","💩","🤡","👹","👺","👻",
+    "👽","👾","🤖","😺","😸","😹","😻","😼",
+    "😽","🙀","😿","😾","👋","🤚","🖐️","✋",
+    "🖖","🫱","🫲","🫳","🫴","👌","🤌","🤏",
+    "✌️","🤞","🫰","🤟","🤘","🤙","👈","👉",
+    "👆","🖕","👇","☝️","🫵","👍","👎","✊",
+    "👊","🤛","🤜","👏","🙌","🫶","👐","🤲",
+    "🤝","🙏","❤️","🧡","💛","💚","💙","💜",
+    "🖤","🤍","🤎","💔","❣️","💕","💞","💓",
+    "💗","💖","💘","💝","💟","☮️","✝️","☯️",
+    "🔥","⭐","🌟","💫","✨","🎉","🎊","🎈",
+    "🎁","🏆","🥇","🙌","💯","✅","❌","⚡",
+  ];
+
+  grid.innerHTML = EMOJIS.map(e =>
+    `<button type="button" data-emoji="${e}">${e}</button>`
+  ).join("");
+
+  grid.addEventListener("click", (e) => {
+    const emoji = e.target.closest("[data-emoji]")?.dataset.emoji;
+    if (!emoji) return;
+    const start = commentInput.selectionStart;
+    const end   = commentInput.selectionEnd;
+    const val   = commentInput.value;
+    commentInput.value = val.slice(0, start) + emoji + val.slice(end);
+    commentInput.setSelectionRange(start + emoji.length, start + emoji.length);
+    commentInput.focus();
+    panel.hidden = true;
+  });
+
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    panel.hidden = !panel.hidden;
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!panel.hidden && !panel.contains(e.target) && e.target !== btn) {
+      panel.hidden = true;
+    }
+  });
+}
+
 // ─── Setup comment form ────────────────────────────────────────────────────────
 function setupCommentForm(movieId, profile) {
+  setupEmojiPicker();
   const avatar = profile?.img_url || "../../assets/images/user.png";
   const name   = profile?.full_name || "User";
 
