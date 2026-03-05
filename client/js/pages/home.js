@@ -18,21 +18,21 @@ if (!localStorage.getItem("user_token")) {
   window.location.replace("./login.html");
 }
 
-// ── Navigate to detail ─────────────────────────────────────────────────────────
-function goToDetail(movieId) {
-  sessionStorage.setItem("detail_access", "1");
-  window.location.href = "./detail.html?id=" + movieId;
-}
-
-// ── IMDB stars helper ──────────────────────────────────────────────────────────
+// ── IMDB stars helper ─────────────────────────────────────────────────────────
 function imdbStars(imdb) {
   const score = parseFloat(imdb) || 0;
   const filled = Math.round(score / 2);
   let stars = "";
   for (let i = 1; i <= 5; i++) {
-    stars += "<i class=\"fa-" + (i <= filled ? "solid" : "regular") + " fa-star\"></i>";
+    stars += '<i class="fa-' + (i <= filled ? "solid" : "regular") + ' fa-star"></i>';
   }
-  return "<div class=\"card-imdb\">" + stars + "<span class=\"card-imdb__score\">" + (score ? score.toFixed(1) : "—") + "</span></div>";
+  return '<div class="card-imdb">' + stars + '<span class="card-imdb__score">' + (score ? score.toFixed(1) : "\u2014") + '</span></div>';
+}
+
+// ── Navigate to detail ─────────────────────────────────────────────────────────
+function goToDetail(movieId) {
+  sessionStorage.setItem("detail_access", "1");
+  window.location.href = "./detail.html?id=" + movieId;
 }
 
 // ── Hero carousel builder ──────────────────────────────────────────────────────
@@ -68,8 +68,6 @@ function buildCategorySection(category, favIds) {
   section.innerHTML =
     "<div class=\"section__header\"><h2 class=\"section__title\">" + category.name +
     " <span class=\"section__chevron\">&gt;</span></h2></div>" +
-    "<div class=\"scroll-row\">" +
-    "<button type=\"button\" class=\"scroll-btn scroll-btn--prev\"><i class=\"fa-solid fa-chevron-left\"></i></button>" +
     "<div class=\"action__wrapper\" id=\"" + wrapperId + "\">" +
     category.movies.map(function(m) {
       const isFav = favIds.has(Number(m.id));
@@ -83,42 +81,7 @@ function buildCategorySection(category, favIds) {
         "<button type=\"button\" class=\"card-play-btn\" data-id=\"" + m.id + "\">" +
         "<i class=\"fa-solid fa-play\"></i></button>" +
         "</article>";
-    }).join("") + "</div>" +
-    "<button type=\"button\" class=\"scroll-btn scroll-btn--next\"><i class=\"fa-solid fa-chevron-right\"></i></button>" +
-    "</div>";
-
-  // scroll buttons
-  const wrapper = section.querySelector(".action__wrapper");
-  const prevBtn = section.querySelector(".scroll-btn--prev");
-  const nextBtn = section.querySelector(".scroll-btn--next");
-  function getCards() { return Array.from(wrapper.querySelectorAll(".action-card")); }
-
-  function scrollToCard(dir) {
-    const cards = getCards();
-    if (!cards.length) return;
-    const scrollLeft = wrapper.scrollLeft;
-    if (dir === 1) {
-      const next = cards.find(c => c.offsetLeft > scrollLeft + 4);
-      if (next) wrapper.scrollTo({ left: next.offsetLeft, behavior: "smooth" });
-    } else {
-      const prev = [...cards].reverse().find(c => c.offsetLeft < scrollLeft - 4);
-      if (prev) wrapper.scrollTo({ left: prev.offsetLeft, behavior: "smooth" });
-    }
-  }
-
-  prevBtn.addEventListener("click", function() { scrollToCard(-1); });
-  nextBtn.addEventListener("click", function() { scrollToCard(1); });
-
-  function updateBtnVisibility() {
-    prevBtn.style.opacity = wrapper.scrollLeft <= 0 ? "0" : "1";
-    prevBtn.style.pointerEvents = wrapper.scrollLeft <= 0 ? "none" : "auto";
-    const atEnd = wrapper.scrollLeft + wrapper.clientWidth >= wrapper.scrollWidth - 4;
-    nextBtn.style.opacity = atEnd ? "0" : "1";
-    nextBtn.style.pointerEvents = atEnd ? "none" : "auto";
-  }
-
-  wrapper.addEventListener("scroll", updateBtnVisibility);
-  updateBtnVisibility();
+    }).join("") + "</div>";
 
   // card click → detail
   section.querySelectorAll(".action-card").forEach(function(card) {
@@ -242,9 +205,8 @@ function setupCardSlider(wrapperId, cardSelector, interval = 3000) {
 		timer = null;
 	}
 
-	const row = wrapper.closest(".scroll-row") || wrapper;
-	row.addEventListener('mouseenter', stopAuto);
-	row.addEventListener('mouseleave', startAuto);
+	wrapper.addEventListener('mouseenter', stopAuto);
+	wrapper.addEventListener('mouseleave', startAuto);
 
 	window.addEventListener('resize', () => moveTo(currentIndex, false));
 

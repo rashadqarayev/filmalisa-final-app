@@ -309,9 +309,11 @@ function renderSimilarMovies(movies, currentId, categoryId, favIds) {
       return `
         <article class="swiper-slide action-card" data-movie-id="${m.id}" data-trailer="${m.fragman || ""}">
           <img src="${m.cover_url || ""}" alt="${m.title}" />
-          <span class="category-name">${m.category?.name || ""}</span>
-          <div class="card-imdb">${(() => { const s = parseFloat(m.imdb)||0; const f = Math.round(s/2); return Array.from({length:5},(_,i)=>`<i class="fa-${i<f?'solid':'regular'} fa-star"></i>`).join('')+'<span class="card-imdb__score">'+(s?s.toFixed(1):'—')+'</span>'; })()}</div>
-          <h3 class="movie-name">${m.title}</h3>
+          <div class="card-meta">
+            <span class="category-name">${m.category?.name || ""}</span>
+            <div class="card-imdb">${(() => { const s = parseFloat(m.imdb)||0; const f = Math.round(s/2); return Array.from({length:5},(_,i)=>`<i class="fa-${i<f?'solid':'regular'} fa-star"></i>`).join('')+'<span class="card-imdb__score">'+(s?s.toFixed(1):'—')+'</span>'; })()}</div>
+            <h3 class="movie-name">${m.title}</h3>
+          </div>
           <button class="card-play-btn" aria-label="Play movie"><i class="fa-solid fa-play"></i></button>
           <button class="card-fav-btn ${isFav ? "is-favorite" : ""}" aria-label="Favorites">
             <i class="${isFav ? "fa-solid" : "fa-regular"} fa-heart"></i>
@@ -359,19 +361,13 @@ function renderSimilarMovies(movies, currentId, categoryId, favIds) {
   // Init Swiper after DOM is ready
   new Swiper(".similarSwiper", {
     direction: "horizontal",
-    slidesPerView: 4,
-    spaceBetween: 12,
+    slidesPerView: "auto",
+    spaceBetween: 20,
     loop: similarWrapper.querySelectorAll(".swiper-slide").length >= 4,
     speed: 900,
     autoplay: { delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true },
     grabCursor: true,
     mousewheel: { forceToAxis: true },
-    breakpoints: {
-      320:  { slidesPerView: 1, spaceBetween: 8 },
-      640:  { slidesPerView: 2, spaceBetween: 10 },
-      900:  { slidesPerView: 3, spaceBetween: 12 },
-      1200: { slidesPerView: 4, spaceBetween: 12 },
-    },
   });
 }
 

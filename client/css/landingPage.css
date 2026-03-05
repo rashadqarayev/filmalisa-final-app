@@ -1,10 +1,6 @@
 /* reset start */
 
 html {
-  background-image: url(../../assets/images/landingPageBack.svg);
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: 100% auto;
   background-color: black;
   width: 100%;
 }
@@ -12,7 +8,7 @@ html {
 body {
   font-family: var(--font-primary);
   padding: 0;
-  margin: 0 auto;
+  margin: 0;
   /* max-width: 1440px; */
   overflow-x: hidden;
 }
@@ -22,6 +18,12 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  background-image: url(../../assets/images/landingPageBack.svg);
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 100% auto;
 }
 
 /* reset end */

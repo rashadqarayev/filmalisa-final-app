@@ -13,6 +13,8 @@ body {
 /* PAGE WRAPPER */
 .detailContainer {
   width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
   height: 100vh;
   font-family: var(--font-primary);
   font-feature-settings: "lnum" 1;
@@ -638,25 +640,33 @@ body {
 }
 
 /* ===== SIMILAR MOVIE CARD ===== */
-.category-name {
+.similarSwiper .card-meta {
   position: absolute;
-  left: 14px;
-  bottom: 78px;
+  left: 10px;
+  bottom: 10px;
   z-index: 3;
-  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: calc(100% - 20px);
+}
+
+.similarSwiper .category-name {
+  position: static;
+  font-size: 11px;
   font-weight: 500;
   color: rgb(15, 239, 253);
   background: rgba(0, 0, 0, 0.6);
   border-top-right-radius: 8px;
   border-bottom-left-radius: 8px;
-  padding: 6px 10px;
+  padding: 3px 8px;
   width: fit-content;
 }
 
 .action-card {
   flex: 0 0 auto;
-  width: 360px;
-  height: 500px;
+  width: 220px;
+  height: 320px;
   position: relative;
   overflow: hidden;
   background: transparent;
@@ -666,8 +676,8 @@ body {
 
 /* When inside the similar movies swiper, let Swiper control the width */
 .similarSwiper .action-card {
-  width: 100%;
-  height: 460px;
+  width: 292px;
+  height: 440px;
 }
 
 .action-card img {
@@ -703,25 +713,23 @@ body {
   opacity: 1;
 }
 
-.card-imdb {
-  position: absolute;
-  left: 10px;
-  bottom: 52px;
+.similarSwiper .card-imdb {
+  position: static;
   padding: 0 4px;
-  z-index: 3;
   margin-bottom: 0;
 }
 
-.movie-name {
-  position: absolute;
-  left: 14px;
-  bottom: 14px;
-  z-index: 3;
+.similarSwiper .movie-name {
+  position: static;
   margin: 0;
   color: #fff;
-  font-size: 24px;
-  line-height: 32px;
+  font-size: 16px;
+  line-height: 1.3;
   font-weight: 500;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Play button */

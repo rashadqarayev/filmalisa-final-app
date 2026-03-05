@@ -12,6 +12,7 @@ body {
 
 .page-main {
   padding: 0;
+  background: #121212;
   overflow: hidden;
   display: flex;
   align-items: center;

@@ -11,6 +11,7 @@ body {
 
 .page-main {
   padding: 74px 22px 28px;
+  background: #121212;
 }
 
 .search-header {
@@ -202,15 +203,16 @@ body {
 
 /* ── Results grid ── */
 .results-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 220px));
-  gap: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  row-gap: 48px;
 }
 
 .results-grid .action-card {
-  flex: none;
-  width: 100%;
-  height: 320px;
+  flex: 0 0 292px;
+  width: 292px;
+  height: 440px;
   position: relative;
   overflow: hidden;
   background: #1a1a1a;

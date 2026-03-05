@@ -3,6 +3,7 @@
 :root {
   --font-primary: "Raleway", sans-serif;
   --font-numeric: "Poppins", sans-serif;
+  --admin-shell-max-width: 1440px;
 
 
   --primary-color: #9b51e0;
@@ -32,12 +33,65 @@
   margin-top: var(--base) * 5; /* Use CSS calc() with custom properties */
 }
 
+html {
+  background: #121212;
+}
+
 body {
   font-family: var(--font-primary);
   width: 100%;
   /* max-width: 1440px; */
   /* margin: 0 auto; */
   box-sizing: border-box;
+}
+
+/* Client pages: keep content inside 1440px and use landing image on side areas */
+body:has(.landingPage),
+body:has(.page-shell),
+body:has(.detailContainer),
+body:has(.login-page),
+body:has(.register-page),
+body:has(.not-found) {
+  background:
+    linear-gradient(rgba(10, 10, 14, 0.65), rgba(10, 10, 14, 0.65)),
+    url("./assets/images/landingPageBack.svg") center / cover no-repeat fixed;
+}
+
+.landingPage,
+.page-shell,
+.detailContainer,
+.login-page,
+.register-page,
+.not-found {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* Admin pages: keep layout centered in 1440px and show side background image */
+body:has(.dashBoardContainer),
+body:has(.actors-container),
+body:has(.categories-container),
+body:has(.movies-container),
+body:has(.commentContainer),
+body:has(.contact-us-container),
+body:has(.user-container) {
+  background:
+    linear-gradient(rgba(10, 10, 14, 0.8), rgba(10, 10, 14, 0.8)),
+    url("./assets/images/landingPageBack.svg") center / cover no-repeat fixed;
+}
+
+.dashBoardContainer,
+.actors-container,
+.categories-container,
+.movies-container,
+.commentContainer,
+.contact-us-container,
+.user-container {
+  width: 100%;
+  max-width: var(--admin-shell-max-width);
+  margin: 0 auto;
+  min-height: 100vh;
 }
 
 
