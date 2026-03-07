@@ -66,6 +66,7 @@ body:has(.not-found) {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
+  background: #000000;
 }
 
 /* Admin pages: keep layout centered in 1440px and show side background image */
