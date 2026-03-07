@@ -37,7 +37,25 @@ export async function initUserBadge() {
     // Dropdown
     const dropdown = document.createElement("div");
     dropdown.className = "user-badge__dropdown";
-    dropdown.innerHTML = `<button id="badgeLogoutBtn">Logout</button>`;
+    dropdown.innerHTML = `
+      <div class="ubd-header">
+        ${
+          profile.img_url
+            ? `<img class="ubd-avatar" src="${profile.img_url}" alt="avatar" />`
+            : `<span class="ubd-avatar ubd-avatar--placeholder"></span>`
+        }
+        <div class="ubd-info">
+          <span class="ubd-name">${profile.full_name || ""}</span>
+          <span class="ubd-email">${profile.email || ""}</span>
+        </div>
+      </div>
+      <div class="ubd-divider"></div>
+      <button id="badgeLogoutBtn" class="ubd-logout-btn">
+        <span class="ubd-logout-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+        <span class="ubd-logout-label">Logout</span>
+        <i class="fa-solid fa-chevron-right ubd-logout-arrow"></i>
+      </button>
+    `;
 
     document.body.appendChild(badge);
     document.body.appendChild(dropdown);

@@ -142,36 +142,142 @@ body:has(.page-shell) {
 .user-badge__dropdown {
   display: none;
   position: fixed;
-  top: 64px;
+  top: 68px;
   right: max(24px, calc(50vw - 660px));
   z-index: 1001;
-  background: #1a1a1a;
-  border: 1px solid #333;
-  border-radius: 10px;
-  min-width: 140px;
+  background: #161618;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  min-width: 230px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.04);
+  transform: translateY(-8px) scale(0.96);
+  opacity: 0;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  pointer-events: none;
 }
 
 .user-badge__dropdown.open {
   display: block;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  animation: dropdownIn 0.22s ease forwards;
 }
 
-.user-badge__dropdown button {
+@keyframes dropdownIn {
+  from { opacity: 0; transform: translateY(-8px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── header ── */
+.ubd-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 16px 14px;
+}
+
+.ubd-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,0.1);
+}
+
+.ubd-avatar--placeholder {
+  display: inline-block;
+  background: linear-gradient(135deg, #2a2a3a, #1a1a2a);
+}
+
+.ubd-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow: hidden;
+}
+
+.ubd-name {
+  font-family: 'Raleway', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ubd-email {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  color: rgba(255,255,255,0.38);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── divider ── */
+.ubd-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+  margin: 0 14px;
+}
+
+/* ── logout button ── */
+.ubd-logout-btn {
   width: 100%;
-  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px 16px;
   background: transparent;
   border: none;
-  color: #ff4d4d;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: 'Raleway', sans-serif;
   cursor: pointer;
-  text-align: left;
+  font-family: 'Raleway', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #ff4d6d;
+  transition: background 0.18s ease, color 0.18s ease;
+  letter-spacing: 0.1px;
 }
 
-.user-badge__dropdown button:hover {
-  background: rgba(255, 77, 77, 0.12);
+.ubd-logout-btn:hover {
+  background: rgba(255, 55, 85, 0.1);
+  color: #ff2d50;
+}
+
+.ubd-logout-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(255, 55, 85, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+  transition: background 0.18s ease;
+}
+
+.ubd-logout-btn:hover .ubd-logout-icon {
+  background: rgba(255, 55, 85, 0.28);
+}
+
+.ubd-logout-label {
+  flex: 1;
+}
+
+.ubd-logout-arrow {
+  font-size: 10px;
+  opacity: 0.4;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.ubd-logout-btn:hover .ubd-logout-arrow {
+  opacity: 0.8;
+  transform: translateX(2px);
 }
 
 @keyframes badgeFadeIn {
