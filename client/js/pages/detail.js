@@ -362,8 +362,9 @@ function renderSimilarMovies(movies, currentId, categoryId, favIds) {
   new Swiper(".similarSwiper", {
     direction: "horizontal",
     slidesPerView: "auto",
-    spaceBetween: 20,
-    loop: similarWrapper.querySelectorAll(".swiper-slide").length >= 4,
+    spaceBetween: 22,
+    loop: false,
+    cssMode: true,
     speed: 900,
     autoplay: { delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true },
     grabCursor: true,

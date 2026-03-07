@@ -68,6 +68,8 @@ function buildCategorySection(category, favIds) {
   section.innerHTML =
     "<div class=\"section__header\"><h2 class=\"section__title\">" + category.name +
     " <span class=\"section__chevron\">&gt;</span></h2></div>" +
+    "<div class=\"scroll-row\">" +
+    "<button class=\"scroll-btn scroll-btn--prev\" aria-label=\"Previous\"><i class=\"fa-solid fa-chevron-left\"></i></button>" +
     "<div class=\"action__wrapper\" id=\"" + wrapperId + "\">" +
     category.movies.map(function(m) {
       const isFav = favIds.has(Number(m.id));
@@ -81,7 +83,9 @@ function buildCategorySection(category, favIds) {
         "<button type=\"button\" class=\"card-play-btn\" data-id=\"" + m.id + "\">" +
         "<i class=\"fa-solid fa-play\"></i></button>" +
         "</article>";
-    }).join("") + "</div>";
+    }).join("") + "</div>" +
+    "<button class=\"scroll-btn scroll-btn--next\" aria-label=\"Next\"><i class=\"fa-solid fa-chevron-right\"></i></button>" +
+    "</div>";
 
   // card click → detail
   section.querySelectorAll(".action-card").forEach(function(card) {
@@ -173,44 +177,103 @@ function setupHeroSlider() {
 	startAuto();
 }
 
-function setupCardSlider(wrapperId, cardSelector, interval = 3000) {
+function setupCardSlider(wrapperId, interval = 3000) {
 	const wrapper = document.getElementById(wrapperId);
 	if (!wrapper) return;
 
-	const cards = Array.from(wrapper.querySelectorAll(cardSelector));
-	if (cards.length <= 1) return;
+	const scrollRow = wrapper.closest('.scroll-row');
+	if (!scrollRow) return;
 
-	let currentIndex = 0;
-	let timer = null;
+	const prevBtn = scrollRow.querySelector('.scroll-btn--prev');
+	const nextBtn = scrollRow.querySelector('.scroll-btn--next');
 
-	function moveTo(index, smooth = true) {
-		currentIndex = (index + cards.length) % cards.length;
+	const cards = Array.from(wrapper.querySelectorAll('.action-card'));
 
-		wrapper.scrollTo({
-			left: cards[currentIndex].offsetLeft,
-			behavior: smooth ? 'smooth' : 'auto'
+	// Hide buttons & skip auto-scroll if 4 or fewer cards
+	if (cards.length <= 4) {
+		if (prevBtn) prevBtn.style.display = 'none';
+		if (nextBtn) nextBtn.style.display = 'none';
+		return;
+	}
+
+	let autoTimer   = null;
+	let currentIdx  = 0;
+
+	function getPageSize() {
+		const cardWidth = cards[0].offsetWidth + parseInt(getComputedStyle(cards[0]).marginRight || 0);
+		return Math.max(1, Math.floor(wrapper.clientWidth / cardWidth));
+	}
+
+	function getFirstVisibleIndex() {
+		const sl = wrapper.scrollLeft;
+		let best = 0, bestDiff = Infinity;
+		cards.forEach((c, i) => {
+			const diff = Math.abs(c.offsetLeft - sl);
+			if (diff < bestDiff) { bestDiff = diff; best = i; }
 		});
+		return best;
+	}
+
+	function scrollToCard(index) {
+		const clamped = Math.max(0, Math.min(index, cards.length - 1));
+		currentIdx = clamped;
+		wrapper.scrollTo({ left: cards[clamped].offsetLeft, behavior: 'smooth' });
+	}
+
+	function autoNext() {
+		const next = currentIdx + 1;
+		if (next >= cards.length) { stopAuto(); return; }
+		// If the last card is already fully visible, no reason to scroll further
+		const lastCard = cards[cards.length - 1];
+		const lastFullyVisible = lastCard.offsetLeft + lastCard.offsetWidth
+			<= wrapper.scrollLeft + wrapper.clientWidth + 4;
+		if (lastFullyVisible) { stopAuto(); return; }
+		scrollToCard(next);
 	}
 
 	function startAuto() {
 		stopAuto();
-		timer = setInterval(() => {
-			moveTo(currentIndex + 1);
-		}, interval);
+		autoTimer = setInterval(autoNext, interval);
 	}
 
 	function stopAuto() {
-		if (!timer) return;
-		clearInterval(timer);
-		timer = null;
+		if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
 	}
 
+	function updateButtons() {
+		const scrollLeft = wrapper.scrollLeft;
+		const maxScroll  = wrapper.scrollWidth - wrapper.clientWidth;
+		if (prevBtn) {
+			prevBtn.style.opacity       = scrollLeft > 4 ? '1' : '0';
+			prevBtn.style.pointerEvents = scrollLeft > 4 ? 'auto' : 'none';
+		}
+		if (nextBtn) {
+			nextBtn.style.opacity       = scrollLeft < maxScroll - 4 ? '1' : '0';
+			nextBtn.style.pointerEvents = scrollLeft < maxScroll - 4 ? 'auto' : 'none';
+		}
+		scrollRow.classList.toggle('has-overflow-left',  scrollLeft > 4);
+		scrollRow.classList.toggle('has-overflow-right', scrollLeft < maxScroll - 4);
+	}
+
+	if (prevBtn) prevBtn.addEventListener('click', () => {
+		stopAuto();
+		scrollToCard(getFirstVisibleIndex() - 1);
+		startAuto();
+	});
+	if (nextBtn) nextBtn.addEventListener('click', () => {
+		stopAuto();
+		scrollToCard(getFirstVisibleIndex() + 1);
+		startAuto();
+	});
+
+	// Pause auto-scroll on hover
 	wrapper.addEventListener('mouseenter', stopAuto);
 	wrapper.addEventListener('mouseleave', startAuto);
 
-	window.addEventListener('resize', () => moveTo(currentIndex, false));
+	wrapper.addEventListener('scroll', updateButtons, { passive: true });
+	window.addEventListener('resize', updateButtons);
 
-  moveTo(0, false);
+	updateButtons();
 	startAuto();
 }
 
@@ -246,7 +309,7 @@ async function init() {
       const result = buildCategorySection(category, favIds);
       if (!result) return;
       container.appendChild(result.section);
-      setupCardSlider(result.wrapperId, ".action-card", 2600);
+      setupCardSlider(result.wrapperId, 2800);
     });
     hideLoading();
   } catch (err) {
@@ -258,3 +321,4 @@ async function init() {
 
 document.addEventListener("DOMContentLoaded", init);
 initUserBadge();
+

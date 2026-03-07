@@ -30,13 +30,14 @@ body {
 
 /* action-card override: flex → grid child */
 .favorites__grid .action-card {
-  flex: 0 0 292px;
-  width: 292px;
+  flex: 0 0 286px;
+  width: 286px;
   height: 440px;
   position: relative;
   overflow: hidden;
   background: #1a1a1a;
   border-radius: 6px;
+  cursor: pointer;
 }
 
 .favorites__grid .action-card img {
@@ -150,6 +151,7 @@ body {
   position: relative;
   background: transparent;
   scroll-snap-align: start;
+  cursor: pointer;
 }
 
 .comedy-card::after {

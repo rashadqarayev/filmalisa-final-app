@@ -614,8 +614,11 @@ body {
 }
 
 .similar-movie-section {
-  padding: 40px 0;
+  width: 1280px;
+  padding: 40px 0 40px 52px;
   background-color: #1d1d1d;
+  margin-left: -52px;
+  margin-right: -48px;
 }
 
 .section-title {
@@ -636,7 +639,7 @@ body {
 
 .similarSwiper .swiper-wrapper {
   display: flex;
-  gap: 0;
+  /* gap: 2px; */
 }
 
 /* ===== SIMILAR MOVIE CARD ===== */
@@ -676,8 +679,13 @@ body {
 
 /* When inside the similar movies swiper, let Swiper control the width */
 .similarSwiper .action-card {
-  width: 292px;
+  width: 286px;
   height: 440px;
+  scroll-snap-align: start;
+}
+
+.similarSwiper .action-card:last-child{
+  margin-right: 18px;
 }
 
 .action-card img {

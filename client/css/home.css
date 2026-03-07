@@ -270,52 +270,89 @@ body {
 /* WRAPPERS: horizontal scroll */
 .scroll-row {
   position: relative;
+  overflow: visible;
 }
+
+/* Edge fade — left */
+.scroll-row::before,
+.scroll-row::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.scroll-row::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(18,18,18,0.9), transparent);
+}
+.scroll-row::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(18,18,18,0.9), transparent);
+}
+.scroll-row.has-overflow-left::before  { opacity: 1; }
+.scroll-row.has-overflow-right::after  { opacity: 1; }
 
 .scroll-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  border: none;
-  background: rgba(20, 20, 20, 0.75);
+  border: 1.5px solid rgba(255,255,255,0.18);
+  background: rgba(15, 15, 15, 0.82);
   color: #fff;
-  font-size: 14px;
+  font-size: 15px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
-  transition: background 0.2s, opacity 0.2s, transform 0.15s;
-  backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, background 0.2s, transform 0.18s, border-color 0.2s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.45);
 }
 
 .scroll-btn:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255,255,255,0.4);
   transform: translateY(-50%) scale(1.1);
 }
 
-.scroll-btn--prev { left: 8px; }
-.scroll-btn--next { right: 8px; }
+.scroll-btn--prev {
+  left: 0;
+  transform: translateX(-50%) translateY(-50%);
+}
+.scroll-btn--prev:hover {
+  transform: translateX(-50%) translateY(-50%) scale(1.1);
+}
+.scroll-btn--next { right: 10px; }
 
 .action__wrapper {
+  position: relative;
   display: flex;
-  gap: 34px;
+  justify-content: flex-start;
+  align-items: flex-start;
   overflow-x: auto;
-  padding-bottom: 10px;
   scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
 }
 
 .comedy__wrapper {
+  position: relative;
   display: flex;
-  gap: 34px;
+  justify-content: flex-start;
+  align-items: flex-start;
   overflow-x: auto;
   padding-bottom: 10px;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
 }
 
 /* hide scrollbar from view */
@@ -324,17 +361,31 @@ body {
   height: 0;
 }
 
+.action__wrapper > :first-child,
+.comedy__wrapper > :first-child {
+  margin-left: 0;
+}
+
 /* ===== ACTION CARD (SEPARATE) ===== */
 .action-card {
   flex: 0 0 auto;
   width: 292px;
+  min-width: 292px;
+  margin-right: 42px;
   height: 440px;
   position: relative;
   overflow: hidden;
   background: #111;
   border-radius: 6px;
   scroll-snap-align: start;
+  cursor: pointer;
 }
+
+
+.action-card:nth-last-child(1) {
+  margin-right: 0;
+}
+
 
 .action-card::after,
 .comedy-card::after {
@@ -360,6 +411,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  background-position: center;
   display: block;
 }
 
@@ -367,11 +419,14 @@ body {
 .comedy-card {
   flex: 0 0 auto;
   width: 504px;
+  min-width: 504px;
+  margin-right: 34px;
   height: 736px;
   overflow: hidden;
   position: relative;
   background: transparent;
   scroll-snap-align: start;
+  cursor: pointer;
 }
 
 .comedy-card img {
@@ -430,23 +485,23 @@ body {
 /* category yeri */
 .action-card .category-name,
 .comedy-card .category-name {
-  left: 10px;
+  left: 16px;
   bottom: 72px;
   font-size: 11px;
   padding: 3px 8px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: calc(100% - 20px);
+  max-width: calc(100% - 32px);
 }
 
 /* imdb stars yeri */
 .action-card .card-imdb,
 .comedy-card .card-imdb {
   position: absolute;
-  left: 6px;
+  left: 16px;
   bottom: 40px;
-  padding: 0 4px;
+  padding: 0;
   z-index: 3;
   margin-bottom: 0;
 }
@@ -454,14 +509,14 @@ body {
 /* movie name yeri */
 .action-card .movie-name,
 .comedy-card .movie-name {
-  left: 10px;
+  left: 16px;
   bottom: 10px;
   font-size: 16px;
   line-height: 1.3;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: calc(100% - 20px);
+  max-width: calc(100% - 32px);
 }
 
 .card-play-btn {
