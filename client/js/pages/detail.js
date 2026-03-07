@@ -329,11 +329,8 @@ function renderSimilarMovies(movies, currentId, categoryId, favIds) {
 
     card.querySelector(".card-play-btn")?.addEventListener("click", (e) => {
       e.stopPropagation();
-      openPlayModal(
-        card.querySelector(".movie-name")?.textContent,
-        card.querySelector("img")?.src,
-        card.dataset.trailer
-      );
+      sessionStorage.setItem("detail_access", "1");
+      window.location.href = `./detail.html?id=${id}`;
     });
 
     card.querySelector(".card-fav-btn")?.addEventListener("click", async (e) => {

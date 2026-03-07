@@ -24,20 +24,21 @@ body {
 .favorites__grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 16px;
   margin-top: 20px;
 }
 
 /* action-card override: flex → grid child */
 .favorites__grid .action-card {
-  flex: 0 0 286px;
-  width: 286px;
+  flex: 0 0 calc(25% - 12px);
+  width: calc(25% - 12px);
   height: 440px;
   position: relative;
   overflow: hidden;
   background: #1a1a1a;
   border-radius: 6px;
   cursor: pointer;
+  margin-right: 0;
 }
 
 .favorites__grid .action-card img {
