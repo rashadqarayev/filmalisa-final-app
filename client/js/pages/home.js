@@ -67,7 +67,7 @@ function buildCategorySection(category, favIds) {
 
   section.innerHTML =
     "<div class=\"section__header\"><h2 class=\"section__title\">" + category.name +
-    " <span class=\"section__chevron\">&gt;</span></h2></div>" +
+    " <span class=\"section__chevron\"><i class=\"fa-solid fa-chevron-right\"></i></span></h2></div>" +
     "<div class=\"scroll-row\">" +
     "<button class=\"scroll-btn scroll-btn--prev\" aria-label=\"Previous\"><i class=\"fa-solid fa-chevron-left\"></i></button>" +
     "<div class=\"action__wrapper\" id=\"" + wrapperId + "\">" +

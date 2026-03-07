@@ -267,6 +267,12 @@ body {
   letter-spacing: 0.2px;
 }
 
+.section__chevron i {
+  font-size: 16px;
+  position: relative;
+  top: -2px;
+}
+
 /* WRAPPERS: horizontal scroll */
 .scroll-row {
   position: relative;
