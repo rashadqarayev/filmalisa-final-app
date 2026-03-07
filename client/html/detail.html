@@ -129,11 +129,15 @@
                     <div id="commentsList"></div>
 
                 <section class="similar-movie-section">
-                    <h3 class="section-title">similar movies ></h3>
+                    <h3 class="section-title">similar movies <span class="section__chevron"><i class="fa-solid fa-chevron-right"></i></span></h3>
 
-                    <div class="swiper similarSwiper">
-                        <div class="swiper-wrapper" id="similarSwiperWrapper">
+                    <div class="similar-scroll-row">
+                        <button class="scroll-btn scroll-btn--prev similar-scroll-btn--prev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+                        <div class="swiper similarSwiper">
+                            <div class="swiper-wrapper" id="similarSwiperWrapper">
+                            </div>
                         </div>
+                        <button class="scroll-btn scroll-btn--next similar-scroll-btn--next" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
                 </section>
 

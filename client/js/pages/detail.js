@@ -359,7 +359,7 @@ function renderSimilarMovies(movies, currentId, categoryId, favIds) {
   });
 
   // Init Swiper after DOM is ready
-  new Swiper(".similarSwiper", {
+  const swiper = new Swiper(".similarSwiper", {
     direction: "horizontal",
     slidesPerView: "auto",
     spaceBetween: 22,
@@ -370,6 +370,26 @@ function renderSimilarMovies(movies, currentId, categoryId, favIds) {
     grabCursor: true,
     mousewheel: { forceToAxis: true },
   });
+
+  document.querySelector(".similar-scroll-btn--prev")?.addEventListener("click", () => swiper.slidePrev());
+  document.querySelector(".similar-scroll-btn--next")?.addEventListener("click", () => swiper.slideNext());
+
+  // Update button visibility based on swiper position
+  function updateSimilarBtns() {
+    const prevBtn = document.querySelector(".similar-scroll-btn--prev");
+    const nextBtn = document.querySelector(".similar-scroll-btn--next");
+    if (prevBtn) {
+      prevBtn.style.display = swiper.isBeginning ? "none" : "";
+    }
+    if (nextBtn) {
+      nextBtn.style.display = swiper.isEnd ? "none" : "";
+    }
+  }
+  swiper.on("slideChange", updateSimilarBtns);
+  swiper.on("reachBeginning", updateSimilarBtns);
+  swiper.on("reachEnd", updateSimilarBtns);
+  swiper.on("fromEdge", updateSimilarBtns);
+  updateSimilarBtns();
 }
 
 // ─── Init ─────────────────────────────────────────────────────────────────────

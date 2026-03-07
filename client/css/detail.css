@@ -621,12 +621,75 @@ body {
   margin-right: -48px;
 }
 
+.similar-scroll-row {
+  position: relative;
+  overflow: visible;
+}
+
+.similar-scroll-row .scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.18);
+  background: rgba(15, 15, 15, 0.82);
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, background 0.2s, transform 0.18s, border-color 0.2s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.45);
+}
+
+.similar-scroll-row .scroll-btn--prev {
+  left: 0;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.similar-scroll-row .scroll-btn--prev:hover {
+  transform: translateX(-50%) translateY(-50%) scale(1.1);
+}
+
+.similar-scroll-row .scroll-btn--next {
+  right: 2px;
+  transform: translateY(-50%);
+}
+
+.similar-scroll-row .scroll-btn--next:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.similar-scroll-row .scroll-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255,255,255,0.4);
+}
+
+.similar-scroll-row:hover .scroll-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .section-title {
   color: rgba(255, 255, 255, 1);
   margin-bottom: 24px;
   /* margin-left: -30px; */
   font-size: 30px;
   font-weight: 500;
+}
+
+.section-title .section__chevron i {
+  font-size: 16px;
+  position: relative;
+  top: -4px;
 }
 
 .similarSwiper {
