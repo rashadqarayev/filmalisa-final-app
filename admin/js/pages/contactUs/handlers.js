@@ -77,7 +77,7 @@ export function registerHandlers() {
     if (!item) return;
     document.getElementById("contactModalName").textContent = item.full_name ?? item.name ?? "—";
     document.getElementById("contactModalEmail").textContent = item.email ?? "—";
-    document.getElementById("contactModalText").textContent = item.reason || "—";
+    document.getElementById("contactModalComment").textContent = item.reason || "—";
     document.getElementById("contactModal").showModal();
   };
 }

@@ -45,7 +45,7 @@ export function registerHandlers() {
     if (!item) return;
     document.getElementById("commentModalUser").textContent = item.user?.full_name ?? "Unknown";
     document.getElementById("commentModalMovie").textContent = item.movie?.title ?? "—";
-    document.getElementById("commentModalText").textContent = item.comment || "—";
+    document.getElementById("commentModalComment").textContent = item.comment || "—";
     document.getElementById("commentModal").showModal();
   };
 
