@@ -30,9 +30,23 @@ export function renderTable(tableBody, items) {
           />
         </td>
         <td class="operation">
-          <i class="fa-solid fa-pen-to-square edit-btn op-edit" title="Edit"></i>
-          <i class="fa-solid fa-trash delete-btn op-delete" title="Delete"></i>
-          <i class="fa-regular fa-eye op-view" onclick="showActorDetailModal(${actor.id})" title="View"></i>
+          <button class="action-trigger" onclick="toggleActionMenu(this, event)">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </button>
+          <div class="action-menu">
+            <button class="action-menu-item" onclick="showActorDetailModal(${actor.id}); closeAllActionMenus()">
+              <i class="fa-regular fa-eye"></i>
+              <span>View</span>
+            </button>
+            <button class="action-menu-item" onclick="openEditModalFromTable(this)">
+              <i class="fa-solid fa-pen-to-square"></i>
+              <span>Edit</span>
+            </button>
+            <button class="action-menu-item action-menu-item--delete" onclick="openDeleteModalFromTable(this)">
+              <i class="fa-solid fa-trash"></i>
+              <span>Delete</span>
+            </button>
+          </div>
         </td>
       </tr>`
     )

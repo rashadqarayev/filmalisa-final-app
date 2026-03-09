@@ -122,6 +122,33 @@ export function registerHandlers() {
 
   window.showDeleteModal = showDeleteModal;
 
+  window.toggleActionMenu = (btn, e) => {
+    e.stopPropagation();
+    const menu = btn.nextElementSibling;
+    const isOpen = menu.classList.contains("open");
+    closeAllActionMenus();
+    if (!isOpen) {
+      menu.classList.add("open");
+      const btnRect = btn.getBoundingClientRect();
+      const menuWidth = menu.offsetWidth;
+      const menuHeight = menu.offsetHeight;
+      // place to the left of the button, vertically centered
+      let top = btnRect.top + btnRect.height / 2 - menuHeight / 2;
+      const left = btnRect.left - menuWidth - 4;
+      // clamp so menu stays inside viewport
+      const padding = 8;
+      top = Math.max(padding, Math.min(top, window.innerHeight - menuHeight - padding));
+      menu.style.top = top + "px";
+      menu.style.left = left + "px";
+    }
+  };
+
+  window.closeAllActionMenus = () => {
+    document.querySelectorAll(".action-menu.open").forEach((m) => m.classList.remove("open"));
+  };
+
+  document.addEventListener("click", window.closeAllActionMenus);
+
   window.showOverviewModal = (movieId) => {
     const movie = state.allMovies.find((m) => m.id === movieId);
     if (!movie) return;
