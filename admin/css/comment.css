@@ -63,7 +63,11 @@ main {
     font-family: var(--font-numeric);
     font-weight: 400;
     vertical-align: middle;
-    height: 60px;
+    height: 72px;
+}
+
+.table th {
+    text-align: center;
 }
 
 
@@ -202,10 +206,8 @@ table .title-movie {
 .edit-modal .btn-primary:hover {
   background: #6f4bdb;
 }
-.comment-user{
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.comment-user {
+  vertical-align: middle;
 }
 
 
