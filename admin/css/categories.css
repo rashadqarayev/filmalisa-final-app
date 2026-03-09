@@ -1,5 +1,7 @@
 html {
-  background: #171616;
+  background:
+    linear-gradient(rgba(10, 10, 14, 0.8), rgba(10, 10, 14, 0.8)),
+    url("../../assets/images/landingPageBack.svg") center / cover no-repeat fixed;
 }
 
 /* ROOT / BODY */
@@ -43,6 +45,8 @@ main {
 
 .table td,
 .table th {
+  font-family: var(--font-numeric);
+  font-weight: 400;
   vertical-align: middle;
   height: 65px;
 }
@@ -268,3 +272,5 @@ main {
   gap: 10px;
   flex-wrap: wrap;
 }
+
+

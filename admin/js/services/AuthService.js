@@ -1,5 +1,5 @@
 import { httpClient } from "../core/HttpClient.js";
-import { showToast } from "../utils/Toast.js";
+import { showToast } from "../utils/toast.js";
 
 /**
  * AuthService - Handles authentication related API calls

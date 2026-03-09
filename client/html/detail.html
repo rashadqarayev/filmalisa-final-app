@@ -11,14 +11,28 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
 
-    <link rel="stylesheet" href="../../client/css/detail.css">
-    <link rel="stylesheet" href="../../client/css/aside.css">
+    <link rel="stylesheet" href="../css/detail.css">
+    <link rel="stylesheet" href="../css/aside.css">
     <link rel="stylesheet" href="../../global.css">
+    <link rel="stylesheet" href="../css/toast.css">
+    <link rel="stylesheet" href="../../admin/css/loading.css">
 
 
 </head>
 
 <body>
+    <!-- Page Loader -->
+    <div id="page-loader">
+      <div class="loader-wrapper">
+        <div class="loader-ring-1"></div>
+        <div class="loader-ring-2"></div>
+        <div class="loader-ring-3"></div>
+        <div class="loader-dot"></div>
+      </div>
+      <p class="loader-label">Loading</p>
+      <div class="loader-dots"><span></span><span></span><span></span></div>
+    </div>
+
     <div class="detailContainer">
         <nav class="menu">
             <a class="menu__item menu__logo" href="./home.html">
@@ -44,199 +58,86 @@
 
         <main class="detail-main-content">
             <section class="movieImgSection">
-                <img src="../../assets/images/detailimg.jpg" alt="movie image" class="movieImg" />
+                <img src="" alt="movie banner" class="movieImg" id="detailBannerImg" />
             </section>
 
             <div class="movieInfo">
                 <div class="movieInfoHeader">
-                    <p class="movieTitle">MaileHereko/ <span class="movieTitleSpan">Tv Shows</span></p>
-
-                    <h3 class="movieName">lost In space</h3>
+                    <p class="movieTitle"><span class="movieTitleSpan" id="movieCategoryName"></span></p>
+                    <h3 class="movieName" id="movieName"></h3>
                 </div>
 
                 <div class="movieDetailSection">
 
                     <div class="detail-img-wrapper">
-                        <img src="../../assets/images/detail-img-card.svg" alt="movie image" class="detailMovieImg" />
-                        <button class="detail-play-btn" aria-label="Play trailer">
+                        <img src="" alt="movie poster" class="detailMovieImg" id="detailMoviePoster" />
+                        <button class="detail-play-btn" id="detailPlayBtn" aria-label="Play trailer">
                             <i class="fa-solid fa-play"></i>
                         </button>
                     </div>
                     <div class="detail-right-section">
                         <div class="detail-rigth-section-header">
                             <div class="detail-header-left">
-                                <h1 class="detail-header-left-h1">have you seen our robot?</h1>
-                                <button class="watchBtn">Watch Link</button>
+                                <h1 class="detail-header-left-h1" id="detailMovieTitle"></h1>
+                                <button class="watchBtn" id="watchBtn">Watch Link</button>
                             </div>
-                            <button class="addMyListBtn">+</button>
+                            <button class="addMyListBtn" id="addMyListBtn">+</button>
                         </div>
-                        <p class="detail-description"> The mission to save Scarecrow takes an unexpected turn, throwing
-                            the
-                            Resolute into chaos. Judy hatches a plan to get a ship to Alpha Centauri.</p>
-                        <p class="detail-rating"><i class="fa-solid fa-star"></i> 8.5</p>
-                        <div class="aboutMovie">
+                        <p class="detail-description" id="detailOverview"></p>
+                        <p class="detail-rating" id="detailRating"><i class="fa-solid fa-star"></i> —</p>
+                        <div class="aboutMovie" id="aboutMovie">
                             <div class="aboutMovie-item">
-                                <span class="data-span">Type</span>
-                                <p class="data-text">TV Show</p>
+                                <span class="data-span">Category</span>
+                                <p class="data-text" id="aboutCategory">—</p>
                             </div>
                             <div class="aboutMovie-item">
-                                <span class="data-span">Status</span>
-                                <p class="data-text">Returning Series</p>
-                            </div>
-                            <div class="aboutMovie-item episodes">
-                                <span class="data-span">No. of episodes</span>
-                                <p class="data-text">20</p>
+                                <span class="data-span">Runtime</span>
+                                <p class="data-text" id="aboutRuntime">—</p>
                             </div>
                             <div class="aboutMovie-item">
-                                <span class="data-span">First air date</span>
-                                <p class="data-text">2018-04-13</p>
+                                <span class="data-span">Adult</span>
+                                <p class="data-text" id="aboutAdult">—</p>
                             </div>
                             <div class="aboutMovie-item">
-                                <span class="data-span">Last air date</span>
-                                <p class="data-text">2019-04-24</p>
+                                <span class="data-span">IMDB</span>
+                                <div id="aboutImdb">—</div>
                             </div>
-                            <div class="aboutMovie-item episodeRunTime">
-                                <span class="data-span">Episode run time</span>
-                                <p class="data-text">56 min</p>
+                            <div class="aboutMovie-item">
+                                <span class="data-span">Year</span>
+                                <p class="data-text" id="aboutYear">—</p>
                             </div>
                         </div>
                         <p class="genres-text">Genres</p>
-                        <p class="genres-name">Genres: Action, Adventure, Sci-Fi</p>
+                        <p class="genres-name" id="genresName"></p>
                         <div class="actors-section">
                             <p class="actors-text">Top Cast</p>
-
-                            <div class="actors-list">
-                                <div class="actor-card">
-                                    <img src="../../assets/images/actors.jpg" alt="actor" />
-                                    <p class="actor-name">maxwell jenkins</p>
-                                    <span class="actor-role">tony slack</span>
-                                </div>
-
-                                <div class="actor-card">
-                                    <img src="../../assets/images/actors.jpg" alt="actor" />
-                                    <p class="actor-name">maxwell jenkins</p>
-                                    <span class="actor-role">tony slack</span>
-                                </div>
-
-                                <div class="actor-card">
-                                    <img src="../../assets/images/actors.jpg" alt="actor" />
-                                    <p class="actor-name">maxwell jenkins</p>
-                                    <span class="actor-role">tony slack</span>
-                                </div>
-
-                                <div class="actor-card">
-                                    <img src="../../assets/images/actors.jpg" alt="actor" />
-                                    <p class="actor-name">maxwell jenkins</p>
-                                    <span class="actor-role">tony slack</span>
-                                </div>
-                            </div>
+                            <div class="actors-list" id="actorsList"></div>
                         </div>
-
                     </div>
                 </div>
                 <section class="comment-section">
                     <div class="commentBar">
-                        <input type="text" class="commentInput" placeholder="Add a comment..." />
-                        <button class="commentBtn"><img src="../../assets/images/send.svg" alt="send"></button>
-                    </div>
-                    <div class="comment-title">
-                        <div class="comment-header">
-                            <img src="../../assets/images/sarkhanmuellim.svg" alt="user" class="comment-user-img" />
-                            <p class="comment-user-name">Sarkhan Rahimli</p>
+                        <div class="commentInput-wrap">
+                            <input type="text" id="commentInput" class="commentInput" placeholder="Add a comment..." />
+                            <button type="button" id="emojiPickerBtn" class="emoji-picker-btn" title="Emoji">&#128512;</button>
+                            <div id="emojiPickerPanel" class="emoji-picker-panel" hidden>
+                                <div class="emoji-grid" id="emojiGrid"></div>
+                            </div>
                         </div>
-                        <p class="comment-text">Woah, your project looks awesome! How long have you been coding for? I’m
-                            still new, but think I want to dive into React as well soon. Perhaps you can give me an
-                            insight
-                            on where I can learn React? Thanks!</p>
+                        <button class="commentBtn" id="commentBtn"><img src="../../assets/images/send.svg" alt="send"></button>
                     </div>
-                </section>
+                    <div id="commentsList"></div>
 
                 <section class="similar-movie-section">
-                    <h3 class="section-title">similar movies ></h3>
+                    <h3 class="section-title">similar movies <span class="section__chevron"><i class="fa-solid fa-chevron-right"></i></span></h3>
 
-                    <div class="swiper similarSwiper">
-                        <div class="swiper-wrapper">
-
-                            <article class="swiper-slide action-card">
-                                <img src="../../assets/images/home.film1.jpg" alt="Wonder Woman 1984" />
-                                <span class="category-name">Fantasy</span>
-                                <h3 class="movie-name">Wonder Woman 1984</h3>
-                                <button class="card-play-btn" aria-label="Play movie"><i
-                                        class="fa-solid fa-play"></i></button>
-                                <button class="card-fav-btn" aria-label="Add to favorites"><i
-                                        class="fa-regular fa-star"></i></button>
-                            </article>
-
-                            <article class="swiper-slide action-card">
-                                <img src="../../assets/images/home.film2.jpg" alt="Zack Snyder's Justice League" />
-                                <span class="category-name">Fantasy</span>
-                                <h3 class="movie-name">Zack Snyder's Justice League</h3>
-                                <button class="card-play-btn" aria-label="Play movie"><i
-                                        class="fa-solid fa-play"></i></button>
-                                <button class="card-fav-btn" aria-label="Add to favorites"><i
-                                        class="fa-regular fa-star"></i></button>
-                            </article>
-
-                            <article class="swiper-slide action-card">
-                                <img src="../../assets/images/home.film3.jpg" alt="Mortal Kombat" />
-                                <span class="category-name">Action</span>
-                                <h3 class="movie-name">Mortal Kombat</h3>
-                                <button class="card-play-btn" aria-label="Play movie"><i
-                                        class="fa-solid fa-play"></i></button>
-                                <button class="card-fav-btn" aria-label="Add to favorites"><i
-                                        class="fa-regular fa-star"></i></button>
-                            </article>
-
-                            <article class="swiper-slide action-card">
-                                <img src="../../assets/images/home.film4.jpg" alt="The Courier" />
-                                <span class="category-name">Drama</span>
-                                <h3 class="movie-name">The Courier</h3>
-                                <button class="card-play-btn" aria-label="Play movie"><i
-                                        class="fa-solid fa-play"></i></button>
-                                <button class="card-fav-btn" aria-label="Add to favorites"><i
-                                        class="fa-regular fa-star"></i></button>
-                            </article>
-
-                            <article class="swiper-slide action-card">
-                                <img src="../../assets/images/falcon.png" alt="The Falcon and the Winter Soldier" />
-                                <span class="category-name">Sci-Fi</span>
-                                <h3 class="movie-name">The Falcon and the Winter Soldier</h3>
-                                <button class="card-play-btn" aria-label="Play movie"><i
-                                        class="fa-solid fa-play"></i></button>
-                                <button class="card-fav-btn" aria-label="Add to favorites"><i
-                                        class="fa-regular fa-star"></i></button>
-                            </article>
-
-                            <article class="swiper-slide action-card">
-                                <img src="../../assets/images/wandavision.jpg" alt="WandaVision" />
-                                <span class="category-name">Sci-Fi</span>
-                                <h3 class="movie-name">WandaVision</h3>
-                                <button class="card-play-btn" aria-label="Play movie"><i
-                                        class="fa-solid fa-play"></i></button>
-                                <button class="card-fav-btn" aria-label="Add to favorites"><i
-                                        class="fa-regular fa-star"></i></button>
-                            </article>
-
-                            <article class="swiper-slide action-card">
-                                <img src="../../assets/images/gameofthrones.png" alt="Game of Thrones" />
-                                <span class="category-name">Fantasy</span>
-                                <h3 class="movie-name">Game of Thrones</h3>
-                                <button class="card-play-btn" aria-label="Play movie"><i
-                                        class="fa-solid fa-play"></i></button>
-                                <button class="card-fav-btn" aria-label="Add to favorites"><i
-                                        class="fa-regular fa-star"></i></button>
-                            </article>
-
-                            <article class="swiper-slide action-card">
-                                <img src="../../assets/images/detailimg.jpg" alt="Lost In Space" />
-                                <span class="category-name">Adventure</span>
-                                <h3 class="movie-name">Lost In Space</h3>
-                                <button class="card-play-btn" aria-label="Play movie"><i
-                                        class="fa-solid fa-play"></i></button>
-                                <button class="card-fav-btn" aria-label="Add to favorites"><i
-                                        class="fa-regular fa-star"></i></button>
-                            </article>
+                    <div class="similar-scroll-row">
+                        <button class="scroll-btn scroll-btn--prev similar-scroll-btn--prev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+                        <div class="swiper similarSwiper">
+                            <div class="swiper-wrapper" id="similarSwiperWrapper">
+                            </div>
                         </div>
+                        <button class="scroll-btn scroll-btn--next similar-scroll-btn--next" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
                 </section>
 
@@ -277,7 +178,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../client/js/detail.js"></script>
+    <script type="module" src="../js/pages/detail.js"></script>
 
 
 </body>

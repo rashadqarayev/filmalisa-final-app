@@ -4,7 +4,7 @@
  * GET /profile — get current user's profile  (auth required)
  * PUT /profile — update profile               (auth required)
  */
-import { http } from "../core/HttpClient.js";
+import { httpClient } from "../core/HttpClient.js";
 
 class ProfileService {
   /**
@@ -16,7 +16,7 @@ class ProfileService {
    *   { id, full_name, email, img_url, created_at }
    */
   getProfile() {
-    return http.get("/profile");
+    return httpClient.get("/profile");
   }
 
   /**
@@ -29,10 +29,10 @@ class ProfileService {
   updateProfile({ full_name, email, img_url, password } = {}) {
     const body = {};
     if (full_name !== undefined) body.full_name = full_name;
-    if (email     !== undefined) body.email     = email;
-    if (img_url   !== undefined) body.img_url   = img_url;
-    if (password  !== undefined) body.password  = password;
-    return http.put("/profile", body);
+    if (email !== undefined) body.email = email;
+    if (img_url !== undefined) body.img_url = img_url;
+    if (password !== undefined) body.password = password;
+    return httpClient.put("/profile", body);
   }
 }
 

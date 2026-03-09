@@ -71,7 +71,7 @@ export async function saveMovie(currentEditId, movieData) {
 export async function deleteMovie(movieId) {
   const res = await adminService.movies.deleteMovie(movieId);
   if (res.result) {
-    adminService.showSuccess("Movie deleted successfully!");
+    adminService.showInfo("Movie deleted successfully!");
     await loadMovies();
     return true;
   } else {

@@ -3,7 +3,7 @@
  *
  * POST /contact — submit a contact/support request
  */
-import { http } from "../core/HttpClient.js";
+import { httpClient } from "../core/HttpClient.js";
 
 class ContactService {
   /**
@@ -16,7 +16,7 @@ class ContactService {
    *   { id, full_name, email, reason, created_at }
    */
   submit({ full_name, email, reason }) {
-    return http.post("/contact", { full_name, email, reason });
+    return httpClient.post("/contact", { full_name, email, reason });
   }
 }
 

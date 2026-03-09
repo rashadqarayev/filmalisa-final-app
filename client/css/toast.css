@@ -2,7 +2,7 @@
 .toast-container {
   position: fixed;
   top: 20px;
-  right: max(20px, calc(50vw - 700px));
+  right: max(20px, calc((100vw - 1440px) / 2 + 20px));
   z-index: 9999;
   max-width: 400px;
   display: flex;
@@ -92,25 +92,15 @@
   left: 0;
   height: 3px;
   background: rgba(255, 255, 255, 0.5);
-  animation: progress 4.5s linear forwards;
+  animation: progress 4s linear forwards;
 }
 
 @keyframes slideIn {
-  from {
-    transform: translateX(400px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+  from { transform: translateX(400px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
 }
 
 @keyframes progress {
-  from {
-    width: 100%;
-  }
-  to {
-    width: 0%;
-  }
+  from { width: 100%; }
+  to   { width: 0%;   }
 }

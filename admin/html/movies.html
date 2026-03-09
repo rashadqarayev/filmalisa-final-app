@@ -96,7 +96,7 @@
           </a>
         </div>
 
-        <div class="lowerAside">
+        <div class="lowerAside" id="logoutBtn" style="cursor:pointer;">
           <img src="../../assets/images/logout.svg" alt="logout" />
           <p class="logout-text">Logout</p>
         </div>
@@ -273,15 +273,49 @@
 
           <!-- right -->
           <div class="edit-right">
-            <img
-              id="previewImg"
-              src="../../assets/images/film-image-default.png"
-              alt="preview"
-            />
+            <div class="preview-wrapper">
+              <p class="preview-label"><i class="fa-regular fa-image"></i> Cover Preview</p>
+              <img
+                id="previewImg"
+                src="../../assets/images/film-image-default.png"
+                alt="preview"
+              />
+              <p class="preview-hint" id="previewHint">Enter a URL above to see the cover</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- OVERVIEW MODAL -->
+    <dialog id="overviewModal" class="actorModal">
+      <div class="modalBox overview-modal-box">
+        <div class="modal-header">
+          <h2 id="overviewModalTitle">Movie Title</h2>
+          <button type="button" class="close-modal" onclick="overviewModal.close()">×</button>
+        </div>
+        <div class="overview-modal-body">
+          <div class="overview-modal-left">
+            <p class="overview-modal-label">Overview</p>
+            <p id="overviewModalText"></p>
+          </div>
+          <div class="overview-modal-right">
+            <p class="overview-modal-label" aria-hidden="true" style="visibility:hidden">Overview</p>
+            <img id="overviewModalCover" src="" alt="cover" class="overview-modal-cover" />
+          </div>
+        </div>
+        <div class="overview-modal-meta">
+          <div class="overview-modal-meta-item">
+            <p class="overview-modal-label">Category</p>
+            <p><i class="fa-solid fa-layer-group"></i> <span id="overviewModalCategory"></span></p>
+          </div>
+          <div class="overview-modal-meta-item">
+            <p class="overview-modal-label">IMDB</p>
+            <p><i class="fa-solid fa-star"></i> <span id="overviewModalImdb"></span></p>
+          </div>
+        </div>
+      </div>
+    </dialog>
 
     <!-- DELETE MODAL -->
     <dialog id="deleteModal" class="actorModal">

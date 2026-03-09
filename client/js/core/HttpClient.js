@@ -52,12 +52,17 @@ class HttpClient {
     if (params) {
       const qs = new URLSearchParams(
         Object.fromEntries(
-          Object.entries(params).filter(([, v]) => v !== undefined && v !== null && v !== "")
+          Object.entries(params).filter(
+            ([, v]) => v !== undefined && v !== null && v !== ""
+          )
         )
       ).toString();
       if (qs) url += "?" + qs;
     }
-    const res = await fetch(url, { method: "GET", headers: this.#headers(headers) });
+    const res = await fetch(url, {
+      method: "GET",
+      headers: this.#headers(headers),
+    });
     return this.#handle(res);
   }
 
@@ -88,5 +93,5 @@ class HttpClient {
   }
 }
 
-export const http = new HttpClient();
+export const httpClient = new HttpClient();
 export default HttpClient;

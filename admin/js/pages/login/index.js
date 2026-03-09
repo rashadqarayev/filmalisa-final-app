@@ -45,27 +45,25 @@ async function handleLogin(event) {
   try {
     const response = await adminService.auth.login(email, password);
 
-    console.log("Login response:", response);
-
     if (response.result) {
+      // API docs: admin profile always has id 999999
+      // Regular client users have different IDs → block them
+      const profile = response.data?.profile;
+      if (!profile || profile.id !== 261) {
+        adminService.http.removeAuthToken();
+        showToast("Access Denied", "You do not have permission to access the admin panel.", "error");
+        return;
+      }
+
       showToast("Success", "Login successful!", "success");
       setTimeout(() => {
         window.location.href = "/admin/html/dashboard.html";
       }, 1000);
     } else {
-      showToast(
-        "Error",
-        response.message || "Login failed. Access denied.",
-        "error"
-      );
+      showToast("Login Failed", response.message || "Email or password is incorrect.", "error");
     }
   } catch (error) {
-    console.error("Login error:", error);
-    showToast(
-      "Error",
-      error.message || "Login failed. Please try again.",
-      "error"
-    );
+    showToast("Connection Error", error.message || "Could not reach the server.", "error");
   } finally {
     if (btn) {
       btn.disabled = false;

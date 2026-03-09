@@ -6,7 +6,7 @@
  * GET  /movies/favorites   — current user's favourite movies (auth required)
  * POST /movie/:id/favorite — toggle favourite on/off   (auth required)
  */
-import { http } from "../core/HttpClient.js";
+import { httpClient } from "../core/HttpClient.js";
 
 class MoviesService {
   /**
@@ -16,7 +16,7 @@ class MoviesService {
    * @returns {Promise<{ message, data: Movie[], result }>}
    */
   getAllMovies(search) {
-    return http.get("/movies", { params: { search } });
+    return httpClient.get("/movies", { params: { search } });
   }
 
   /**
@@ -26,7 +26,7 @@ class MoviesService {
    * @returns {Promise<{ message, data: Movie, result }>}
    */
   getMovieById(id) {
-    return http.get(`/movies/${id}`);
+    return httpClient.get(`/movies/${id}`);
   }
 
   /**
@@ -36,7 +36,7 @@ class MoviesService {
    * @returns {Promise<{ message, data: Movie[], result }>}
    */
   getFavorites() {
-    return http.get("/movies/favorites");
+    return httpClient.get("/movies/favorites");
   }
 
   /**
@@ -47,7 +47,7 @@ class MoviesService {
    * @returns {Promise<{ message, data: null, result }>}
    */
   toggleFavorite(id) {
-    return http.post(`/movie/${id}/favorite`);
+    return httpClient.post(`/movie/${id}/favorite`);
   }
 }
 

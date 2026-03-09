@@ -30,8 +30,9 @@ export function renderTable(tableBody, items) {
           />
         </td>
         <td class="operation">
-          <i class="fa-solid fa-pen-to-square edit-btn" style="cursor:pointer;" title="Edit"></i>
-          <i class="fa-solid fa-trash delete-btn"       style="cursor:pointer;" title="Delete"></i>
+          <i class="fa-solid fa-pen-to-square edit-btn op-edit" title="Edit"></i>
+          <i class="fa-solid fa-trash delete-btn op-delete" title="Delete"></i>
+          <i class="fa-regular fa-eye op-view" onclick="showActorDetailModal(${actor.id})" title="View"></i>
         </td>
       </tr>`
     )

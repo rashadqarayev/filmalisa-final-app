@@ -5,7 +5,7 @@
  * POST   /movies/:movieId/comment         — post a comment  (auth required)
  * DELETE /movies/:movieId/comment/:id     — delete a comment (auth required)
  */
-import { http } from "../core/HttpClient.js";
+import { httpClient } from "../core/HttpClient.js";
 
 class CommentsService {
   /**
@@ -15,7 +15,7 @@ class CommentsService {
    * @returns {Promise<{ message, data: Comment[], result }>}
    */
   getComments(movieId) {
-    return http.get(`/movies/${movieId}/comments`);
+    return httpClient.get(`/movies/${movieId}/comments`);
   }
 
   /**
@@ -27,7 +27,7 @@ class CommentsService {
    * @returns {Promise<{ message, data: Comment, result }>}
    */
   createComment(movieId, comment) {
-    return http.post(`/movies/${movieId}/comment`, { comment });
+    return httpClient.post(`/movies/${movieId}/comment`, { comment });
   }
 
   /**
@@ -39,7 +39,7 @@ class CommentsService {
    * @returns {Promise<{ message, data: null, result }>}
    */
   deleteComment(movieId, commentId) {
-    return http.delete(`/movies/${movieId}/comment/${commentId}`);
+    return httpClient.delete(`/movies/${movieId}/comment/${commentId}`);
   }
 }
 

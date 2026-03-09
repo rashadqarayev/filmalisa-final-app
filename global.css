@@ -1,7 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Numans&family=Poppins:wght@600&family=Raleway:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Numans&family=Poppins:wght@400;600&family=Raleway:wght@300;400;500;600;700&display=swap");
 
 :root {
   --font-primary: "Raleway", sans-serif;
+  --font-numeric: "Poppins", sans-serif;
+  --admin-shell-max-width: 1440px;
 
 
   --primary-color: #9b51e0;
@@ -31,18 +33,69 @@
   margin-top: var(--base) * 5; /* Use CSS calc() with custom properties */
 }
 
+html {
+  background: #121212;
+}
+
 body {
   font-family: var(--font-primary);
   width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
+  /* max-width: 1440px; */
+  /* margin: 0 auto; */
   box-sizing: border-box;
 }
 
-html {
-  /* background: #000; */
-  /* background-color: #0f0f0f; */
+/* Client pages: keep content inside 1440px and use landing image on side areas */
+body:has(.landingPage),
+body:has(.page-shell),
+body:has(.detailContainer),
+body:has(.login-page),
+body:has(.register-page),
+body:has(.not-found) {
+  background:
+    linear-gradient(rgba(10, 10, 14, 0.65), rgba(10, 10, 14, 0.65)),
+    url("./assets/images/landingPageBack.svg") center / cover no-repeat fixed;
 }
+
+.landingPage,
+.page-shell,
+.detailContainer,
+.login-page,
+.register-page,
+.not-found {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  background: #000000;
+}
+
+/* Admin pages: keep layout centered in 1440px and show side background image */
+body:has(.dashBoardContainer),
+body:has(.actors-container),
+body:has(.categories-container),
+body:has(.movies-container),
+body:has(.commentContainer),
+body:has(.contact-us-container),
+body:has(.user-container) {
+  background:
+    linear-gradient(rgba(10, 10, 14, 0.8), rgba(10, 10, 14, 0.8)),
+    url("./assets/images/landingPageBack.svg") center / cover no-repeat fixed;
+}
+
+.dashBoardContainer,
+.actors-container,
+.categories-container,
+.movies-container,
+.commentContainer,
+.contact-us-container,
+.user-container {
+  width: 100%;
+  max-width: var(--admin-shell-max-width);
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+
 
 /* aside */
 
@@ -267,6 +320,8 @@ p {
 .pg-info {
   color: #aaa;
   font-size: 13px;
+  font-family: var(--font-numeric);
+  font-weight: 400;
 }
 
 .pg-info strong {
@@ -287,6 +342,8 @@ p {
   border: 1px solid #3a3a52;
   border-radius: 6px;
   font-size: 13px;
+  font-family: var(--font-numeric);
+  font-weight: 400;
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
   min-width: 36px;
@@ -316,6 +373,46 @@ p {
   padding: 0 4px;
   font-size: 14px;
 }
+
+/* ── Operation column eye icon ── */
+.op-eye-btn {
+  cursor: pointer;
+  color: #a78bfa;
+  font-size: 15px;
+  margin-right: 10px;
+  transition: color 0.2s, transform 0.2s;
+}
+.op-eye-btn:hover {
+  color: #c4b5fd;
+  transform: scale(1.25);
+}
+
+/* ── Operation column icon colors ── */
+.op-view {
+  cursor: pointer;
+  color: #3b82f6;
+  font-size: 15px;
+  margin-right: 10px;
+  transition: color 0.2s, transform 0.2s;
+}
+.op-view:hover  { color: #60a5fa; transform: scale(1.25); }
+
+.op-edit {
+  cursor: pointer;
+  color: #22c55e;
+  font-size: 15px;
+  margin-right: 10px;
+  transition: color 0.2s, transform 0.2s;
+}
+.op-edit:hover  { color: #4ade80; transform: scale(1.25); }
+
+.op-delete {
+  cursor: pointer;
+  color: #ef4444;
+  font-size: 15px;
+  transition: color 0.2s, transform 0.2s;
+}
+.op-delete:hover { color: #f87171; transform: scale(1.25); }
 /* ── Hide scrollbars (scroll still works) ── */
 main {
   scrollbar-width: none;       /* Firefox */
@@ -325,3 +422,29 @@ main {
 main::-webkit-scrollbar {
   display: none;               /* Chrome / Safari / Webkit */
 }
+
+/* ── Card IMDB rating stars ─────────────────────────────────────────── */
+.card-imdb {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 10px;
+  margin-bottom: 2px;
+}
+
+.card-imdb i {
+  font-size: 13px;
+  color: #fbbf24;
+}
+
+.card-imdb__score {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fbbf24;
+  font-family: 'Poppins', sans-serif;
+  margin-left: 5px;
+  letter-spacing: 0.3px;
+}
+
+
+

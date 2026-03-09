@@ -1,5 +1,7 @@
 html {
-  background: #171616;
+  background:
+    linear-gradient(rgba(10, 10, 14, 0.8), rgba(10, 10, 14, 0.8)),
+    url("../../assets/images/landingPageBack.svg") center / cover no-repeat fixed;
 }
 
 /* General Layout */
@@ -43,6 +45,8 @@ main {
 
 .table td,
 .table th {
+  font-family: var(--font-numeric);
+  font-weight: 400;
   vertical-align: middle;
   height: 60px;
 }
@@ -51,20 +55,15 @@ main {
 .operation i {
   cursor: pointer;
   font-size: 1.1rem;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.operation i:not(:last-child) {
+  margin-right: 14px;
 }
 
 .operation i:hover {
-  transform: scale(1.2);
-  opacity: 0.8;
-}
-
-.operation i:first-child {
-  margin-right: 15px;
-  color: #28a745;
-}
-
-.operation i:nth-child(2) {
-  color: #dc3545;
+  transform: scale(1.25);
 }
 
 /* --- MODAL DESIGN --- */
@@ -110,7 +109,8 @@ dialog:not([open]) {
 }
 
 #modalTitle,
-#deleteModalTitle {
+#deleteModalTitle,
+#actorDetailModal .modal-header h2 {
   color: white;
   font-size: 1.3rem;
   font-weight: 700;
@@ -273,4 +273,57 @@ dialog:not([open]) {
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
+}
+
+/* Actor detail modal */
+#actorDetailModal.actorModal {
+  width: min(480px, 90vw);
+  border-radius: 24px;
+  border: none;
+  padding: 0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#actorDetailModal::backdrop {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+}
+.actor-detail-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0 4px;
+}
+.actor-detail-photo {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #3b82f6;
+}
+.actor-detail-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.actor-detail-meta p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: #efefef;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin: 0;
+}
+.actor-detail-meta i {
+  color: #3b82f6;
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
 }

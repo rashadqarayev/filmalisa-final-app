@@ -91,7 +91,7 @@
           </a>
         </div>
 
-        <div class="lowerAside">
+        <div class="lowerAside" id="logoutBtn" style="cursor:pointer;">
           <img src="../../assets/images/logout.svg" alt="" />
           <p class="logout-text">Logout</p>
         </div>
@@ -120,7 +120,7 @@
                 <th scope="col">Fullname</th>
                 <th scope="col">Email</th>
                 <th scope="col">Image</th>
-                <!-- <th scope="col">Operation</th> -->
+                <th scope="col">Operation</th>
               </tr>
             </thead>
             <tbody id="usersTableBody">
@@ -144,6 +144,23 @@
             </tbody>
           </table>
         </section>
+
+        <!-- user detail modal -->
+        <dialog id="userDetailModal" class="userModal">
+          <div class="modalBox">
+            <div class="modal-header">
+              <h2>User Details</h2>
+              <button type="button" class="close-modal" onclick="userDetailModal.close()">×</button>
+            </div>
+            <div class="user-detail-body">
+              <img id="userDetailImg" src="" alt="user" class="user-detail-photo" />
+              <div class="user-detail-meta">
+                <p><i class="fa-solid fa-user"></i> <span id="userDetailName"></span></p>
+                <p><i class="fa-solid fa-envelope"></i> <span id="userDetailEmail"></span></p>
+              </div>
+            </div>
+          </div>
+        </dialog>
       </main>
     </div>
 

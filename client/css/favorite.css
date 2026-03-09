@@ -17,6 +17,79 @@ body {
 
 .page-main {
   padding: 40px 32px;
+  background: #121212;
+}
+
+/* ── Favorites grid ── */
+.favorites__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+/* action-card override: flex → grid child */
+.favorites__grid .action-card {
+  flex: 0 0 calc(25% - 12px);
+  width: calc(25% - 12px);
+  height: 440px;
+  position: relative;
+  overflow: hidden;
+  background: #1a1a1a;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 0;
+}
+
+.favorites__grid .action-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* category & title - no overlap */
+.favorites__grid .action-card .category-name {
+  position: absolute;
+  left: 10px;
+  bottom: 72px;
+  font-size: 11px;
+  padding: 3px 8px;
+  z-index: 3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 20px);
+}
+
+.favorites__grid .action-card .card-imdb {
+  position: absolute;
+  left: 6px;
+  bottom: 40px;
+  padding: 0 4px;
+  z-index: 3;
+  margin-bottom: 0;
+}
+
+.favorites__grid .action-card .movie-name {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  font-size: 16px;
+  line-height: 1.3;
+  z-index: 3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 20px);
+}
+
+.favorites__empty {
+  margin-top: 60px;
+  text-align: center;
+  color: rgba(255,255,255,0.45);
+  font-size: 16px;
+  letter-spacing: 0.04em;
 }
 
 .page-title {
@@ -79,6 +152,7 @@ body {
   position: relative;
   background: transparent;
   scroll-snap-align: start;
+  cursor: pointer;
 }
 
 .comedy-card::after {
@@ -155,7 +229,18 @@ body {
 .action-card .category-name,
 .comedy-card .category-name {
   left: 14px;
-  bottom: 62px;
+  bottom: 72px;
+}
+
+/* imdb yeri */
+.action-card .card-imdb,
+.comedy-card .card-imdb {
+  position: absolute;
+  left: 10px;
+  bottom: 40px;
+  padding: 0 4px;
+  z-index: 3;
+  margin-bottom: 0;
 }
 
 /* movie name yeri */
@@ -217,6 +302,6 @@ body {
 }
 
 .card-fav-btn.is-favorite {
-  color: #ffd43b;
+  color: #ef4444;
   background: rgba(20, 20, 20, 0.82);
 }

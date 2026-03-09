@@ -4,7 +4,7 @@
  * POST /auth/login   — login, stores token automatically
  * POST /auth/signup  — register new user
  */
-import { http } from "../core/HttpClient.js";
+import { httpClient } from "../core/HttpClient.js";
 
 class AuthService {
   /**
@@ -16,9 +16,9 @@ class AuthService {
    * @returns {Promise<{ message, data: { tokens, profile }, result }>}
    */
   async login(email, password) {
-    const res = await http.post("/auth/login", { email, password });
+    const res = await httpClient.post("/auth/login", { email, password });
     if (res.result && res.data?.tokens?.access_token) {
-      http.setToken(res.data.tokens.access_token);
+      httpClient.setToken(res.data.tokens.access_token);
     }
     return res;
   }
@@ -32,19 +32,19 @@ class AuthService {
    * @returns {Promise<{ message, data: null, result }>}
    */
   async signup(full_name, email, password) {
-    return http.post("/auth/signup", { full_name, email, password });
+    return httpClient.post("/auth/signup", { full_name, email, password });
   }
 
   /**
    * Remove stored token and redirect to login page.
    */
   logout() {
-    http.removeToken();
+    httpClient.removeToken();
     window.location.replace("/client/html/login.html");
   }
 
   isAuthenticated() {
-    return http.isAuthenticated();
+    return httpClient.isAuthenticated();
   }
 }
 
