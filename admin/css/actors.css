@@ -14,9 +14,7 @@
   border-radius: 6px;
   transition: transform 0.2s;
 }
-.action-trigger:hover {
-  transform: scale(1.2);
-}
+
 
 .action-menu {
   display: flex;
@@ -162,17 +160,22 @@ main {
 /* Operation Icons */
 .operation i {
   cursor: pointer;
-  font-size: 1.1rem;
+  width: 16px;
+  text-align: center;
+  color: #9ca3af;
   transition: color 0.2s, transform 0.2s;
+}
+
+.operation i:hover {
+  transform: scale(1.12);
+}
 }
 
 .operation i:not(:last-child) {
   margin-right: 14px;
 }
 
-.operation i:hover {
-  transform: scale(1.25);
-}
+
 
 /* --- MODAL DESIGN --- */
 .actorModal {
@@ -434,4 +437,5 @@ dialog:not([open]) {
   width: 16px;
   text-align: center;
   flex-shrink: 0;
+  font-size: 14px;
 }

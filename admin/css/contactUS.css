@@ -14,9 +14,7 @@
   border-radius: 6px;
   transition: transform 0.2s;
 }
-.action-trigger:hover {
-  transform: scale(1.2);
-}
+
 
 .action-menu {
   display: flex;
@@ -169,15 +167,18 @@ main {
 .operation i {
     cursor: pointer;
     transition: color 0.2s, transform 0.2s;
+  }
+
+  .operation i:hover {
+    transform: scale(1.12);
+  }
 }
 
 .operation i:not(:last-child) {
     margin-right: 14px;
 }
 
-.operation i:hover {
-    transform: scale(1.25);
-}
+
 
 
 
