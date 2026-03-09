@@ -69,19 +69,7 @@ body:has(.not-found) {
   background: #000000;
 }
 
-/* Admin pages: keep layout centered in 1440px and show side background image */
-body:has(.dashBoardContainer),
-body:has(.actors-container),
-body:has(.categories-container),
-body:has(.movies-container),
-body:has(.commentContainer),
-body:has(.contact-us-container),
-body:has(.user-container) {
-  background:
-    linear-gradient(rgba(10, 10, 14, 0.8), rgba(10, 10, 14, 0.8)),
-    url("./assets/images/landingPageBack.svg") center / cover no-repeat fixed;
-}
-
+/* Admin pages */
 .dashBoardContainer,
 .actors-container,
 .categories-container,
@@ -90,8 +78,6 @@ body:has(.user-container) {
 .contact-us-container,
 .user-container {
   width: 100%;
-  max-width: var(--admin-shell-max-width);
-  margin: 0 auto;
   min-height: 100vh;
 }
 
