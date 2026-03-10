@@ -12,7 +12,7 @@
   align-items: center;
   padding: 20px 0;
   gap: 0;
-  background: #0f0f0f;
+  background: var(--page-bg);
   z-index: 999;
   flex-shrink: 0;
 }
@@ -88,7 +88,7 @@
    PAGE SHELL (shared layout wrapper)
 ============================================================ */
 body:has(.page-shell) {
-  background: #121212;
+  background: var(--page-bg);
 }
 
 .page-shell {
@@ -108,7 +108,7 @@ body:has(.page-shell) {
   margin: 0 auto;
   min-width: 0;
   height: 100vh;
-  background: #121212;
+  background: var(--page-bg);
   overflow-y: auto;
   overflow-x: hidden;
   box-sizing: border-box;

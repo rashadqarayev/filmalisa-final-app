@@ -7,7 +7,7 @@
 
 html,
 body {
-  background: #121212;
+  background: var(--page-bg);
 }
 
 /* PAGE WRAPPER */

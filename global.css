@@ -26,6 +26,9 @@
   --card-bg-purple: rgba(101, 47, 141, 1);
   --sidebar-card-color: rgba(88, 32, 157, 1);
 
+  /* Base dark page background */
+  --page-bg: #121212;
+
   --base: 8px; /* Define your base spacing unit */
 }
 
@@ -34,7 +37,7 @@
 }
 
 html {
-  background: #121212;
+  background: var(--page-bg);
 }
 
 body {
@@ -45,28 +48,31 @@ body {
   box-sizing: border-box;
 }
 
-/* Client pages: keep content inside 1440px and use landing image on side areas */
+/* Client pages: keep content inside 1440px (no side background image) */
 body:has(.landingPage),
 body:has(.page-shell),
 body:has(.detailContainer),
-body:has(.login-page),
-body:has(.register-page),
 body:has(.not-found) {
-  background:
-    linear-gradient(rgba(10, 10, 14, 0.65), rgba(10, 10, 14, 0.65)),
-    url("./assets/images/landingPageBack.svg") center / cover no-repeat fixed;
+  background: #000000;
 }
 
 .landingPage,
 .page-shell,
 .detailContainer,
-.login-page,
-.register-page,
 .not-found {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
   background: #000000;
+}
+
+/* Auth pages: match form background color */
+.login-page,
+.register-page {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  background: var(--bg-color);
 }
 
 /* Admin pages */

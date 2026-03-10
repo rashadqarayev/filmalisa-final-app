@@ -6,7 +6,7 @@
    PAGE SHELL  →  .page-shell  and  .page-main  are in aside.css
 ============================================================ */
 body {
-  background: #121212;
+  background: var(--page-bg);
   color: #fff;
   margin: 0;
   overflow-x: hidden;
