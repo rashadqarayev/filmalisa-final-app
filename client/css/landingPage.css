@@ -272,8 +272,10 @@ nav .logo-div {
 
 .image-div .screen {
   position: absolute;
-  z-index: -1;
-  max-width: 80%;
+  z-index: 1;
+  max-width: 73%;
+  top: 21%;
+  left: 13%
 }
 
 /* feature sections end */
