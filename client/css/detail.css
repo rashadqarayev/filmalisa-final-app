@@ -1,4 +1,10 @@
-/* RESET */
+/* ...existing code... */
+.playModal .modal-dialog {
+  width: 50%;
+  /* ...existing code... */
+  min-width: 320px;
+}
+/* ...existing code... */
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +16,7 @@ body {
   background: var(--page-bg);
 }
 
-/* PAGE WRAPPER */
+/* ...existing code... */
 .detailContainer {
   width: 100%;
   max-width: 1440px;
@@ -24,7 +30,7 @@ body {
   overflow: hidden;
 }
 
-/* LEFT MENU - inherits from aside.css, minor detail-specific overrides */
+/* ...existing code... */
 .menu {
   position: fixed;
   top: 0;
@@ -95,7 +101,7 @@ body {
   filter: none;
 }
 
-/* SCROLLABLE MAIN CONTENT */
+/* ...existing code... */
 .detail-main-content {
   flex: 1;
   height: 100vh;
@@ -103,7 +109,7 @@ body {
   overflow-x: hidden;
 }
 
-/* HEADER IMAGE SECTION (Figma: 1440x650) */
+/* ...existing code... */
 .movieImgSection {
   width: 100%;
   height: 650px;
@@ -117,17 +123,17 @@ body {
   object-position: center;
 }
 
-/* ===== MOVIE INFO ZONE ===== */
+/* ...existing code... */
 .movieInfo {
   position: relative;
   padding-left: 52px;
-  /* inherited from your styles */
+  /* ...existing code... */
   padding-right: 48px;
   padding-bottom: 80px;
   background-color: var(--detail-page-bg);
 }
 
-/* BLUR HEADER CARD (Figma Frame 65: 715x139, radius 24, padding 40, gap 8) */
+/* ...existing code... */
 .movieInfoHeader {
   position: absolute;
   top: -70px;
@@ -150,7 +156,7 @@ body {
   align-items: center;
   gap: 8px;
   color: rgba(195, 200, 212, 1);
-  /* Grey/100 */
+
   font-size: 16px;
   line-height: 24px;
 }
@@ -165,13 +171,13 @@ body {
 .movieName {
   margin-top: 8px;
   color: rgba(235, 238, 245, 1);
-  /* Grey/50 */
+
   font-size: 32px;
   line-height: 40px;
   font-weight: 600;
 }
 
-/* MAIN DETAIL ROW */
+/* ...existing code... */
 .movieDetailSection {
   display: flex;
   align-items: center;
@@ -179,18 +185,12 @@ body {
   gap: 64px;
   padding-top: 110px;
   
-  /* start below the blur card */
+  
 }
 
-/* POSTER (Figma: 573x786, radius 24) */
-/* .detailMovieImg {
-  width: 573px;
-  height: 786px;
-  border-radius: 24px;
-  display: block;
-} */
 
-/* RIGHT SIDE */
+
+/* ...existing code... */
 .detail-right-section {
   flex: 1;
   min-width: 320px;
@@ -213,14 +213,14 @@ body {
 
 .detail-header-left-h1 {
   color: rgba(235, 238, 245, 1);
-  /* Grey/50 */
+
   font-size: 30px;
-  /* Figma: 30 */
+
   line-height: 32px;
-  /* Figma: 32 */
+
   font-weight: 700;
   letter-spacing: -0.015em;
-  /* Figma: -1.5% */
+
 }
 
 /* WATCH LINK (Figma: 16px / 24px, Warning/500 rgba(255,189,109,1)) */
@@ -996,7 +996,10 @@ body {
 /* Embedded trailer */
 .playModal__iframe {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16/9;
+  height: auto;
+  min-height: 320px;
+  max-height: 100%;
   border: 0;
   display: block;
   background: #000;

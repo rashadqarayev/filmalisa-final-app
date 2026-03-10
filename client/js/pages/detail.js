@@ -62,15 +62,20 @@ function toEmbedUrl(url) {
   if (!url) return "";
   try {
     const u = new URL(url);
+    let embedUrl = "";
     // Already an embed URL
-    if (u.pathname.startsWith("/embed/")) return url;
-    // youtu.be/ID
-    if (u.hostname === "youtu.be") {
-      return `https://www.youtube.com/embed${u.pathname}`;
+    if (u.pathname.startsWith("/embed/")) {
+      embedUrl = `https://www.youtube.com${u.pathname}`;
+    } else if (u.hostname === "youtu.be") {
+      embedUrl = `https://www.youtube.com/embed${u.pathname}`;
+    } else {
+      const v = u.searchParams.get("v");
+      if (v) embedUrl = `https://www.youtube.com/embed/${v}`;
     }
-    // youtube.com/watch?v=ID
-    const v = u.searchParams.get("v");
-    if (v) return `https://www.youtube.com/embed/${v}`;
+    if (embedUrl) {
+      // Gerekli parametreleri ekle
+      return embedUrl + "?rel=0&showinfo=1&modestbranding=0&enablejsapi=1";
+    }
   } catch { /* not a valid URL, return as-is */ }
   return url;
 }
@@ -146,7 +151,7 @@ function renderActors(actors) {
 function renderComments(comments, profile, myIds = new Set()) {
   if (!commentsList) return;
   if (!comments?.length) { commentsList.innerHTML = "<p style='color:#666;padding:12px 0;'>No comments yet.</p>"; return; }
-  const defaultAvatar = "../../assets/images/user.png";
+  const defaultAvatar = "../../assets/images/sarkhanmuellim.svg";
   commentsList.innerHTML = comments.map(c => {
     const isMine = myIds.has(c.id);
     const avatar = isMine && profile?.img_url ? profile.img_url : defaultAvatar;
