@@ -141,7 +141,7 @@ function renderActors(actors) {
   if (!actors?.length) { actorsList.innerHTML = "<p style='color:#888;'>No cast info.</p>"; return; }
   actorsList.innerHTML = actors.map(a => `
     <div class="actor-card">
-      <img src="${a.img_url || "../../assets/images/user.png"}" alt="${a.name}" onerror="this.src='../../assets/images/user.png'" />
+      <img src="${a.img_url || "../../assets/images/user.svg"}" alt="${a.name}" onerror="this.onerror=null;this.src='../../assets/images/user.svg'" />
       <p class="actor-name">${a.name} ${a.surname}</p>
     </div>
   `).join("");
@@ -153,9 +153,14 @@ function renderComments(comments, profile, myIds = new Set()) {
   if (!comments?.length) { commentsList.innerHTML = "<p style='color:#666;padding:12px 0;'>No comments yet.</p>"; return; }
   const defaultAvatar = "../../assets/images/sarkhanmuellim.svg";
   commentsList.innerHTML = comments.map(c => {
-    const isMine = myIds.has(c.id);
-    const avatar = isMine && profile?.img_url ? profile.img_url : defaultAvatar;
-    const name   = isMine && profile?.full_name ? profile.full_name : "User";
+    const isMine = (profile?.id && c.user_id && Number(c.user_id) === Number(profile.id))
+                || myIds.has(c.id);
+    const avatar = isMine
+      ? (profile?.img_url || defaultAvatar)
+      : (c.user?.img_url || defaultAvatar);
+    const name = isMine
+      ? (profile?.full_name || "User")
+      : (c.user?.full_name || "User");
     return `
     <div class="comment-title" data-comment-id="${c.id}">
       <div class="comment-header">
@@ -233,7 +238,7 @@ function setupEmojiPicker() {
 // ─── Setup comment form ────────────────────────────────────────────────────────
 function setupCommentForm(movieId, profile) {
   setupEmojiPicker();
-  const avatar = profile?.img_url || "../../assets/images/user.png";
+  const avatar = profile?.img_url || "../../assets/images/user.svg";
   const name   = profile?.full_name || "User";
 
   const lsKey = `my_comments_${movieId}`;
@@ -259,7 +264,7 @@ function setupCommentForm(movieId, profile) {
         div.dataset.commentId = c.id;
         div.innerHTML = `
           <div class="comment-header">
-            <img src="${avatar}" alt="user" class="comment-user-img" onerror="this.src='../../assets/images/user.png'" />
+            <img src="${avatar}" alt="user" class="comment-user-img" onerror="this.onerror=null;this.src='../../assets/images/user.svg'" />
             <p class="comment-user-name">${name}</p>
             <span class="comment-date">${new Date(c.created_at).toLocaleDateString()}</span>
           </div>

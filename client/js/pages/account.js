@@ -23,9 +23,6 @@ const accountForm           = document.querySelector(".account-form");
 const fullNameInput         = document.getElementById("fullNameInput");
 const emailInput            = document.getElementById("emailInput");
 
-// Tracks the last valid API-saved image URL so it isn't lost when browsing local files
-let currentImgUrl = "";
-
 // ─── Password toggle ──────────────────────────────────────────────────────────
 if (togglePassword && passwordInput) {
   togglePassword.addEventListener("click", () => {
@@ -50,8 +47,6 @@ if (profileImageFileInput && profilePreview) {
     }
     const reader = new FileReader();
     reader.onload = (loadEvent) => {
-      // Show local preview only — do NOT clear the URL input so the
-      // saved img_url is not lost when the form is submitted.
       profilePreview.src = loadEvent.target?.result || "";
     };
     reader.readAsDataURL(selectedFile);
@@ -62,44 +57,39 @@ if (profileImageFileInput && profilePreview) {
 if (profileImageUrlInput && profilePreview) {
   profileImageUrlInput.addEventListener("input", (event) => {
     const url = event.target.value.trim();
-    if (!url) { profilePreview.src = ""; return; }
-    const img = new Image();
-    img.onload = () => {
-      profilePreview.src = url;
-      currentImgUrl = url;                                    // keep in sync
-      if (profileImageFileInput) profileImageFileInput.value = "";
-    };
-    img.src = url;
+    profilePreview.src = url || "";
   });
 }
-
-// ─── Logout ───────────────────────────────────────────────────────────────────
-// (logout button removed)
 
 // ─── Form submit → update profile ─────────────────────────────────────────────
 accountForm?.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // Prefer what the user typed; fall back to the last URL loaded from the API
-  const typedUrl = profileImageUrlInput?.value.trim();
+  const typedUrl = profileImageUrlInput?.value.trim() || "";
+
   const payload = {
     full_name: fullNameInput?.value.trim() || "",
-    img_url:   typedUrl || currentImgUrl,
+    img_url: typedUrl,
+    email: emailInput?.value.trim() || "",
   };
 
   const pass = passwordInput?.value.trim();
   if (pass) payload.password = pass;
 
+  console.log("Sending payload:", JSON.stringify(payload));
+
   try {
     const res = await profileService.updateProfile(payload);
+    console.log("API response:", JSON.stringify(res));
     if (res?.result) {
       if (pass) localStorage.setItem("user_password", pass);
+      if (profilePreview && typedUrl) profilePreview.src = typedUrl;
       showToast("Saved", "Profile updated successfully.", "success");
-      if (passwordInput) passwordInput.value = pass || localStorage.getItem("user_password") || "";
     } else {
       showToast("Error", res?.message || "Could not update profile.", "error");
     }
-  } catch {
+  } catch (err) {
+    console.error("Update error:", err);
     showToast("Error", "Something went wrong.", "error");
   }
 });
@@ -115,9 +105,8 @@ async function init() {
     if (fullNameInput)        fullNameInput.value        = data.full_name || "";
     if (emailInput)           emailInput.value           = data.email     || "";
     if (passwordInput)        passwordInput.value        = localStorage.getItem("user_password") || "";
-    currentImgUrl = data.img_url || "";
-    if (profileImageUrlInput) profileImageUrlInput.value = currentImgUrl;
-    if (profilePreview && currentImgUrl) profilePreview.src = currentImgUrl;
+    if (profileImageUrlInput) profileImageUrlInput.value = data.img_url || "";
+    if (profilePreview && data.img_url) profilePreview.src = data.img_url;
   } catch {
     showToast("Error", "Failed to load profile.", "error");
   } finally {
@@ -127,4 +116,3 @@ async function init() {
 
 init();
 initUserBadge();
-
