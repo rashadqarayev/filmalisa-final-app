@@ -23,8 +23,9 @@ body {
 
 .hero-carousel {
   position: relative;
+  /* padding-top: 100px; */
   width: 100%;
-  height: 780px;
+  height: 640px;
   overflow: hidden;
 }
 
@@ -242,7 +243,7 @@ body {
    CATEGORIES CONTAINER — unified left alignment for all sections
 ============================================================ */
 .categories-container {
-  padding-left: 55px;
+  padding-right: 55px;
   overflow-x: hidden;
 }
 
@@ -265,6 +266,7 @@ body {
   font-size: 34px;
   font-weight: 600;
   letter-spacing: 0.2px;
+  margin-left: 40px;
 }
 
 .section__chevron i {
@@ -334,13 +336,15 @@ body {
 }
 
 .scroll-btn--prev {
-  left: 0;
-  transform: translateX(-50%) translateY(-50%);
+  left: 18px;
+  transform: translateX(0) translateY(-50%);
 }
 .scroll-btn--prev:hover {
-  transform: translateX(-50%) translateY(-50%) scale(1.1);
+  transform: translateX(0) translateY(-50%) scale(1.1);
 }
-.scroll-btn--next { right: -14px; }
+.scroll-btn--next {
+  right: 18px;
+}
 
 .action__wrapper {
   position: relative;

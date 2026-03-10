@@ -214,22 +214,21 @@ function setupCardSlider(wrapperId, interval = 3000) {
 		return best;
 	}
 
-	function scrollToCard(index) {
-		const clamped = Math.max(0, Math.min(index, cards.length - 1));
-		currentIdx = clamped;
-		wrapper.scrollTo({ left: cards[clamped].offsetLeft, behavior: 'smooth' });
-	}
+  function scrollToCard(index) {
+    let targetIdx = index;
+    if (index < 0) {
+      targetIdx = cards.length - 1;
+    } else if (index >= cards.length) {
+      targetIdx = 0;
+    }
+    currentIdx = targetIdx;
+    wrapper.scrollTo({ left: cards[targetIdx].offsetLeft, behavior: 'smooth' });
+  }
 
-	function autoNext() {
-		const next = currentIdx + 1;
-		if (next >= cards.length) { stopAuto(); return; }
-		// If the last card is already fully visible, no reason to scroll further
-		const lastCard = cards[cards.length - 1];
-		const lastFullyVisible = lastCard.offsetLeft + lastCard.offsetWidth
-			<= wrapper.scrollLeft + wrapper.clientWidth + 4;
-		if (lastFullyVisible) { stopAuto(); return; }
-		scrollToCard(next);
-	}
+  function autoNext() {
+    const next = currentIdx + 1;
+    scrollToCard(next);
+  }
 
 	function startAuto() {
 		stopAuto();
@@ -255,16 +254,16 @@ function setupCardSlider(wrapperId, interval = 3000) {
 		scrollRow.classList.toggle('has-overflow-right', scrollLeft < maxScroll - 4);
 	}
 
-	if (prevBtn) prevBtn.addEventListener('click', () => {
-		stopAuto();
-		scrollToCard(getFirstVisibleIndex() - 1);
-		startAuto();
-	});
-	if (nextBtn) nextBtn.addEventListener('click', () => {
-		stopAuto();
-		scrollToCard(getFirstVisibleIndex() + 1);
-		startAuto();
-	});
+  if (prevBtn) prevBtn.addEventListener('click', () => {
+    stopAuto();
+    scrollToCard(getFirstVisibleIndex() - 1);
+    startAuto();
+  });
+  if (nextBtn) nextBtn.addEventListener('click', () => {
+    stopAuto();
+    scrollToCard(getFirstVisibleIndex() + 1);
+    startAuto();
+  });
 
 	// Pause auto-scroll on hover
 	wrapper.addEventListener('mouseenter', stopAuto);

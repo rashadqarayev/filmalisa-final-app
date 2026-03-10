@@ -79,6 +79,17 @@ export async function initUserBadge() {
       window.location.href = depth + "index.html";
     });
 
+    // Kullanıcı adı tıklanınca account.html'e yönlendir
+    const userName = dropdown.querySelector(".ubd-name");
+    if (userName) {
+      userName.style.cursor = "pointer";
+      userName.addEventListener("click", function (e) {
+        e.stopPropagation();
+        const depth = window.location.pathname.includes("/client/html/") ? "./" : "client/html/";
+        window.location.href = depth + "account.html";
+      });
+    }
+
   } catch {
     // Silently ignore — badge is optional UI
   }
