@@ -60,23 +60,25 @@ function resetModal() {
 // ─── Convert any YouTube URL to embed format ──────────────────────────────────
 function toEmbedUrl(url) {
   if (!url) return "";
-  try {
-    const u = new URL(url);
-    let embedUrl = "";
-    // Already an embed URL
-    if (u.pathname.startsWith("/embed/")) {
-      embedUrl = `https://www.youtube.com${u.pathname}`;
-    } else if (u.hostname === "youtu.be") {
-      embedUrl = `https://www.youtube.com/embed${u.pathname}`;
-    } else {
-      const v = u.searchParams.get("v");
-      if (v) embedUrl = `https://www.youtube.com/embed/${v}`;
-    }
-    if (embedUrl) {
-      // Gerekli parametreleri ekle
-      return embedUrl + "?rel=0&showinfo=1&modestbranding=0&enablejsapi=1";
-    }
-  } catch { /* not a valid URL, return as-is */ }
+  url = url.trim();
+
+  // ── 1. Extract YouTube video ID from ANY known format ─────────────────────
+  // Covers: youtube.com/watch?v=, youtu.be/, youtube.com/embed/,
+  //         youtube.com/shorts/, youtube.com/v/, m.youtube.com,
+  //         music.youtube.com, with or without https://, with extra params
+  const ytMatch = url.match(
+    /(?:youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|v\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/
+  );
+  if (ytMatch) {
+    return `https://www.youtube.com/embed/${ytMatch[1]}?rel=0&modestbranding=1&enablejsapi=1`;
+  }
+
+  // ── 2. Already a bare video ID (11 chars, no slashes) ────────────────────
+  if (/^[A-Za-z0-9_-]{11}$/.test(url)) {
+    return `https://www.youtube.com/embed/${url}?rel=0&modestbranding=1&enablejsapi=1`;
+  }
+
+  // ── 3. Non-YouTube URL (Vimeo, direct mp4, etc.) — return as-is ─────────
   return url;
 }
 
