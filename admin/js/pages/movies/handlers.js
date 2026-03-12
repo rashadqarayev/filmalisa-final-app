@@ -80,11 +80,24 @@ export function registerHandlers() {
 
   const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
   if (confirmDeleteBtn) {
+    // Remove previous event listeners to avoid duplicates
+    confirmDeleteBtn.onclick = null;
+    // Use a variable to store the movieId to delete
+    let movieIdToDelete = null;
+    // Patch showDeleteModal to set movieIdToDelete
+    window.showDeleteModal = (movieId, movieTitle) => {
+      movieIdToDelete = parseInt(movieId);
+      state.currentEditId = parseInt(movieId);
+      const deleteItemName = document.getElementById("deleteItemName");
+      if (deleteItemName) deleteItemName.textContent = movieTitle;
+      deleteModal.showModal();
+    };
     confirmDeleteBtn.addEventListener("click", async () => {
-      if (!state.currentEditId) return;
-      const deleted = await deleteMovie(state.currentEditId);
+      if (!movieIdToDelete) return;
+      const deleted = await deleteMovie(movieIdToDelete);
       if (deleted) {
         state.currentEditId = null;
+        movieIdToDelete = null;
         deleteModal.close();
       }
     });
@@ -119,8 +132,6 @@ export function registerHandlers() {
       adminService.showError("Failed to load movie details");
     }
   };
-
-  window.showDeleteModal = showDeleteModal;
 
   window.toggleActionMenu = (btn, e) => {
     e.stopPropagation();

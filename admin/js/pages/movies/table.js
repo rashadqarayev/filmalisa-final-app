@@ -44,7 +44,7 @@ export function renderMoviesTable(pageItems) {
               <i class="fa-solid fa-pen-to-square"></i>
               <span>Edit</span>
             </button>
-            <button class="action-menu-item action-menu-item--delete" onclick="showDeleteModal(${movie.id}, '${escapeHtml(movie.title)}'); closeAllActionMenus()">
+            <button class="action-menu-item action-menu-item--delete" data-id="${movie.id}" data-title="${escapeHtml(movie.title)}" onclick="showDeleteModal(this.dataset.id, this.dataset.title); closeAllActionMenus()">
               <i class="fa-solid fa-trash"></i>
               <span>Delete</span>
             </button>
