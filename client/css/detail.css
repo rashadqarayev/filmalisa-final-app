@@ -1,4 +1,10 @@
-/* RESET */
+/* ...existing code... */
+.playModal .modal-dialog {
+  width: 50%;
+  /* ...existing code... */
+  min-width: 320px;
+}
+/* ...existing code... */
 * {
   margin: 0;
   padding: 0;
@@ -7,13 +13,13 @@
 
 html,
 body {
-  background: #121212;
+  background: var(--page-bg);
 }
 
-/* PAGE WRAPPER */
+/* ...existing code... */
 .detailContainer {
   width: 100%;
-  max-width: 1440px;
+  /* max-width: 1440px; */
   margin: 0 auto;
   height: 100vh;
   font-family: var(--font-primary);
@@ -24,7 +30,7 @@ body {
   overflow: hidden;
 }
 
-/* LEFT MENU - inherits from aside.css, minor detail-specific overrides */
+/* ...existing code... */
 .menu {
   position: fixed;
   top: 0;
@@ -95,7 +101,7 @@ body {
   filter: none;
 }
 
-/* SCROLLABLE MAIN CONTENT */
+/* ...existing code... */
 .detail-main-content {
   flex: 1;
   height: 100vh;
@@ -103,10 +109,10 @@ body {
   overflow-x: hidden;
 }
 
-/* HEADER IMAGE SECTION (Figma: 1440x650) */
+/* ...existing code... */
 .movieImgSection {
   width: 100%;
-  height: 650px;
+  height: 320px;
 }
 
 .movieImg {
@@ -114,20 +120,20 @@ body {
   height: 100%;
   display: block;
   object-fit: cover;
-  object-position: center;
+  object-position: center 20%;
 }
 
-/* ===== MOVIE INFO ZONE ===== */
+/* ...existing code... */
 .movieInfo {
   position: relative;
   padding-left: 52px;
-  /* inherited from your styles */
+  /* ...existing code... */
   padding-right: 48px;
   padding-bottom: 80px;
   background-color: var(--detail-page-bg);
 }
 
-/* BLUR HEADER CARD (Figma Frame 65: 715x139, radius 24, padding 40, gap 8) */
+/* ...existing code... */
 .movieInfoHeader {
   position: absolute;
   top: -70px;
@@ -150,7 +156,7 @@ body {
   align-items: center;
   gap: 8px;
   color: rgba(195, 200, 212, 1);
-  /* Grey/100 */
+
   font-size: 16px;
   line-height: 24px;
 }
@@ -165,32 +171,22 @@ body {
 .movieName {
   margin-top: 8px;
   color: rgba(235, 238, 245, 1);
-  /* Grey/50 */
-  font-size: 32px;
-  line-height: 40px;
+
+  font-size: 28px;
+  line-height: 36px;
   font-weight: 600;
 }
 
-/* MAIN DETAIL ROW */
+/* ...existing code... */
 .movieDetailSection {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 64px;
   padding-top: 110px;
-  
-  /* start below the blur card */
 }
 
-/* POSTER (Figma: 573x786, radius 24) */
-/* .detailMovieImg {
-  width: 573px;
-  height: 786px;
-  border-radius: 24px;
-  display: block;
-} */
-
-/* RIGHT SIDE */
+/* ...existing code... */
 .detail-right-section {
   flex: 1;
   min-width: 320px;
@@ -213,14 +209,13 @@ body {
 
 .detail-header-left-h1 {
   color: rgba(235, 238, 245, 1);
-  /* Grey/50 */
-  font-size: 30px;
-  /* Figma: 30 */
-  line-height: 32px;
-  /* Figma: 32 */
+
+  font-size: 26px;
+
+  line-height: 30px;
+
   font-weight: 700;
   letter-spacing: -0.015em;
-  /* Figma: -1.5% */
 }
 
 /* WATCH LINK (Figma: 16px / 24px, Warning/500 rgba(255,189,109,1)) */
@@ -249,7 +244,6 @@ body {
   cursor: pointer;
 }
 
-
 /* ADD BUTTON (Figma: 40x40, gap 10) */
 .addMyListBtn {
   width: 48px;
@@ -268,7 +262,8 @@ body {
   font-weight: 500;
   line-height: 1;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .addMyListBtn:hover {
@@ -289,8 +284,8 @@ body {
   max-width: 100%;
   color: rgba(142, 149, 169, 1);
   /* Grey/300 */
-  font-size: 22px;
-  line-height: 32px;
+  font-size: 18px;
+  line-height: 28px;
   font-weight: 400;
 }
 
@@ -309,7 +304,7 @@ body {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-feature-settings: normal;
 }
 
@@ -323,7 +318,7 @@ body {
   font-weight: 700;
   color: #fbbf24;
   margin-left: 4px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 /* ABOUT GRID (like 2 row x 3 col) */
@@ -346,16 +341,16 @@ body {
 .aboutMovie-item {
   color: rgba(195, 200, 212, 1);
   /* Grey/100 */
-  font-size: 20px;
+  font-size: 17px;
   line-height: 24px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-feature-settings: normal;
 }
 
 .data-text {
   color: rgba(195, 200, 212, 1);
   /* Grey/100 */
-  font-size: 20px;
+  font-size: 17px;
   line-height: 24px;
 }
 
@@ -372,8 +367,8 @@ body {
   margin-top: 6px;
   color: rgba(195, 200, 212, 1);
   /* Grey/100 */
-  font-size: 20px;
-  line-height: 32px;
+  font-size: 17px;
+  line-height: 28px;
 }
 
 /* ACTORS (scroll, arrows yoxdur) */
@@ -382,7 +377,7 @@ body {
 }
 
 .actors-text {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   color: rgba(235, 238, 245, 1);
   margin-bottom: 16px;
@@ -495,11 +490,11 @@ body {
   height: 300px;
   overflow-y: auto;
   background: #1e1e2e;
-  border: 1px solid rgba(50,59,84,1);
+  border: 1px solid rgba(50, 59, 84, 1);
   border-radius: 14px;
   padding: 10px;
   z-index: 999;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   scrollbar-width: thin;
   scrollbar-color: #3b82f6 transparent;
 }
@@ -533,7 +528,7 @@ body {
 }
 
 .emoji-grid button:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .commentBtn {
@@ -601,7 +596,7 @@ body {
   font-size: 13px;
   color: rgba(118, 126, 148, 1);
   white-space: nowrap;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-feature-settings: normal;
 }
 
@@ -633,7 +628,7 @@ body {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,0.18);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
   background: rgba(15, 15, 15, 0.82);
   color: #fff;
   font-size: 15px;
@@ -647,7 +642,7 @@ body {
   transition: opacity 0.25s, background 0.2s, transform 0.18s, border-color 0.2s;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.45);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
 }
 
 .similar-scroll-row .scroll-btn--prev {
@@ -670,7 +665,7 @@ body {
 
 .similar-scroll-row .scroll-btn:hover {
   background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255,255,255,0.4);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .similar-scroll-row:hover .scroll-btn {
@@ -682,7 +677,7 @@ body {
   color: rgba(255, 255, 255, 1);
   margin-bottom: 24px;
   /* margin-left: -30px; */
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 500;
 }
 
@@ -747,7 +742,7 @@ body {
   scroll-snap-align: start;
 }
 
-.similarSwiper .action-card:last-child{
+.similarSwiper .action-card:last-child {
   margin-right: 18px;
 }
 
@@ -762,15 +757,19 @@ body {
 }
 
 .action-card::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.05) 56%);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0.05) 56%
+  );
   z-index: 1;
 }
 
 .action-card::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.25);
@@ -794,7 +793,7 @@ body {
   position: static;
   margin: 0;
   color: #fff;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.3;
   font-weight: 500;
   max-width: 100%;
@@ -834,10 +833,18 @@ body {
 
 /* Fav / Star button */
 @keyframes fav-pop {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(1.38); }
-  70%  { transform: scale(0.88); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.38);
+  }
+  70% {
+    transform: scale(0.88);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .card-fav-btn {
@@ -858,8 +865,8 @@ body {
   font-size: 16px;
   z-index: 6;
   cursor: pointer;
-  transition: border-color 0.25s ease, background 0.25s ease,
-              color 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .card-fav-btn i {
@@ -882,7 +889,6 @@ body {
 .card-fav-btn.is-favorite i {
   animation: fav-pop 0.35s ease forwards;
 }
-
 
 /* Make modal backdrop darker if desired */
 .modal-backdrop.show {
@@ -946,11 +952,11 @@ body {
 
 .playModal__title {
   color: #fff;
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  text-shadow: 0 2px 16px rgba(0,0,0,0.85);
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.85);
   line-height: 1.1;
 }
 
@@ -986,7 +992,7 @@ body {
 .playModal__hero {
   position: relative;
   width: 100%;
-  height: 520px;
+  height: 420px;
 }
 
 .playModal__hero--hidden {
@@ -996,7 +1002,10 @@ body {
 /* Embedded trailer */
 .playModal__iframe {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16/9;
+  height: auto;
+  min-height: 320px;
+  max-height: 100%;
   border: 0;
   display: block;
   background: #000;
@@ -1013,7 +1022,7 @@ body {
   border-radius: 50%;
   border: 0;
 
-  background: rgba(0, 0, 0, .6);
+  background: rgba(0, 0, 0, 0.6);
   color: #fff;
   cursor: pointer;
   font-size: 15px;
@@ -1025,16 +1034,20 @@ body {
 }
 .detail-img-wrapper {
   position: relative;
-  width: 573px;
+  width: 320px;
   max-width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
 }
 
 .detailMovieImg {
   width: 100%;
-  height: 720px;
+  height: auto;
+  min-height: 460px;
   object-fit: cover;
   display: block;
-  border-radius: 20px;
 }
 
 /* Play button */
@@ -1069,7 +1082,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.45);
   border-radius: 20px;
   opacity: 0;
   transition: 0.3s ease;

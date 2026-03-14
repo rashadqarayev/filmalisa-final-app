@@ -71,12 +71,12 @@
           </a>
 
           <a href="./user.html" class="sideBar-item usersItem">
-            <img src="../../assets/images/user.png" alt="" />
+            <img src="../../assets/images/user.svg" alt="" />
             <span class="sideBar-text">Users</span>
           </a>
 
           <a href="./comment.html" class="sideBar-item commentsItem">
-            <img src="../../assets/images/comment.png" alt="" />
+            <img src="../../assets/images/comment.svg" alt="" />
             <span class="sideBar-text">Comments</span>
           </a>
 
@@ -86,7 +86,7 @@
           </a>
 
           <a href="./actors.html" class="sideBar-item actorItem">
-            <img src="../../assets/images/user.png" alt="" />
+            <img src="../../assets/images/user.svg" alt="" />
             <span class="sideBar-text">Actors</span>
           </a>
         </div>
@@ -126,8 +126,19 @@
                 <th scope="row">1</th>
                 <td>Comediya</td>
                 <td class="operation">
-                  <i class="fa-solid fa-pen-to-square edit-btn"></i>
-                  <i class="fa-solid fa-trash delete-btn"></i>
+                  <button class="action-trigger" onclick="toggleActionMenu(this, event)">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </button>
+                  <div class="action-menu">
+                    <button class="action-menu-item" onclick="openEditModalFromTable(this)">
+                      <i class="fa-solid fa-pen-to-square"></i>
+                      <span>Edit</span>
+                    </button>
+                    <button class="action-menu-item action-menu-item--delete" onclick="openDeleteModalFromTable(this)">
+                      <i class="fa-solid fa-trash"></i>
+                      <span>Delete</span>
+                    </button>
+                  </div>
                 </td>
               </tr>
             </tbody>

@@ -17,6 +17,46 @@ const confirmDeleteBtn = document.getElementById("confirmDelete");
 const deleteModal = document.getElementById("deleteModal");
 
 export function registerHandlers() {
+    // Action menu açma/kapama fonksiyonları (movies/comments ile aynı)
+    window.toggleActionMenu = (btn, e) => {
+      e.stopPropagation();
+      const menu = btn.nextElementSibling;
+      const isOpen = menu.classList.contains("open");
+      window.closeAllActionMenus();
+      if (!isOpen) {
+        menu.classList.add("open");
+        const btnRect = btn.getBoundingClientRect();
+        const menuWidth = menu.offsetWidth;
+        const menuHeight = menu.offsetHeight;
+        // place to the left of the button, vertically centered
+        let top = btnRect.top + btnRect.height / 2 - menuHeight / 2;
+        const left = btnRect.left - menuWidth - 4;
+        // clamp so menu stays inside viewport
+        const padding = 8;
+        top = Math.max(padding, Math.min(top, window.innerHeight - menuHeight - padding));
+        menu.style.top = top + "px";
+        menu.style.left = left + "px";
+      }
+    };
+
+    window.closeAllActionMenus = () => {
+      document.querySelectorAll(".action-menu.open").forEach((m) => m.classList.remove("open"));
+    };
+
+    document.addEventListener("click", window.closeAllActionMenus);
+
+    window.openEditModalFromTable = function(btn) {
+      const row = btn.closest("tr");
+      if (row) openEditModal(row);
+    }
+
+    window.openDeleteModalFromTable = function(btn) {
+      const row = btn.closest("tr");
+      if (row) {
+        state.deletingId = parseInt(row.dataset.id);
+        deleteModal.showModal();
+      }
+    }
   createBtn.addEventListener("click", openCreateModal);
 
   tableBody.addEventListener("click", (e) => {

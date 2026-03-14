@@ -120,8 +120,8 @@ main {
   gap: 16px;
 }
 .user-detail-photo {
-  width: 90px;
-  height: 90px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #3b82f6;

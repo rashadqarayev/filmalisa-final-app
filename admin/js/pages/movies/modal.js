@@ -83,12 +83,36 @@ export function showDeleteModal(movieId, movieTitle) {
   deleteModal.showModal();
 }
 
+function toEmbedUrl(url) {
+  if (!url) return "";
+  url = url.trim();
+
+  // ── 1. Extract YouTube video ID from ANY known format ─────────────────────
+  // Covers: youtube.com/watch?v=, youtu.be/, youtube.com/embed/,
+  //         youtube.com/shorts/, youtube.com/v/, m.youtube.com,
+  //         music.youtube.com, with or without https://, with extra params
+  const ytMatch = url.match(
+    /(?:youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|v\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/
+  );
+  if (ytMatch) {
+    return `https://www.youtube.com/embed/${ytMatch[1]}?rel=0&modestbranding=1&enablejsapi=1`;
+  }
+
+  // ── 2. Already a bare video ID (11 chars, no slashes) ────────────────────
+  if (/^[A-Za-z0-9_-]{11}$/.test(url)) {
+    return `https://www.youtube.com/embed/${url}?rel=0&modestbranding=1&enablejsapi=1`;
+  }
+
+  // ── 3. Non-YouTube URL (Vimeo, direct mp4, etc.) — return as-is ─────────
+  return url;
+}
+
 export function getFormData() {
   return {
     title: movieTitleInput.value.trim(),
     overview: movieOverviewInput.value.trim(),
     cover_url: movieCoverInput.value.trim(),
-    fragman: movieTrailerInput.value.trim(),
+    fragman: toEmbedUrl(movieTrailerInput.value),
     watch_url: movieWatchInput.value.trim(),
     imdb: movieImdbInput.value.trim(),
     run_time_min: parseInt(movieRuntimeInput.value) || 0,

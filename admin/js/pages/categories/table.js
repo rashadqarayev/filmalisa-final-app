@@ -18,8 +18,19 @@ export function renderTable(categories) {
         <th scope="row">${cat.id}</th>
         <td>${escapeHtml(cat.name)}</td>
         <td class="operation">
-          <i class="fa-solid fa-pen-to-square edit-btn" style="cursor:pointer;" title="Edit"></i>
-          <i class="fa-solid fa-trash delete-btn" style="cursor:pointer;" title="Delete"></i>
+          <button class="action-trigger" onclick="toggleActionMenu(this, event)">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </button>
+          <div class="action-menu">
+            <button class="action-menu-item" onclick="openEditModalFromTable(this)">
+              <i class="fa-solid fa-pen-to-square"></i>
+              <span>Edit</span>
+            </button>
+            <button class="action-menu-item action-menu-item--delete" onclick="openDeleteModalFromTable(this)">
+              <i class="fa-solid fa-trash"></i>
+              <span>Delete</span>
+            </button>
+          </div>
         </td>
       </tr>`
     )

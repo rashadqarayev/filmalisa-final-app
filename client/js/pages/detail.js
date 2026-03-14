@@ -60,18 +60,25 @@ function resetModal() {
 // ─── Convert any YouTube URL to embed format ──────────────────────────────────
 function toEmbedUrl(url) {
   if (!url) return "";
-  try {
-    const u = new URL(url);
-    // Already an embed URL
-    if (u.pathname.startsWith("/embed/")) return url;
-    // youtu.be/ID
-    if (u.hostname === "youtu.be") {
-      return `https://www.youtube.com/embed${u.pathname}`;
-    }
-    // youtube.com/watch?v=ID
-    const v = u.searchParams.get("v");
-    if (v) return `https://www.youtube.com/embed/${v}`;
-  } catch { /* not a valid URL, return as-is */ }
+  url = url.trim();
+
+  // ── 1. Extract YouTube video ID from ANY known format ─────────────────────
+  // Covers: youtube.com/watch?v=, youtu.be/, youtube.com/embed/,
+  //         youtube.com/shorts/, youtube.com/v/, m.youtube.com,
+  //         music.youtube.com, with or without https://, with extra params
+  const ytMatch = url.match(
+    /(?:youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|v\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/
+  );
+  if (ytMatch) {
+    return `https://www.youtube.com/embed/${ytMatch[1]}?rel=0&modestbranding=1&enablejsapi=1`;
+  }
+
+  // ── 2. Already a bare video ID (11 chars, no slashes) ────────────────────
+  if (/^[A-Za-z0-9_-]{11}$/.test(url)) {
+    return `https://www.youtube.com/embed/${url}?rel=0&modestbranding=1&enablejsapi=1`;
+  }
+
+  // ── 3. Non-YouTube URL (Vimeo, direct mp4, etc.) — return as-is ─────────
   return url;
 }
 
@@ -136,7 +143,7 @@ function renderActors(actors) {
   if (!actors?.length) { actorsList.innerHTML = "<p style='color:#888;'>No cast info.</p>"; return; }
   actorsList.innerHTML = actors.map(a => `
     <div class="actor-card">
-      <img src="${a.img_url || "../../assets/images/user.png"}" alt="${a.name}" onerror="this.src='../../assets/images/user.png'" />
+      <img src="${a.img_url || "../../assets/images/user.svg"}" alt="${a.name}" onerror="this.onerror=null;this.src='../../assets/images/user.svg'" />
       <p class="actor-name">${a.name} ${a.surname}</p>
     </div>
   `).join("");
@@ -146,11 +153,16 @@ function renderActors(actors) {
 function renderComments(comments, profile, myIds = new Set()) {
   if (!commentsList) return;
   if (!comments?.length) { commentsList.innerHTML = "<p style='color:#666;padding:12px 0;'>No comments yet.</p>"; return; }
-  const defaultAvatar = "../../assets/images/user.png";
+  const defaultAvatar = "../../assets/images/sarkhanmuellim.svg";
   commentsList.innerHTML = comments.map(c => {
-    const isMine = myIds.has(c.id);
-    const avatar = isMine && profile?.img_url ? profile.img_url : defaultAvatar;
-    const name   = isMine && profile?.full_name ? profile.full_name : "User";
+    const isMine = (profile?.id && c.user_id && Number(c.user_id) === Number(profile.id))
+                || myIds.has(c.id);
+    const avatar = isMine
+      ? (profile?.img_url || defaultAvatar)
+      : (c.user?.img_url || defaultAvatar);
+    const name = isMine
+      ? (profile?.full_name || "User")
+      : (c.user?.full_name || "User");
     return `
     <div class="comment-title" data-comment-id="${c.id}">
       <div class="comment-header">
@@ -228,7 +240,7 @@ function setupEmojiPicker() {
 // ─── Setup comment form ────────────────────────────────────────────────────────
 function setupCommentForm(movieId, profile) {
   setupEmojiPicker();
-  const avatar = profile?.img_url || "../../assets/images/user.png";
+  const avatar = profile?.img_url || "../../assets/images/user.svg";
   const name   = profile?.full_name || "User";
 
   const lsKey = `my_comments_${movieId}`;
@@ -254,7 +266,7 @@ function setupCommentForm(movieId, profile) {
         div.dataset.commentId = c.id;
         div.innerHTML = `
           <div class="comment-header">
-            <img src="${avatar}" alt="user" class="comment-user-img" onerror="this.src='../../assets/images/user.png'" />
+            <img src="${avatar}" alt="user" class="comment-user-img" onerror="this.onerror=null;this.src='../../assets/images/user.svg'" />
             <p class="comment-user-name">${name}</p>
             <span class="comment-date">${new Date(c.created_at).toLocaleDateString()}</span>
           </div>

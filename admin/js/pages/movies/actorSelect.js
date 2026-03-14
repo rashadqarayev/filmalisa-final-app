@@ -43,8 +43,38 @@ export function cmsRenderTags(allActors) {
     cmsTags.innerHTML = '<span class="cms-placeholder">Select Actors</span>';
     return;
   }
-  const selectedCount = selectedActorIds.size;
-  cmsTags.innerHTML = `<span class="cms-selected-count">✓ ${selectedCount} actors selected</span>`;
+
+  // Show up to 3 selected actor names
+  const selectedActors = allActors.filter((a) => selectedActorIds.has(a.id));
+  const maxToShow = 3;
+  const shownActors = selectedActors.slice(0, maxToShow);
+
+  shownActors.forEach((actor) => {
+    const tag = document.createElement("span");
+    tag.className = "cms-tag";
+    tag.textContent = `${actor.name} ${actor.surname}`;
+
+    // Add close button to tag
+    const removeBtn = document.createElement("i");
+    removeBtn.className = "fa-solid fa-xmark cms-tag-remove";
+    removeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      selectedActorIds.delete(actor.id);
+      cmsRenderTags(allActors);
+      cmsUpdateListSelection();
+    });
+
+    tag.appendChild(removeBtn);
+    cmsTags.appendChild(tag);
+  });
+
+  // If there are more than 3, show a numeric count indicator for the rest
+  if (selectedActors.length > maxToShow) {
+    const remainingCount = document.createElement("span");
+    remainingCount.className = "cms-selected-count";
+    remainingCount.textContent = `+${selectedActors.length - maxToShow} more`;
+    cmsTags.appendChild(remainingCount);
+  }
 }
 
 // ── Update selection state ────────────────────────────────────────────────────

@@ -2,16 +2,16 @@
    SEARCH PANEL PAGE
 ============================================================ */
 body {
-  background: #121212;
+  background: var(--page-bg);
   color: #fff;
   margin: 0;
   overflow-x: hidden;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 
 .page-main {
   padding: 74px 22px 28px;
-  background: #121212;
+  background: var(--page-bg);
 }
 
 .search-header {
@@ -49,7 +49,7 @@ body {
   outline: none;
   color: #fff;
   font-size: 12px;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 
 .search-bar input::placeholder {
@@ -66,15 +66,15 @@ body {
   flex-wrap: wrap;
   justify-content: space-evenly;
   /* align-items: flex-start; */
-  gap:14px;
+  gap: 14px;
   overflow: visible;
   padding-bottom: 0;
 }
 
 .action-card {
-  flex: 0 0 calc(25% - 12px);
-  width: calc(25% - 12px);
-  height: 440px;
+  flex: 0 0 180px;
+  width: 180px;
+  height: 270px;
   position: relative;
   overflow: hidden;
   background: transparent;
@@ -90,15 +90,19 @@ body {
 }
 
 .action-card::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.05) 56%);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0.05) 56%
+  );
   z-index: 1;
 }
 
 .action-card::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.25);
@@ -114,29 +118,37 @@ body {
 
 .category-name {
   position: absolute;
-  left: 14px;
-  bottom: 78px;
+  left: 10px;
+  bottom: 36px;
   z-index: 3;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 500;
   color: rgb(15, 239, 253);
   background: rgba(0, 0, 0, 0.6);
   border-top-right-radius: 8px;
   border-bottom-left-radius: 8px;
-  padding: 6px 10px;
+  padding: 4px 8px;
   width: fit-content;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 20px);
 }
 
 .movie-name {
   position: absolute;
-  left: 14px;
-  bottom: 14px;
+  left: 10px;
+  bottom: 10px;
   z-index: 3;
   margin: 0;
   color: #fff;
-  font-size: 24px;
-  line-height: 32px;
+  font-size: 16px;
+  line-height: 1.3;
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 20px);
 }
 
 .card-play-btn {
@@ -168,10 +180,18 @@ body {
 }
 
 @keyframes fav-pop {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(1.38); }
-  70%  { transform: scale(0.88); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.38);
+  }
+  70% {
+    transform: scale(0.88);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .card-fav-btn {
@@ -192,8 +212,8 @@ body {
   font-size: 16px;
   z-index: 6;
   cursor: pointer;
-  transition: border-color 0.25s ease, background 0.25s ease,
-              color 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .card-fav-btn i {
@@ -221,18 +241,20 @@ body {
 .results-grid {
   display: flex;
   flex-wrap: wrap;
-  column-gap: 10px;
-  row-gap: 48px;
+  column-gap: 20px;
+  row-gap: 30px;
+  justify-content: flex-start;
+  margin-left: 10px;
 }
 
 .results-grid .action-card {
-  flex: 0 0 286px;
-  width: 286px;
-  height: 440px;
+  flex: 0 0 180px;
+  width: 180px;
+  height: 270px;
   position: relative;
   overflow: hidden;
   background: #1a1a1a;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 .results-grid .action-card img {
@@ -246,44 +268,26 @@ body {
 }
 
 .results-grid .action-card .category-name {
-  position: absolute;
-  left: 10px;
-  bottom: 72px;
-  font-size: 11px;
-  padding: 3px 8px;
-  z-index: 3;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: calc(100% - 20px);
+  bottom: 36px;
 }
 
 .results-grid .action-card .card-imdb {
   position: absolute;
   left: 6px;
-  bottom: 40px;
+  bottom: 56px;
   padding: 0 4px;
   z-index: 3;
   margin-bottom: 0;
 }
 
 .results-grid .action-card .movie-name {
-  position: absolute;
-  left: 10px;
   bottom: 10px;
-  font-size: 16px;
-  line-height: 1.3;
-  z-index: 3;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: calc(100% - 20px);
 }
 
 .search__empty {
   margin-top: 60px;
   text-align: center;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255, 255, 255, 0.45);
   font-size: 16px;
   letter-spacing: 0.04em;
 }
