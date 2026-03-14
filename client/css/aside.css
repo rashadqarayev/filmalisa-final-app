@@ -93,7 +93,7 @@ body:has(.page-shell) {
 
 .page-shell {
   width: 100%;
-  max-width: 1440px;
+  /* max-width: 1440px; */
   margin: 0 auto;
   display: flex;
   align-items: flex-start;
@@ -104,7 +104,7 @@ body:has(.page-shell) {
 .page-main {
   flex: 1;
   width: 100%;
-  max-width: 1368px;
+  /* max-width: 1368px; */
   margin: 0 auto;
   min-width: 0;
   height: 100vh;

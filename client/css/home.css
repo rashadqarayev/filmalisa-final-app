@@ -18,15 +18,15 @@ body {
 #section1 {
   width: 100%;
   box-sizing: border-box;
-  padding-right: 18px; /* same alignment as section padding */
+  padding: 20px 24px 0 24px;
 }
 
 .hero-carousel {
   position: relative;
-  /* padding-top: 100px; */
   width: 100%;
-  height: 640px;
+  height: 480px;
   overflow: hidden;
+  border-radius: 16px;
 }
 
 /* single slide */
@@ -62,15 +62,15 @@ body {
 
 /* left-to-right dark gradient for text readability */
 .hero-slide::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to right,
     rgba(0, 0, 0, 0.88) 0%,
     rgba(0, 0, 0, 0.55) 42%,
-    rgba(0, 0, 0, 0.1)  65%,
-    rgba(0, 0, 0, 0)    80%
+    rgba(0, 0, 0, 0.1) 65%,
+    rgba(0, 0, 0, 0) 80%
   );
   pointer-events: none;
 }
@@ -78,13 +78,13 @@ body {
 /* ---- hero text content ---- */
 .hero-content {
   position: absolute;
-  left: clamp(80px, 9vw, 140px);
-  bottom: 90px;
+  left: 48px;
+  bottom: 60px;
   z-index: 3;
-  max-width: 520px;
+  max-width: 460px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
 }
 
 .hero-genre {
@@ -102,7 +102,7 @@ body {
   padding: 0 10px;
   width: fit-content;
   backdrop-filter: blur(1px);
-   border-top-right-radius: 8px;
+  border-top-right-radius: 8px;
   border-bottom-left-radius: 8px;
 }
 
@@ -127,7 +127,7 @@ body {
 }
 
 .hero-title {
-  font-size: 46px;
+  font-size: 36px;
   font-weight: 700;
   line-height: 1.1;
   color: #fff;
@@ -160,18 +160,14 @@ body {
 }
 
 .watch-btn::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: 50px;
   padding: 1.5px;
   background: linear-gradient(90deg, #c850c0, #4158d0, #0ff);
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: destination-out;
   mask-composite: exclude;
   pointer-events: none;
@@ -197,10 +193,8 @@ body {
   font-weight: 700;
   display: grid;
   place-items: center;
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
 }
-
-
 
 .hero-dots button {
   width: 10px;
@@ -212,8 +206,6 @@ body {
   padding: 0;
   transition: 0.3s;
 }
-
-
 
 /* ---- next arrow ---- */
 .hero-next-btn {
@@ -243,7 +235,7 @@ body {
    CATEGORIES CONTAINER — unified left alignment for all sections
 ============================================================ */
 .categories-container {
-  padding-right: 55px;
+  padding: 0 24px 0 24px;
   overflow-x: hidden;
 }
 
@@ -251,22 +243,21 @@ body {
    SECTION HEADERS (Action / Comedy)
 ============================================================ */
 .section {
-  padding: 24px 18px 0 0;
+  padding: 20px 0 0 0;
 }
 
 .section__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 14px;
-  
+  margin-bottom: 12px;
 }
 
 .section__title {
-  font-size: 34px;
+  font-size: 20px;
   font-weight: 600;
   letter-spacing: 0.2px;
-  margin-left: 40px;
+  margin-left: 0;
 }
 
 .section__chevron i {
@@ -284,7 +275,7 @@ body {
 /* Edge fade — left */
 .scroll-row::before,
 .scroll-row::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   bottom: 0;
@@ -296,14 +287,18 @@ body {
 }
 .scroll-row::before {
   left: 0;
-  background: linear-gradient(to right, rgba(18,18,18,0.9), transparent);
+  background: linear-gradient(to right, rgba(18, 18, 18, 0.9), transparent);
 }
 .scroll-row::after {
   right: 0;
-  background: linear-gradient(to left, rgba(18,18,18,0.9), transparent);
+  background: linear-gradient(to left, rgba(18, 18, 18, 0.9), transparent);
 }
-.scroll-row.has-overflow-left::before  { opacity: 1; }
-.scroll-row.has-overflow-right::after  { opacity: 1; }
+.scroll-row.has-overflow-left::before {
+  opacity: 1;
+}
+.scroll-row.has-overflow-right::after {
+  opacity: 1;
+}
 
 .scroll-btn {
   position: absolute;
@@ -312,7 +307,7 @@ body {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,0.18);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
   background: rgba(15, 15, 15, 0.82);
   color: #fff;
   font-size: 15px;
@@ -326,12 +321,12 @@ body {
   transition: opacity 0.25s, background 0.2s, transform 0.18s, border-color 0.2s;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.45);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
 }
 
 .scroll-btn:hover {
   background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255,255,255,0.4);
+  border-color: rgba(255, 255, 255, 0.4);
   transform: translateY(-50%) scale(1.1);
 }
 
@@ -379,27 +374,25 @@ body {
 /* ===== ACTION CARD (SEPARATE) ===== */
 .action-card {
   flex: 0 0 auto;
-  width: 292px;
-  min-width: 292px;
-  margin-right: 42px;
-  height: 440px;
+  width: 180px;
+  min-width: 180px;
+  margin-right: 16px;
+  height: 270px;
   position: relative;
   overflow: hidden;
   background: #111;
-  border-radius: 6px;
+  border-radius: 8px;
   scroll-snap-align: start;
   cursor: pointer;
 }
-
 
 .action-card:nth-last-child(1) {
   margin-right: 0;
 }
 
-
 .action-card::after,
 .comedy-card::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.25);
@@ -428,15 +421,16 @@ body {
 /* ===== COMEDY CARD (SEPARATE) ===== */
 .comedy-card {
   flex: 0 0 auto;
-  width: 504px;
-  min-width: 504px;
-  margin-right: 34px;
-  height: 736px;
+  width: 180px;
+  min-width: 180px;
+  margin-right: 16px;
+  height: 270px;
   overflow: hidden;
   position: relative;
   background: transparent;
   scroll-snap-align: start;
   cursor: pointer;
+  border-radius: 8px;
 }
 
 .comedy-card img {
@@ -559,10 +553,18 @@ body {
 }
 
 @keyframes fav-pop {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(1.38); }
-  70%  { transform: scale(0.88); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.38);
+  }
+  70% {
+    transform: scale(0.88);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .card-fav-btn {
@@ -583,8 +585,8 @@ body {
   font-size: 16px;
   z-index: 6;
   cursor: pointer;
-  transition: border-color 0.25s ease, background 0.25s ease,
-              color 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .card-fav-btn:hover {
