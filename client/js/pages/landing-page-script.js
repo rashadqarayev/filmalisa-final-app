@@ -1,9 +1,6 @@
 import { httpClient } from "../core/HttpClient.js";
 
-// ─── Auth redirect: if already logged in, skip landing page ──────────────────
-if (localStorage.getItem("user_token")) {
-  window.location.replace("./client/html/home.html");
-}
+// ─── Auth redirect: removed — user stays on landing page even if logged in ───
 
 // ─── Toast ─────────────────────────────────────────────────────────────
 function showToast(title, message, type) {
@@ -109,7 +106,15 @@ document.querySelectorAll(".faq-head").forEach(function (head) {
     }
   });
 
-  // Logout
+  // Go to Home
+  var homeBtn = document.getElementById("dropdownHome");
+  if (homeBtn) {
+    homeBtn.addEventListener("click", function () {
+      window.location.href = "./client/html/home.html";
+    });
+  }
+
+  // Logout — yalnız token silinir, landing pagədə qalır
   logoutBtn.addEventListener("click", function () {
     localStorage.removeItem("user_token");
     window.location.reload();
